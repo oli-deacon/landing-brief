@@ -16,7 +16,7 @@ export function HomePage() {
           alt="Hong Kong harbour viewed from the air through low clouds"
           className="hero-media"
         />
-        <div className="hero-content flex min-h-[28rem] flex-col justify-end p-5 sm:min-h-[32rem] sm:p-7">
+        <div className="hero-content flex min-h-[32rem] flex-col justify-end px-5 pb-8 pt-16 sm:min-h-[36rem] sm:px-7 sm:pb-10 sm:pt-20">
           <div className="max-w-md space-y-4">
             <p className="eyebrow text-text-soft">Open in travel mode</p>
             <h1 className="text-[3.2rem] leading-[0.88] text-white sm:text-[4.2rem]">
@@ -26,14 +26,6 @@ export function HomePage() {
               Country briefings for the last stretch before touchdown and the first hour after
               arrival.
             </p>
-          </div>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <div className="pill-chip rounded-full px-4 py-2 text-xs font-medium">
-              Hong Kong harbour series
-            </div>
-            <div className="pill-chip rounded-full px-4 py-2 text-xs font-medium">
-              Optimized for installed PWA reading
-            </div>
           </div>
         </div>
       </section>
