@@ -38,5 +38,21 @@
     "primaryAirport": "Hong Kong International Airport",
     "lastReviewedDate": "May 2026",
     "file": "/data/countries/hk.json"
+  },
+  {
+    "countryCode": "kr",
+    "countryName": "South Korea",
+    "capitalOrMainCity": "Seoul",
+    "primaryAirport": "Incheon International Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/kr.json"
+  },
+  {
+    "countryCode": "in",
+    "countryName": "India",
+    "capitalOrMainCity": "New Delhi",
+    "primaryAirport": "Indira Gandhi International Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/in.json"
   }
 ]

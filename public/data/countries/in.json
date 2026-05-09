@@ -1,0 +1,122 @@
+{
+  "countryCode": "in",
+  "countryName": "India",
+  "capitalOrMainCity": "New Delhi",
+  "primaryAirport": "Indira Gandhi International Airport (DEL)",
+  "arrivalEssentials": [
+    "Make sure your visa or eVisa is approved before departure because a valid visa is generally required to enter India.",
+    "Complete the online e-Arrival Card within 72 hours of arrival if it applies to your route and citizenship.",
+    "Arrange airport pickup, a taxi app, or enough INR and data for your first transfer out of the airport.",
+    "Use sealed bottled water or other trusted drinking water options when you first land."
+  ],
+  "airportToCity": {
+    "airportName": "Indira Gandhi International Airport (DEL)",
+    "options": [
+      {
+        "mode": "Delhi Airport Metro Express",
+        "typicalTime": "About 20 to 25 minutes to New Delhi station",
+        "typicalCost": "About INR 60",
+        "bestFor": "Fast, predictable entry into central Delhi",
+        "notes": "A strong option if your hotel is easy to reach from the metro or a short onward ride."
+      },
+      {
+        "mode": "Prepaid taxi or app ride",
+        "typicalTime": "35 to 70 minutes",
+        "typicalCost": "About INR 500 to 1,200",
+        "bestFor": "Door-to-door arrival with luggage or late-night landings",
+        "notes": "Traffic swings heavily by time of day, so build in buffer time for meetings."
+      },
+      {
+        "mode": "Hotel transfer",
+        "typicalTime": "35 to 70 minutes",
+        "typicalCost": "Varies by hotel and vehicle type",
+        "bestFor": "Low-friction arrival when you want a named pickup and simpler navigation",
+        "notes": "Often worth arranging in advance if this is your first time in Delhi."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Your passport should have at least 6 months validity remaining and enough blank pages for entry stamps.",
+    "visaSummary": "Australian travellers generally need a valid visa or eVisa before arrival unless they hold another status such as OCI; confirm the right category for tourism, business, or conference travel.",
+    "arrivalCardOrDeclaration": "India currently uses an online e-Arrival Card that can be submitted within 72 hours before arrival; depending on the route, you may also be asked for a paper arrival card.",
+    "officialSourceNote": "Check the official Indian Visa Online portal and current Australian Smartraveller advice for India shortly before travel.",
+    "importantNotes": [
+      "Use only the official government visa portal and avoid third-party sites that add high service fees.",
+      "Processing times and eligible visa categories vary, so do not leave applications to the last minute."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Namaste",
+      "pronunciation": "nah-mah-stay",
+      "context": "A polite greeting that is widely recognised, though many regions use other local languages too."
+    },
+    {
+      "english": "Thank you",
+      "local": "Dhanyavaad",
+      "pronunciation": "dhan-yuh-vaad",
+      "context": "Useful in formal or respectful situations; English is also widely used."
+    },
+    {
+      "english": "How much is this?",
+      "local": "Yeh kitne ka hai?",
+      "pronunciation": "yeh kit-nay ka hay",
+      "context": "Helpful in markets or smaller shops where prices are not obvious."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Business in India often moves fastest when you pair professionalism with patience, flexibility, and relationship-building.",
+    "tips": [
+      "Build in buffer time because traffic and timing can be less predictable than the calendar suggests.",
+      "Start meetings courteously before moving straight into negotiation or hard asks.",
+      "Confirm decisions and next steps clearly in writing after meetings."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Use bottled, filtered, or otherwise trusted water rather than drinking tap water as a visitor.",
+    "tipping": "Tipping is common in hotels and many restaurants, especially when a service charge is not already included.",
+    "dietaryNotes": "Vegetarian food is widely available, but spice, dairy, and ghee levels can vary a lot by region and venue.",
+    "commonFoodTips": "Choose busy, well-reviewed food spots, and go gently on street food at first if your stomach is not used to it.",
+    "usefulPhrases": [
+      "Paani bottle? (Bottled water?)",
+      "Zyada spicy mat. (Not too spicy.)",
+      "Card chalta hai? (Do you take card?)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Indian rupee (INR)",
+    "conversion": "Check live rates before travel; AUD 1 often lands around INR 54 to 56.",
+    "cardAcceptance": "Cards and digital payments are common in hotels, malls, and many urban restaurants, but cash still matters in smaller settings.",
+    "cashNotes": "Keep small notes for tips, local shops, markets, and backup transport.",
+    "tipping": "Often expected in service settings unless a clear service charge is already included.",
+    "roughCostExamples": [
+      "Coffee: about INR 120 to 300 (AUD 2 to 6)",
+      "Beer at a casual venue: about INR 250 to 500 (AUD 5 to 9)",
+      "Simple meal: about INR 200 to 500 (AUD 4 to 9)",
+      "Airport Metro Express: about INR 60 (around AUD 1)"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Uber",
+      "useCase": "Ride-hailing in major cities",
+      "notes": "Useful for airport pickups and everyday movement where it is well covered."
+    },
+    {
+      "name": "Ola",
+      "useCase": "Ride-hailing and local transport backup",
+      "notes": "A common local alternative worth keeping installed in case availability differs."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "All emergencies",
+    "number": "112",
+    "notes": [
+      "112 is the broad emergency contact number in India.",
+      "You may also see 100 for police, 101 for fire, and 102 for medical emergencies."
+    ]
+  },
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}

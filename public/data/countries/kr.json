@@ -1,0 +1,122 @@
+{
+  "countryCode": "kr",
+  "countryName": "South Korea",
+  "capitalOrMainCity": "Seoul",
+  "primaryAirport": "Incheon International Airport (ICN)",
+  "arrivalEssentials": [
+    "Check current visa waiver, K-ETA, and health screening rules before you fly because entry processes can change at short notice.",
+    "Decide whether the AREX train or a taxi is better for your arrival time, hotel location, and luggage.",
+    "Set up a payment card, T-money option, or a little KRW for trains, convenience stores, and smaller purchases.",
+    "Sort mobile data early so maps, messaging, and local transport apps work the moment you leave the airport."
+  ],
+  "airportToCity": {
+    "airportName": "Incheon International Airport (ICN)",
+    "options": [
+      {
+        "mode": "AREX Express or All Stop Train",
+        "typicalTime": "About 45 to 65 minutes",
+        "typicalCost": "About KRW 4,500 to 11,000",
+        "bestFor": "Predictable access into Seoul without road traffic",
+        "notes": "The express train is fastest to Seoul Station, while the all-stop option is cheaper and useful for some transfers."
+      },
+      {
+        "mode": "Airport limousine bus",
+        "typicalTime": "60 to 90 minutes",
+        "typicalCost": "About KRW 17,000 to 18,000",
+        "bestFor": "Direct drops near major hotel districts",
+        "notes": "A good middle ground when you want fewer transfers but do not need a taxi."
+      },
+      {
+        "mode": "Taxi or ride-hailing",
+        "typicalTime": "60 to 90 minutes",
+        "typicalCost": "About KRW 70,000 to 110,000",
+        "bestFor": "Late arrivals, families, or lots of luggage",
+        "notes": "Fares vary by destination, traffic, and tolls, so check the route before you leave the rank."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Use a passport with at least 6 months validity remaining to avoid airline or border issues.",
+    "visaSummary": "For Australian tourists, South Korea currently allows short stays without a visa and without applying for K-ETA through 31 December 2026, but always confirm the latest rules before departure.",
+    "arrivalCardOrDeclaration": "If you develop symptoms and are arriving from an area subject to quarantine inspection requirements, be ready to complete the Korean Q-code process or an arrival health questionnaire.",
+    "officialSourceNote": "Check the official K-ETA site and the current Australian Smartraveller advice for South Korea right before travel.",
+    "importantNotes": [
+      "Entry and health screening settings can change quickly, especially around public health measures.",
+      "If you are a dual national or travelling on a long-stay status, your requirements may differ from standard tourist entry."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Annyeonghaseyo",
+      "pronunciation": "ahn-nyoung-ha-seh-yo",
+      "context": "A polite standard greeting that works in most everyday situations."
+    },
+    {
+      "english": "Thank you",
+      "local": "Gamsahamnida",
+      "pronunciation": "gam-sah-ham-nee-da",
+      "context": "Useful with drivers, shop staff, and restaurant teams."
+    },
+    {
+      "english": "Please no spicy food",
+      "local": "An maepge hae juseyo",
+      "pronunciation": "ahn mehp-ggeh heh joo-seh-yo",
+      "context": "Helpful if you want to soften the heat level when ordering."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Business meetings in South Korea usually reward punctuality, preparation, and a respectful tone, especially in first interactions.",
+    "tips": [
+      "Arrive on time and keep introductions polite and professional.",
+      "Offer and receive business cards with care rather than treating them casually.",
+      "Keep early meetings measured and respectful even when the agenda is ambitious."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Tap water is treated, but many visitors still prefer filtered water or bottled water for day one comfort.",
+    "tipping": "Tipping is generally not expected in ordinary cafes, taxis, or restaurants.",
+    "dietaryNotes": "Korean food can include hidden seafood, broth, or spice, so ask clearly if you have dietary restrictions.",
+    "commonFoodTips": "Convenience stores are a practical fallback for snacks, drinks, transit card top-ups, and quick late-night food.",
+    "usefulPhrases": [
+      "An maepge hae juseyo. (Please make it not spicy.)",
+      "Kadeu dwaeyo? (Can I pay by card?)",
+      "Mul jom juseyo. (Water, please.)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "South Korean won (KRW)",
+    "conversion": "Check live rates before travel; AUD 1 often lands around KRW 900 to 950.",
+    "cardAcceptance": "Cards are widely accepted in cities, transport hubs, hotels, and most chain cafes or restaurants.",
+    "cashNotes": "Keep a little cash for small vendors, older market stalls, or backup situations.",
+    "tipping": "Not usually expected beyond exceptional service at higher-end venues.",
+    "roughCostExamples": [
+      "Coffee: about KRW 4,500 to 7,000 (AUD 5 to 8)",
+      "Beer at a casual venue: about KRW 5,000 to 9,000 (AUD 6 to 10)",
+      "Simple meal: about KRW 9,000 to 15,000 (AUD 10 to 17)",
+      "AREX into Seoul: about KRW 4,500 to 11,000 (AUD 5 to 12)"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Kakao T",
+      "useCase": "Taxis and general transport booking",
+      "notes": "Often the easiest way to book a ride without negotiating pickup details on the street."
+    },
+    {
+      "name": "Naver Map",
+      "useCase": "Navigation and public transport planning",
+      "notes": "Usually more reliable for local routing in Korea than some global mapping apps."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "Police",
+    "number": "112",
+    "notes": [
+      "Call 112 for police help and 119 for fire or ambulance services.",
+      "English interpretation support is commonly available for emergency calls."
+    ]
+  },
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}
