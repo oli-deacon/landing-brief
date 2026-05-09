@@ -5,9 +5,10 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ title, description }: SectionHeadingProps) {
   return (
-    <div className="space-y-2 px-1">
-      <h1 className="text-3xl font-semibold tracking-tight text-text-main">{title}</h1>
-      <p className="max-w-xl text-sm leading-6 text-text-muted">{description}</p>
+    <div className="space-y-3 px-1">
+      <p className="eyebrow">Portable country intelligence</p>
+      <h1 className="max-w-xl text-4xl leading-[0.96] text-text-main sm:text-[3.35rem]">{title}</h1>
+      <p className="max-w-xl text-sm leading-7 text-text-muted">{description}</p>
     </div>
   );
 }

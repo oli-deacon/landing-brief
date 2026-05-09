@@ -1,41 +1,48 @@
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
-import { SectionHeading } from "../components/section-heading";
 import { useCountryIndex } from "../hooks/use-country-data";
+
+const harbourHeroImage = "/images/hk-harbour.jpg";
 
 export function HomePage() {
   const countryIndex = useCountryIndex();
 
   return (
     <>
-      <SectionHeading
-        title="LandingBrief"
-        description="Start with a lightweight country brief built for mobile reading, clear next steps, and calm first-day context."
-      />
-
-      <Card className="bg-linear-to-br from-white to-accent-soft/60">
-        <p className="text-sm font-medium text-accent">Today’s focus</p>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-text-main">
-          Pick a destination and open a structured arrival brief.
-        </h2>
-        <p className="mt-3 text-sm leading-6 text-text-muted">
-          This first data release keeps the experience intentionally clear and scannable while
-          adding real sample sections we can expand over time.
-        </p>
-      </Card>
+      <section className="hero-frame rounded-[2.2rem] border border-border-soft">
+        <img
+          src={harbourHeroImage}
+          alt="Hong Kong harbour viewed from the air through low clouds"
+          className="hero-media"
+        />
+        <div className="hero-content flex min-h-[28rem] flex-col justify-end p-5 sm:min-h-[32rem] sm:p-7">
+          <div className="max-w-md space-y-4">
+            <p className="eyebrow text-text-soft">Open in travel mode</p>
+            <h1 className="text-[3.2rem] leading-[0.88] text-white sm:text-[4.2rem]">
+              LandingBrief
+            </h1>
+            <p className="max-w-sm text-sm leading-7 text-slate-200">
+              Country briefings for the last stretch before touchdown and the first hour after
+              arrival.
+            </p>
+          </div>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="pill-chip rounded-full px-4 py-2 text-xs font-medium">
+              Hong Kong harbour series
+            </div>
+            <div className="pill-chip rounded-full px-4 py-2 text-xs font-medium">
+              Optimized for installed PWA reading
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="space-y-3">
-        <div className="px-1">
-          <h2 className="text-lg font-semibold text-text-main">Available countries</h2>
-          <p className="mt-1 text-sm text-text-muted">
-            Five sample briefings are live in the static data layer.
-          </p>
-        </div>
         {countryIndex.status === "loading" ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, index) => (
-              <Card key={index} className="animate-pulse bg-white/70">
+              <Card key={index} className="animate-pulse bg-surface-strong/70">
                 <div className="h-24 rounded-[1.25rem] bg-surface-muted/70" />
               </Card>
             ))}
@@ -49,7 +56,7 @@ export function HomePage() {
             </p>
             <Link
               to="/offline"
-              className="mt-4 inline-flex rounded-full bg-accent px-4 py-3 text-sm font-medium text-white"
+              className="button-primary mt-4 inline-flex rounded-full px-4 py-3 text-sm font-medium"
             >
               View offline help
             </Link>
@@ -58,31 +65,35 @@ export function HomePage() {
         {countryIndex.status === "ready" ? (
           <>
             {countryIndex.source === "cache" ? (
-              <Card className="border border-accent/10 bg-accent-soft/45">
+              <Card className="bg-accent-soft/60">
                 <p className="text-sm leading-6 text-text-main">
                   You are viewing cached country summaries. Open any destination here while online
                   once and it will stay handy offline later.
                 </p>
               </Card>
             ) : null}
-            <div className="space-y-3">
+            <div className="space-y-8">
               {countryIndex.data.map((country) => (
-                <Link key={country.countryCode} to={`/country/${country.countryCode}`}>
-                  <Card className="transition hover:-translate-y-0.5 hover:shadow-[0_22px_48px_rgba(24,49,51,0.1)]">
+                <Link
+                  key={country.countryCode}
+                  to={`/country/${country.countryCode}`}
+                  className="block"
+                >
+                  <Card className="transition hover:-translate-y-0.5 hover:border-border-strong">
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-2">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
+                        <p className="eyebrow">
                           {country.capitalOrMainCity}
                         </p>
-                        <h3 className="text-xl font-semibold tracking-tight text-text-main">
+                        <h3 className="text-[1.8rem] leading-[0.95] text-text-main">
                           {country.countryName}
                         </h3>
-                        <p className="text-sm leading-6 text-text-muted">
-                          Arrive via {country.primaryAirport}. Open the brief for entry notes,
-                          transport, etiquette, and payment basics.
+                        <p className="text-sm leading-7 text-text-muted">
+                          Via {country.primaryAirport}. Entry notes, transport, etiquette, and
+                          payment basics.
                         </p>
                       </div>
-                      <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+                      <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                         {country.countryCode.toUpperCase()}
                       </span>
                     </div>

@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { SectionShell } from "../components/section-shell";
 import { useCountryBrief } from "../hooks/use-country-data";
 
+const harbourHeroImage = "/images/hk-harbour.jpg";
+
 function takeFirstSentence(value: string) {
   const match = value.match(/^[^.?!]+[.?!]/);
 
@@ -40,14 +42,14 @@ export function CountryLandingPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               to="/"
-              className="inline-flex rounded-full bg-accent px-4 py-3 text-sm font-medium text-white"
+              className="button-primary inline-flex rounded-full px-4 py-3 text-sm font-medium"
             >
               Back to Home
             </Link>
             {!isMissingCountry ? (
               <Link
                 to="/offline"
-                className="inline-flex rounded-full bg-white px-4 py-3 text-sm font-medium text-accent"
+                className="button-secondary inline-flex rounded-full px-4 py-3 text-sm font-medium"
               >
                 Offline help
               </Link>
@@ -76,48 +78,59 @@ export function CountryLandingPage() {
         </SectionShell>
       ) : null}
 
-      <section className="rounded-[2rem] border border-border-soft bg-linear-to-br from-white via-white to-accent-soft/70 p-5 shadow-card">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-              90-second mode
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-text-main">
-              Before Landing
-            </h1>
-            <p className="mt-2 text-sm leading-6 text-text-muted">
-              {brief.countryName} quick view for the final stretch before touchdown.
-            </p>
+      <section className="hero-frame rounded-[2.2rem] border border-border-soft">
+        <img
+          src={harbourHeroImage}
+          alt="Hong Kong harbour beneath layered cloud viewed from the air"
+          className="hero-media"
+        />
+        <div className="hero-content flex min-h-[29rem] flex-col justify-end p-5 sm:min-h-[33rem] sm:p-7">
+          <div className="flex items-start justify-between gap-4">
+            <div className="max-w-md">
+              <p className="eyebrow text-text-soft">90-second mode</p>
+              <h1 className="mt-3 text-[3.3rem] leading-[0.88] text-white sm:text-[4.25rem]">
+                Before Landing
+              </h1>
+              <p className="mt-3 text-sm leading-7 text-slate-200">
+                {brief.countryName} quick view for the final stretch before touchdown.
+              </p>
+            </div>
+            <span className="pill-chip rounded-full px-3 py-2 text-xs font-medium">
+              {brief.countryCode.toUpperCase()}
+            </span>
           </div>
-          <span className="rounded-full bg-white/90 px-3 py-2 text-xs font-medium text-accent shadow-sm">
-            {brief.countryCode.toUpperCase()}
-          </span>
-        </div>
 
-        <div className="mt-5 rounded-[1.5rem] border border-border-soft bg-white/75 p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-            Main city and airport
-          </p>
-          <p className="mt-2 text-base font-semibold text-text-main">
-            {brief.capitalOrMainCity} via {brief.primaryAirport}
-          </p>
-        </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
+            <div className="glass-panel rounded-[1.5rem] p-4">
+              <p className="eyebrow">Main city and airport</p>
+              <p className="mt-2 text-base font-semibold text-text-main">
+                {brief.capitalOrMainCity} via {brief.primaryAirport}
+              </p>
+            </div>
+            <div className="glass-panel rounded-[1.5rem] p-4">
+              <p className="eyebrow">First move</p>
+              <p className="mt-2 text-base font-semibold text-text-main">
+                {bestAirportOption.mode}
+              </p>
+              <p className="mt-1 text-sm text-text-muted">
+                {bestAirportOption.typicalTime} · {bestAirportOption.typicalCost}
+              </p>
+            </div>
+          </div>
 
-        <Link
-          to={`/country/${brief.countryCode}`}
-          className="mt-4 inline-flex items-center rounded-full bg-accent px-4 py-3 text-sm font-medium text-white shadow-[0_14px_30px_rgba(63,124,129,0.22)] transition hover:brightness-105"
-        >
-          Back to Full Brief
-        </Link>
+          <Link
+            to={`/country/${brief.countryCode}`}
+            className="button-primary mt-5 inline-flex w-fit items-center rounded-full px-4 py-3 text-sm font-medium transition hover:brightness-110"
+          >
+            Back to Full Brief
+          </Link>
+        </div>
       </section>
 
       <SectionShell id="before-you-land" title="Before you land" eyebrow="Top 5 arrival essentials">
-        <ul className="space-y-3">
+        <ul className="editorial-list">
           {topArrivalEssentials.map((item) => (
-            <li
-              key={item}
-              className="rounded-[1.25rem] border border-border-soft bg-surface-muted/35 px-4 py-4 text-base leading-6 text-text-main"
-            >
+            <li key={item} className="editorial-list-item text-base text-text-main">
               {item}
             </li>
           ))}
@@ -134,14 +147,14 @@ export function CountryLandingPage() {
         <div className="rounded-[1.35rem] border border-border-soft bg-surface-muted/35 p-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-xl font-semibold text-text-main">{bestAirportOption.mode}</h2>
+              <h2 className="text-[1.6rem] text-text-main">{bestAirportOption.mode}</h2>
               <p className="mt-1 text-sm text-text-muted">{bestAirportOption.bestFor}</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-white px-3 py-2 text-xs font-medium text-accent">
+              <span className="pill-chip rounded-full px-3 py-2 text-xs font-medium">
                 {bestAirportOption.typicalTime}
               </span>
-              <span className="rounded-full bg-accent-soft px-3 py-2 text-xs font-medium text-accent">
+              <span className="pill-chip rounded-full px-3 py-2 text-xs font-medium">
                 {bestAirportOption.typicalCost}
               </span>
             </div>
@@ -176,24 +189,19 @@ export function CountryLandingPage() {
         title="Emergency"
         eyebrow="Keep handy"
         action={
-          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-accent">
+          <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
             Immediate
           </span>
         }
       >
-        <div className="rounded-[1.5rem] border border-accent/15 bg-linear-to-br from-accent to-[#2f686c] p-5 text-white shadow-[0_20px_50px_rgba(47,104,108,0.28)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-            {brief.emergencyNumbers.label}
-          </p>
+        <div className="rounded-[1.5rem] border border-border-strong bg-linear-to-br from-[#131f2d] via-[#162535] to-[#1d3146] p-5 text-white shadow-[0_20px_50px_rgba(2,8,18,0.34)]">
+          <p className="eyebrow text-slate-300">{brief.emergencyNumbers.label}</p>
           <p className="mt-3 text-5xl font-semibold tracking-tight">
             {brief.emergencyNumbers.number}
           </p>
-          <ul className="mt-4 space-y-2">
+          <ul className="editorial-list mt-4">
             {brief.emergencyNumbers.notes.map((note) => (
-              <li
-                key={note}
-                className="rounded-[1rem] bg-white/10 px-3 py-3 text-sm leading-6 text-white/90"
-              >
+              <li key={note} className="editorial-list-item text-sm text-white/90">
                 {note}
               </li>
             ))}

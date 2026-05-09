@@ -72,14 +72,14 @@ export function CountryBriefPage() {
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="inline-flex rounded-full bg-accent px-4 py-2 text-sm font-medium text-white"
+              className="button-primary inline-flex rounded-full px-4 py-2 text-sm font-medium"
             >
               Back to Home
             </Link>
             {!isMissingCountry ? (
               <Link
                 to="/offline"
-                className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-medium text-accent"
+                className="button-secondary inline-flex rounded-full px-4 py-2 text-sm font-medium"
               >
                 Offline help
               </Link>
@@ -117,7 +117,7 @@ export function CountryBriefPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               to={`/country/${brief.countryCode}/landing`}
-              className="inline-flex items-center rounded-full bg-accent px-4 py-3 text-sm font-medium text-white shadow-[0_14px_30px_rgba(63,124,129,0.22)] transition hover:brightness-105"
+              className="button-primary inline-flex items-center rounded-full px-4 py-3 text-sm font-medium transition hover:brightness-110"
             >
               Before Landing
             </Link>
@@ -126,7 +126,7 @@ export function CountryBriefPage() {
               onClick={() => {
                 toggleSavedCountry(summary);
               }}
-              className="inline-flex items-center rounded-full bg-white px-4 py-3 text-sm font-medium text-accent shadow-[0_14px_30px_rgba(63,124,129,0.08)]"
+              className="button-secondary inline-flex items-center rounded-full px-4 py-3 text-sm font-medium"
             >
               {saved ? "Remove saved brief" : "Save for offline"}
             </button>
@@ -141,17 +141,14 @@ export function CountryBriefPage() {
         title="Arrival Essentials"
         eyebrow="Quick start"
         action={
-          <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+          <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
             First hour
           </span>
         }
       >
-        <ul className="space-y-3">
+        <ul className="editorial-list">
           {brief.arrivalEssentials.map((item) => (
-            <li
-              key={item}
-              className="rounded-[1.25rem] border border-border-soft bg-surface-muted/35 px-4 py-4 text-sm leading-6 text-text-main"
-            >
+            <li key={item} className="editorial-list-item text-sm text-text-main">
               {item}
             </li>
           ))}
@@ -183,9 +180,9 @@ export function CountryBriefPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
             Important notes
           </p>
-          <ul className="mt-2 space-y-2">
+          <ul className="editorial-list mt-3">
             {brief.entryRequirements.importantNotes.map((note) => (
-              <li key={note} className="rounded-2xl bg-surface-muted/50 px-3 py-3 text-sm leading-6 text-text-main">
+              <li key={note} className="editorial-list-item text-sm text-text-main">
                 {note}
               </li>
             ))}
@@ -199,18 +196,18 @@ export function CountryBriefPage() {
           {brief.airportToCity.options.map((option) => (
             <div
               key={option.mode}
-              className="rounded-[1.35rem] border border-border-soft bg-surface-muted/35 p-4"
+              className="rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4"
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-base font-semibold text-text-main">{option.mode}</h3>
+                  <h3 className="text-[1.35rem] text-text-main">{option.mode}</h3>
                   <p className="mt-1 text-sm text-text-muted">{option.bestFor}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-accent">
+                  <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                     {option.typicalTime}
                   </span>
-                  <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+                  <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                     {option.typicalCost}
                   </span>
                 </div>
@@ -226,7 +223,7 @@ export function CountryBriefPage() {
           {brief.handyPhrases.map((phrase) => (
             <div
               key={`${phrase.english}-${phrase.local}`}
-              className="rounded-[1.35rem] border border-border-soft bg-surface-muted/35 p-4"
+              className="rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4"
             >
               <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
                 <div>
@@ -253,9 +250,9 @@ export function CountryBriefPage() {
 
       <SectionShell id="business" title="Business Etiquette" eyebrow="Meeting basics">
         <p className="text-sm leading-6 text-text-muted">{brief.businessEtiquette.summary}</p>
-        <ul className="mt-4 space-y-2">
+        <ul className="editorial-list mt-4">
           {brief.businessEtiquette.tips.map((tip) => (
-            <li key={tip} className="rounded-2xl bg-surface-muted/50 px-3 py-3 text-sm leading-6 text-text-main">
+            <li key={tip} className="editorial-list-item text-sm text-text-main">
               {tip}
             </li>
           ))}
@@ -278,9 +275,9 @@ export function CountryBriefPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
             Useful phrases
           </p>
-          <ul className="mt-2 space-y-2">
+          <ul className="editorial-list mt-3">
             {brief.foodAndPracticalities.usefulPhrases.map((phrase) => (
-              <li key={phrase} className="rounded-2xl bg-surface-muted/50 px-3 py-3 text-sm leading-6 text-text-main">
+              <li key={phrase} className="editorial-list-item text-sm text-text-main">
                 {phrase}
               </li>
             ))}
@@ -304,9 +301,9 @@ export function CountryBriefPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
             Rough cost examples
           </p>
-          <ul className="mt-2 space-y-2">
+          <ul className="editorial-list mt-3">
             {brief.moneyAndPayments.roughCostExamples.map((example) => (
-              <li key={example} className="rounded-2xl bg-surface-muted/50 px-3 py-3 text-sm leading-6 text-text-main">
+              <li key={example} className="editorial-list-item text-sm text-text-main">
                 {example}
               </li>
             ))}
@@ -356,24 +353,19 @@ export function CountryBriefPage() {
         title="Emergency Numbers"
         eyebrow="Keep handy"
         action={
-          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-accent">
+          <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
             High priority
           </span>
         }
       >
-        <div className="rounded-[1.5rem] border border-accent/15 bg-linear-to-br from-accent to-[#2f686c] p-5 text-white shadow-[0_20px_50px_rgba(47,104,108,0.28)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-            {brief.emergencyNumbers.label}
-          </p>
+        <div className="rounded-[1.5rem] border border-border-strong bg-linear-to-br from-[#131f2d] via-[#162535] to-[#1d3146] p-5 text-white shadow-[0_20px_50px_rgba(2,8,18,0.34)]">
+          <p className="eyebrow text-slate-300">{brief.emergencyNumbers.label}</p>
           <p className="mt-3 text-4xl font-semibold tracking-tight">
             {brief.emergencyNumbers.number}
           </p>
-          <ul className="mt-4 space-y-2">
+          <ul className="editorial-list mt-4">
             {brief.emergencyNumbers.notes.map((note) => (
-              <li
-                key={note}
-                className="rounded-[1rem] bg-white/10 px-3 py-3 text-sm leading-6 text-white/90"
-              >
+              <li key={note} className="editorial-list-item text-sm text-white/90">
                 {note}
               </li>
             ))}

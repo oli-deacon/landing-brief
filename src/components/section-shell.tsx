@@ -16,15 +16,11 @@ export function SectionShell({
 }: SectionShellProps) {
   return (
     <section id={id} className="scroll-mt-36">
-      <div className="rounded-[1.75rem] border border-border-soft bg-surface-strong p-5 shadow-card">
+      <div className="glass-panel rounded-[1.9rem] p-5">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
-            {eyebrow ? (
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                {eyebrow}
-              </p>
-            ) : null}
-            <h2 className="mt-2 text-lg font-semibold text-text-main">{title}</h2>
+            {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+            <h2 className="mt-2 text-[1.55rem] text-text-main">{title}</h2>
           </div>
           {action}
         </div>

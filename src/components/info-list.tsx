@@ -15,11 +15,9 @@ export function InfoList({ items }: InfoListProps) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-[1.25rem] border border-border-soft bg-surface-muted/35 p-4"
+          className="rounded-[1.35rem] border border-border-soft bg-surface-muted/50 p-4"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
-            {item.label}
-          </p>
+          <p className="eyebrow">{item.label}</p>
           <div className="mt-2 text-sm leading-6 text-text-main">{item.value}</div>
         </div>
       ))}

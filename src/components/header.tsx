@@ -6,20 +6,23 @@ export function Header() {
   const { canInstall, installApp, isInstalled, isOnline } = useAppStatus();
 
   return (
-    <header className="sticky top-0 z-10 mb-6">
-      <div className="rounded-[1.75rem] border border-border-soft bg-surface px-5 py-4 shadow-card backdrop-blur-xl">
+    <header className="sticky top-0 z-20 mb-6 pt-[max(env(safe-area-inset-top),0px)]">
+      <div className="glass-panel rounded-[1.75rem] px-5 py-4">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+            <p className="eyebrow">
               Mobile briefing app
             </p>
-            <Link to="/" className="mt-1 block text-2xl font-semibold tracking-tight text-text-main">
+            <Link
+              to="/"
+              className="mt-1 block text-[2rem] leading-none text-text-main"
+            >
               LandingBrief
             </Link>
           </div>
           <div className="flex items-center gap-2">
             {!isOnline ? (
-              <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
+              <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                 Offline
               </span>
             ) : null}
@@ -29,12 +32,12 @@ export function Header() {
                 onClick={() => {
                   void installApp();
                 }}
-                className="rounded-full bg-accent px-3 py-2 text-xs font-medium text-white transition hover:brightness-105"
+                className="button-primary rounded-full px-3 py-2 text-xs font-medium transition hover:brightness-110"
               >
                 Install
               </button>
             ) : (
-              <div className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+              <div className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                 {isInstalled ? "Installed" : "Travel mode"}
               </div>
             )}

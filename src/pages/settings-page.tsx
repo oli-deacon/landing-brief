@@ -16,7 +16,7 @@ export function SettingsPage() {
 
       <Card title="Install app" eyebrow="PWA">
         <div className="space-y-3">
-          <div className="rounded-[1.35rem] border border-border-soft bg-surface-muted/35 p-4">
+          <div className="rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4">
             <p className="text-sm font-medium text-text-main">
               {isInstalled ? "LandingBrief is already installed." : "Install LandingBrief for a cleaner travel setup."}
             </p>
@@ -30,12 +30,12 @@ export function SettingsPage() {
               onClick={() => {
                 void installApp();
               }}
-              className="inline-flex rounded-full bg-accent px-4 py-3 text-sm font-medium text-white"
+              className="button-primary inline-flex rounded-full px-4 py-3 text-sm font-medium"
             >
               Install LandingBrief
             </button>
           ) : (
-            <div className="rounded-full bg-accent-soft px-4 py-2 text-sm font-medium text-accent">
+            <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
               {isInstalled ? "Installed" : "Install prompt unavailable on this browser right now"}
             </div>
           )}
@@ -51,7 +51,7 @@ export function SettingsPage() {
                 {isOnline ? "Online and ready to refresh country data." : "Offline mode is active."}
               </p>
             </div>
-            <span className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-muted">
+            <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
               {isOnline ? "Online" : "Offline"}
             </span>
           </div>
@@ -62,7 +62,7 @@ export function SettingsPage() {
                 Pinned country briefs available from this device.
               </p>
             </div>
-            <span className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-muted">
+            <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
               {library.savedCountries.length}
             </span>
           </div>
@@ -73,7 +73,7 @@ export function SettingsPage() {
                 Most recently opened briefs that can be revisited quickly.
               </p>
             </div>
-            <span className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-muted">
+            <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
               {library.recentCountries.length}
             </span>
           </div>
@@ -84,7 +84,7 @@ export function SettingsPage() {
                 Per-country reminders kept offline in local storage.
               </p>
             </div>
-            <span className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-muted">
+            <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
               {Object.keys(library.notes).length}
             </span>
           </div>
