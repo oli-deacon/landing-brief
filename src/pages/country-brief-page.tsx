@@ -289,6 +289,7 @@ export function CountryBriefPage() {
         <InfoList
           items={[
             { label: "Currency", value: brief.moneyAndPayments.currency },
+            { label: "Conversion", value: brief.moneyAndPayments.conversion },
             {
               label: "Card acceptance",
               value: brief.moneyAndPayments.cardAcceptance

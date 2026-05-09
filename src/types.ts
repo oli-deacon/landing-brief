@@ -47,6 +47,7 @@ export type FoodAndPracticalities = {
 
 export type MoneyAndPayments = {
   currency: string;
+  conversion: string;
   cardAcceptance: string;
   cashNotes: string;
   tipping: string;

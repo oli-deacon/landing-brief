@@ -86,10 +86,13 @@
   },
   "moneyAndPayments": {
     "currency": "Thai baht (THB)",
+    "conversion": "1 AUD is roughly THB 23",
     "cardAcceptance": "Cards are common in hotels, malls, and larger restaurants, but small vendors may still prefer cash.",
     "cashNotes": "Carry smaller notes for street food, local markets, and older taxis.",
     "tipping": "Rounding up or leaving around THB 20 to 100 in service settings is common but not compulsory.",
     "roughCostExamples": [
+      "Coffee: about THB 50 to 100",
+      "Beer at a casual bar or restaurant: about THB 90 to 180",
       "BTS or MRT trip: about THB 20 to 60",
       "Simple meal: about THB 60 to 150",
       "Airport Rail Link from BKK: about THB 35 to 45"
