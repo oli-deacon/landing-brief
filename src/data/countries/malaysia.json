@@ -1,0 +1,106 @@
+{
+  "countryCode": "my",
+  "countryName": "Malaysia",
+  "capitalOrMainCity": "Kuala Lumpur",
+  "primaryAirport": "Kuala Lumpur International Airport (KUL)",
+  "airportToCity": {
+    "airportName": "Kuala Lumpur International Airport (KUL)",
+    "options": [
+      {
+        "mode": "KLIA Ekspres",
+        "typicalTime": "About 30 minutes",
+        "typicalCost": "About MYR 55",
+        "bestFor": "Fastest city transfer with predictable timing",
+        "notes": "Direct to KL Sentral and easy to pair with local rail or short rides."
+      },
+      {
+        "mode": "Airport bus",
+        "typicalTime": "60 to 75 minutes",
+        "typicalCost": "About MYR 12 to 15",
+        "bestFor": "Lowest-cost transfer for flexible schedules",
+        "notes": "Best if you do not mind a slower trip and want the cheapest route in."
+      },
+      {
+        "mode": "Grab or taxi",
+        "typicalTime": "45 to 75 minutes",
+        "typicalCost": "About MYR 65 to 120",
+        "bestFor": "Door-to-door travel with luggage or late arrival times",
+        "notes": "Traffic into central Kuala Lumpur can change the timing significantly."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Use a passport with at least 6 months validity remaining.",
+    "visaSummary": "Australian passport holders generally do not need a visa for short visits, but should confirm the currently permitted stay and trip purpose before departure.",
+    "arrivalCardOrDeclaration": "Check whether the Malaysia Digital Arrival Card is required for your trip and complete it before arrival when applicable.",
+    "officialSourceNote": "Review Malaysia immigration guidance and the official MDAC site close to travel.",
+    "importantNotes": [
+      "Keep proof of onward travel and your accommodation details accessible.",
+      "Entry rules can differ for tourism, business meetings, and longer stays."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Selamat pagi / Selamat tengah hari",
+      "pronunciation": "suh-lah-mat pah-gee / suh-lah-mat tuh-ngah hah-ree",
+      "context": "Common polite greetings depending on time of day."
+    },
+    {
+      "english": "Thank you",
+      "local": "Terima kasih",
+      "pronunciation": "tuh-ree-muh kah-seh",
+      "context": "Useful everywhere from hotels to hawker stalls."
+    },
+    {
+      "english": "No spicy, please",
+      "local": "Tak mahu pedas",
+      "pronunciation": "tahk mah-hoo puh-dahs",
+      "context": "Helpful when ordering local dishes."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Malaysian business settings often value courtesy, patience, and respectful relationship-building before pushing hard on decisions.",
+    "tips": [
+      "Use polite forms of address and do not rush straight into blunt disagreement.",
+      "Be mindful that Friday schedules may differ in some contexts.",
+      "Dress neatly and keep your tone measured in first meetings."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Filtered or bottled water is the safer default for visitors.",
+    "tipping": "Tipping is not heavily expected, especially where service charges are already added.",
+    "dietaryNotes": "Halal food is widely available; pork is common in some Chinese Malaysian settings, so ask if it matters for your diet.",
+    "commonFoodTips": "Food courts and hawker centres are a practical way to try local dishes affordably and with good variety.",
+    "usefulPhrases": [
+      "Tak mahu pedas. (Not spicy, please.)",
+      "Ada kad? (Do you take card?)",
+      "Air kosong. (Plain water.)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Malaysian ringgit (MYR)",
+    "cardAcceptance": "Cards are common in malls, hotels, and many cafes, though smaller food vendors may still be cash-first.",
+    "cashNotes": "Keep some small notes for markets, local food spots, and backup transport.",
+    "tipping": "Rounding up or leaving a little extra is optional rather than expected.",
+    "roughCostExamples": [
+      "Coffee or tea: about MYR 4 to 10",
+      "Simple hawker meal: about MYR 10 to 20",
+      "KLIA Ekspres to KL Sentral: about MYR 55"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Grab",
+      "useCase": "Ride-hailing and food delivery",
+      "notes": "The default app many visitors rely on for airport pickups and day-to-day travel."
+    },
+    {
+      "name": "Moovit",
+      "useCase": "Public transport planning",
+      "notes": "Useful when combining KTM, LRT, MRT, and buses around Kuala Lumpur."
+    }
+  ],
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}

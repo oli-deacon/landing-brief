@@ -1,9 +1,70 @@
+export type EntryRequirements = {
+  passportValidity: string;
+  visaSummary: string;
+  arrivalCardOrDeclaration: string;
+  officialSourceNote: string;
+  importantNotes: string[];
+};
+
+export type AirportTransferOption = {
+  mode: string;
+  typicalTime: string;
+  typicalCost: string;
+  bestFor: string;
+  notes: string;
+};
+
+export type AirportToCity = {
+  airportName: string;
+  options: AirportTransferOption[];
+};
+
+export type HandyPhrase = {
+  english: string;
+  local: string;
+  pronunciation: string;
+  context: string;
+};
+
+export type BusinessEtiquette = {
+  summary: string;
+  tips: string[];
+};
+
+export type FoodAndPracticalities = {
+  tapWater: string;
+  tipping: string;
+  dietaryNotes: string;
+  commonFoodTips: string;
+  usefulPhrases: string[];
+};
+
+export type MoneyAndPayments = {
+  currency: string;
+  cardAcceptance: string;
+  cashNotes: string;
+  tipping: string;
+  roughCostExamples: string[];
+};
+
+export type TransportApp = {
+  name: string;
+  useCase: string;
+  notes: string;
+};
+
 export type CountryBrief = {
   countryCode: string;
-  name: string;
-  region: string;
-  tagLine: string;
-  overview: string;
-  travelNotes: string;
-  adminNotes: string;
+  countryName: string;
+  capitalOrMainCity: string;
+  primaryAirport: string;
+  airportToCity: AirportToCity;
+  entryRequirements: EntryRequirements;
+  handyPhrases: HandyPhrase[];
+  businessEtiquette: BusinessEtiquette;
+  foodAndPracticalities: FoodAndPracticalities;
+  moneyAndPayments: MoneyAndPayments;
+  localTransportApps: TransportApp[];
+  lastReviewedDate: string;
+  disclaimer: string;
 };
