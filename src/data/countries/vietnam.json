@@ -3,6 +3,12 @@
   "countryName": "Vietnam",
   "capitalOrMainCity": "Ho Chi Minh City",
   "primaryAirport": "Tan Son Nhat International Airport (SGN)",
+  "arrivalEssentials": [
+    "Confirm your visa or e-visa status before travel and keep the approval details accessible.",
+    "Use Grab or a reputable taxi for the cleanest first transfer out of the airport.",
+    "Carry small VND notes for transport, snacks, and places that are still cash-first.",
+    "Set up mobile data quickly if you plan to navigate busy city areas on arrival."
+  ],
   "airportToCity": {
     "airportName": "Tan Son Nhat International Airport (SGN)",
     "options": [
@@ -101,6 +107,14 @@
       "notes": "Helpful for judging whether a short ride is worth it in heavy traffic."
     }
   ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "113",
+    "notes": [
+      "113 is the police emergency number; local response lines can differ by service.",
+      "For medical or hotel-supported help, ask staff to place the call if language is a concern."
+    ]
+  },
   "lastReviewedDate": "2026-05-09",
   "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
 }

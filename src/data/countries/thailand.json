@@ -3,6 +3,12 @@
   "countryName": "Thailand",
   "capitalOrMainCity": "Bangkok",
   "primaryAirport": "Suvarnabhumi Airport (BKK)",
+  "arrivalEssentials": [
+    "Check whether any Thailand digital arrival requirement applies before boarding.",
+    "Have baht or a working card ready for rail fares, tolls, and your first meal.",
+    "If you are heading straight into Bangkok, compare Airport Rail Link versus taxi based on traffic and luggage.",
+    "Install Grab before landing if you want an easy app-based backup to regular taxis."
+  ],
   "airportToCity": {
     "airportName": "Suvarnabhumi Airport (BKK)",
     "options": [
@@ -106,6 +112,14 @@
       "notes": "Useful for combining rail lines with short taxi hops."
     }
   ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "191",
+    "notes": [
+      "191 is the general emergency line commonly used for immediate help.",
+      "If you need tourist assistance, hotel staff can often help with English-language coordination."
+    ]
+  },
   "lastReviewedDate": "2026-05-09",
   "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
 }

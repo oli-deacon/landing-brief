@@ -6,6 +6,12 @@ export type EntryRequirements = {
   importantNotes: string[];
 };
 
+export type EmergencyNumbers = {
+  label: string;
+  number: string;
+  notes: string[];
+};
+
 export type AirportTransferOption = {
   mode: string;
   typicalTime: string;
@@ -58,6 +64,7 @@ export type CountryBrief = {
   countryName: string;
   capitalOrMainCity: string;
   primaryAirport: string;
+  arrivalEssentials: string[];
   airportToCity: AirportToCity;
   entryRequirements: EntryRequirements;
   handyPhrases: HandyPhrase[];
@@ -65,6 +72,7 @@ export type CountryBrief = {
   foodAndPracticalities: FoodAndPracticalities;
   moneyAndPayments: MoneyAndPayments;
   localTransportApps: TransportApp[];
+  emergencyNumbers: EmergencyNumbers;
   lastReviewedDate: string;
   disclaimer: string;
 };

@@ -3,6 +3,12 @@
   "countryName": "Singapore",
   "capitalOrMainCity": "Singapore",
   "primaryAirport": "Singapore Changi Airport (SIN)",
+  "arrivalEssentials": [
+    "Complete the SG Arrival Card before landing if you have not already done it.",
+    "Decide early between MRT and taxi or Grab depending on your bags and arrival time.",
+    "Keep a small amount of SGD or a working card ready for food, train fares, and backups.",
+    "If you need mobile data immediately, arrange an eSIM or airport SIM before leaving arrivals."
+  ],
   "airportToCity": {
     "airportName": "Singapore Changi Airport (SIN)",
     "options": [
@@ -101,6 +107,14 @@
       "notes": "Helpful for combining MRT and walking in central areas."
     }
   ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "999",
+    "notes": [
+      "Use for urgent emergencies requiring immediate help.",
+      "For non-urgent medical help, check local clinic or hospital contact options separately."
+    ]
+  },
   "lastReviewedDate": "2026-05-09",
   "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
 }
