@@ -1,0 +1,29 @@
+[
+  {
+    "countryCode": "au",
+    "name": "Australia",
+    "region": "Oceania",
+    "tagLine": "Smooth arrival notes for a first week in Melbourne or Sydney.",
+    "overview": "Placeholder summary for arrival rhythm, local expectations, and a few practical first-day cues.",
+    "travelNotes": "Placeholder travel advice covering airports, local transport, and what to sort out in the first 24 hours.",
+    "adminNotes": "Placeholder admin notes for SIMs, banking, ID checks, and other first-week setup tasks."
+  },
+  {
+    "countryCode": "jp",
+    "name": "Japan",
+    "region": "East Asia",
+    "tagLine": "Quick brief for transport etiquette, arrival flow, and day-one essentials.",
+    "overview": "Placeholder overview for cultural cues, pace of arrival, and the most useful context to know before landing.",
+    "travelNotes": "Placeholder travel advice for rail access, payment expectations, and navigating your first transfer.",
+    "adminNotes": "Placeholder admin notes for connectivity, cash access, and common setup tasks."
+  },
+  {
+    "countryCode": "pt",
+    "name": "Portugal",
+    "region": "Europe",
+    "tagLine": "A concise first-arrival guide for Lisbon, Porto, and beyond.",
+    "overview": "Placeholder overview for settling in, local rhythm, and what the first few days may feel like.",
+    "travelNotes": "Placeholder travel advice for airport exits, local mobility, and planning a low-friction first day.",
+    "adminNotes": "Placeholder admin notes for payments, mobile setup, and quick practical errands."
+  }
+]
