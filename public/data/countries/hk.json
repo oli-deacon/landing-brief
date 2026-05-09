@@ -1,0 +1,125 @@
+{
+  "countryCode": "hk",
+  "countryName": "Hong Kong",
+  "capitalOrMainCity": "Hong Kong",
+  "primaryAirport": "Hong Kong International Airport (HKG)",
+  "arrivalEssentials": [
+    "Decide whether Airport Express speed or a taxi makes more sense for your district and luggage.",
+    "Have an easy payment option ready for airport transport, food, and quick purchases.",
+    "Set up transit apps early if you expect to move around the city soon after landing.",
+    "If you are connecting onward to mainland China, treat those entry requirements separately."
+  ],
+  "airportToCity": {
+    "airportName": "Hong Kong International Airport (HKG)",
+    "options": [
+      {
+        "mode": "Airport Express",
+        "typicalTime": "24 to 30 minutes",
+        "typicalCost": "About HKD 100 to Central",
+        "bestFor": "Fastest and simplest rail transfer into the core business districts",
+        "notes": "A strong first choice if your hotel is near Hong Kong Station, Kowloon, or Airport Express shuttles."
+      },
+      {
+        "mode": "Taxi",
+        "typicalTime": "30 to 45 minutes",
+        "typicalCost": "About HKD 300 to 400 depending on district and tolls",
+        "bestFor": "Door-to-door transfer with luggage",
+        "notes": "Useful when your arrival time or hotel location makes rail transfers awkward."
+      },
+      {
+        "mode": "Airport bus",
+        "typicalTime": "45 to 70 minutes",
+        "typicalCost": "About HKD 35 to 50",
+        "bestFor": "Lower-cost trip if you are comfortable navigating bus routes",
+        "notes": "Good value, especially for Kowloon-side destinations."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Use a passport valid for at least 6 months beyond arrival where possible.",
+    "visaSummary": "Australian passport holders can generally visit Hong Kong visa-free for short stays, but should confirm the current permitted stay and any onward travel expectations.",
+    "arrivalCardOrDeclaration": "Check whether any digital health, customs, or arrival declarations apply for your travel dates.",
+    "officialSourceNote": "Review Hong Kong Immigration Department guidance before departure.",
+    "importantNotes": [
+      "Keep onward travel details and accommodation information accessible.",
+      "Rules for onward travel into mainland China are separate and should be checked independently."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Nei hou",
+      "pronunciation": "nay hoh",
+      "context": "A friendly Cantonese greeting, though English is common in many business settings."
+    },
+    {
+      "english": "Thank you",
+      "local": "M goi / Doh jeh",
+      "pronunciation": "mm goy / dor jeh",
+      "context": "M goi is often used for service or small favours; doh jeh is more for gifts or bigger thanks."
+    },
+    {
+      "english": "Octopus card?",
+      "local": "Baat daat tung?",
+      "pronunciation": "baat daat toong",
+      "context": "Useful when asking about stored-value transit payment options."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Hong Kong business culture often values speed, preparation, and direct but polished communication.",
+    "tips": [
+      "Be punctual and assume meetings will move quickly.",
+      "Have numbers or next steps ready rather than staying too high-level.",
+      "Smart business dress still tends to read well in formal settings."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Tap water is treated, but many visitors still prefer filtered or bottled water.",
+    "tipping": "Many restaurants add a service charge, so extra tipping is modest or optional.",
+    "dietaryNotes": "Vegetarian options are improving, though menus may still need a quick clarification on broth, seafood, or pork.",
+    "commonFoodTips": "Dim sum, cha chaan teng cafes, and noodle shops are practical everyday options, but queues can move quickly and seating can be tight.",
+    "usefulPhrases": [
+      "M goi.",
+      "Mai yiu yuk. (No meat.)",
+      "Sap fong. (The bill, please.)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Hong Kong dollar (HKD)",
+    "cardAcceptance": "Cards are widely accepted in hotels, malls, and many restaurants.",
+    "cashNotes": "Keep some cash for smaller food shops, markets, and older taxis, though mobile and stored-value payments are common.",
+    "tipping": "Often limited to rounding up or a small extra amount if service charge is not included.",
+    "roughCostExamples": [
+      "Milk tea or coffee: about HKD 20 to 35",
+      "Simple noodle or rice meal: about HKD 45 to 90",
+      "Airport Express to Central: about HKD 100"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "MTR Mobile",
+      "useCase": "Rail planning and transit updates",
+      "notes": "Helpful for station navigation and route planning across the MTR network."
+    },
+    {
+      "name": "Uber",
+      "useCase": "Ride-hailing backup",
+      "notes": "Useful when you need a direct ride, though public transport is often faster and cheaper."
+    },
+    {
+      "name": "Google Maps",
+      "useCase": "Walking, transit routing, and place lookup",
+      "notes": "Strong general-purpose support for Hong Kong’s layered transport network."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "999",
+    "notes": [
+      "999 is the main emergency number for immediate assistance.",
+      "If you are in a hotel or commercial building, staff can often help direct responders faster."
+    ]
+  },
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}

@@ -76,3 +76,8 @@ export type CountryBrief = {
   lastReviewedDate: string;
   disclaimer: string;
 };
+
+export type CountrySummary = Pick<
+  CountryBrief,
+  "countryCode" | "countryName" | "capitalOrMainCity" | "primaryAirport" | "lastReviewedDate"
+>;

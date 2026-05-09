@@ -1,0 +1,120 @@
+{
+  "countryCode": "sg",
+  "countryName": "Singapore",
+  "capitalOrMainCity": "Singapore",
+  "primaryAirport": "Singapore Changi Airport (SIN)",
+  "arrivalEssentials": [
+    "Complete the SG Arrival Card before landing if you have not already done it.",
+    "Decide early between MRT and taxi or Grab depending on your bags and arrival time.",
+    "Keep a small amount of SGD or a working card ready for food, train fares, and backups.",
+    "If you need mobile data immediately, arrange an eSIM or airport SIM before leaving arrivals."
+  ],
+  "airportToCity": {
+    "airportName": "Singapore Changi Airport (SIN)",
+    "options": [
+      {
+        "mode": "MRT",
+        "typicalTime": "35 to 45 minutes",
+        "typicalCost": "About SGD 2 to 3",
+        "bestFor": "Budget-conscious solo travellers with light luggage",
+        "notes": "Take the Changi Airport branch line and change at Tanah Merah for the city."
+      },
+      {
+        "mode": "Taxi or Grab",
+        "typicalTime": "20 to 30 minutes",
+        "typicalCost": "About SGD 25 to 45 including surcharges",
+        "bestFor": "Late arrivals, meetings straight from the airport, or extra bags",
+        "notes": "Airport, late-night, and peak surcharges can push the fare up."
+      },
+      {
+        "mode": "Airport shuttle",
+        "typicalTime": "30 to 50 minutes",
+        "typicalCost": "About SGD 10 to 15",
+        "bestFor": "Hotel drop-off without arranging a private car",
+        "notes": "Useful when your hotel participates and you want a middle ground between MRT and taxi."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Aim for at least 6 months validity from your date of entry.",
+    "visaSummary": "Australian passport holders generally do not need a visa for short social or business visits, but final permission to enter is decided on arrival.",
+    "arrivalCardOrDeclaration": "Submit the SG Arrival Card before arriving in Singapore; it is not a visa.",
+    "officialSourceNote": "Check Singapore ICA guidance and the SG Arrival Card page before travel.",
+    "importantNotes": [
+      "Keep proof of onward travel and accommodation handy in case it is requested.",
+      "Entry conditions can change quickly if health or immigration rules are updated."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Ni hao / Vanakkam / Selamat datang",
+      "pronunciation": "nee how / va-na-kum / suh-lah-mat dah-tahng",
+      "context": "English is widely spoken, but a warm multilingual greeting can still land well."
+    },
+    {
+      "english": "Thank you",
+      "local": "Xie xie / Terima kasih",
+      "pronunciation": "shieh shieh / tuh-ree-muh kah-seh",
+      "context": "Useful in hawker centres, taxis, and small shops."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Can pay by card?",
+      "pronunciation": "English phrase",
+      "context": "Singlish-style phrasing is common and easily understood."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Singapore business culture usually values punctuality, clarity, and a polished, low-drama style.",
+    "tips": [
+      "Arrive a few minutes early rather than exactly on time.",
+      "Exchange business cards respectfully and take a moment to look at the card before putting it away.",
+      "Keep initial meetings concise, prepared, and data-backed."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Tap water is generally safe to drink.",
+    "tipping": "Tipping is not usually expected because many venues already add service charges.",
+    "dietaryNotes": "Vegetarian, halal, and no-pork options are common, especially in larger food courts and malls.",
+    "commonFoodTips": "Hawker centres are excellent for quick, affordable meals; some stalls are cashless while others still prefer cash.",
+    "usefulPhrases": [
+      "No spicy, please.",
+      "Take away, please.",
+      "Can I get this without pork?"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Singapore dollar (SGD)",
+    "cardAcceptance": "Cards are widely accepted in hotels, malls, and many restaurants.",
+    "cashNotes": "Keep a little cash for older hawker stalls, small shops, or backup transport situations.",
+    "tipping": "Not usually expected beyond rounding up in casual situations.",
+    "roughCostExamples": [
+      "Coffee at a hawker centre: about SGD 1.50 to 3",
+      "Simple hawker meal: about SGD 5 to 10",
+      "Taxi from Changi to central areas: about SGD 25 to 45"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Grab",
+      "useCase": "Ride-hailing, food delivery, and cashless local transport backup",
+      "notes": "Often the easiest option after landing if you do not want to figure out MRT changes immediately."
+    },
+    {
+      "name": "Citymapper",
+      "useCase": "Public transport planning",
+      "notes": "Helpful for combining MRT and walking in central areas."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "999",
+    "notes": [
+      "Use for urgent emergencies requiring immediate help.",
+      "For non-urgent medical help, check local clinic or hospital contact options separately."
+    ]
+  },
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}

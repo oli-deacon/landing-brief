@@ -4,6 +4,7 @@ import { AppShell } from "./components/app-shell";
 import { CountryBriefPage } from "./pages/country-brief-page";
 import { CountryLandingPage } from "./pages/country-landing-page";
 import { HomePage } from "./pages/home-page";
+import { OfflinePage } from "./pages/offline-page";
 import { SavedBriefsPage } from "./pages/saved-briefs-page";
 import { SettingsPage } from "./pages/settings-page";
 
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "settings",
         element: <SettingsPage />
+      },
+      {
+        path: "offline",
+        element: <OfflinePage />
       }
     ]
   }

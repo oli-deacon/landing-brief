@@ -1,10 +1,18 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { CountryHeader } from "../components/country-header";
 import { InfoList } from "../components/info-list";
 import { SectionNav } from "../components/section-nav";
 import { SectionShell } from "../components/section-shell";
-import { getCountryByCode } from "../data/countries";
+import { useCountryBrief } from "../hooks/use-country-data";
+import { useOfflineLibrary } from "../hooks/use-offline-library";
+import {
+  createCountrySummary,
+  recordRecentCountry,
+  saveCountryNote,
+  toggleSavedCountry
+} from "../lib/browser-storage";
 
 const sectionNavItems = [
   { id: "arrival", label: "Arrival" },
@@ -15,42 +23,90 @@ const sectionNavItems = [
   { id: "food", label: "Food" },
   { id: "money", label: "Money" },
   { id: "apps", label: "Apps" },
+  { id: "notes", label: "Notes" },
   { id: "emergency", label: "Emergency" }
 ] as const;
 
 export function CountryBriefPage() {
   const { countryCode = "" } = useParams();
-  const brief = getCountryByCode(countryCode);
+  const countryState = useCountryBrief(countryCode);
+  const library = useOfflineLibrary();
 
-  if (!brief) {
+  useEffect(() => {
+    if (countryState.status !== "ready") {
+      return;
+    }
+
+    recordRecentCountry(createCountrySummary(countryState.data));
+  }, [countryState]);
+
+  if (countryState.status === "loading") {
+    return (
+      <SectionShell id="loading" title="Loading brief" eyebrow="Country data">
+        <div className="h-48 animate-pulse rounded-[1.35rem] bg-surface-muted/60" />
+      </SectionShell>
+    );
+  }
+
+  if (countryState.status === "error") {
+    const isMissingCountry = countryState.error.message === "not-found";
+
     return (
       <>
         <section className="space-y-2 px-1">
           <h1 className="text-3xl font-semibold tracking-tight text-text-main">
-            Country brief not found
+            {isMissingCountry ? "Country brief not found" : "Country brief unavailable offline"}
           </h1>
           <p className="max-w-xl text-sm leading-6 text-text-muted">
-            This route is working, but there is no seeded country content for that code yet.
+            {isMissingCountry
+              ? "This route is working, but there is no seeded country content for that code yet."
+              : "Open this destination once while connected and LandingBrief will keep it available for offline travel use later."}
           </p>
         </section>
-        <SectionShell id="not-found" title="Try a seeded route">
+        <SectionShell id="not-found" title="Next step">
           <p className="text-sm leading-6 text-text-muted">
-            Try one of the seeded routes like <code>/country/sg</code> or <code>/country/th</code>,
-            or head back to the home screen to pick a card.
+            {isMissingCountry
+              ? "Try one of the seeded routes like /country/sg or /country/th, or head back to the home screen to pick a card."
+              : "You can still review saved briefs, recent countries, and personal notes from the offline library."}
           </p>
-          <Link
-            to="/"
-            className="mt-4 inline-flex rounded-full bg-accent px-4 py-2 text-sm font-medium text-white"
-          >
-            Back to Home
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              to="/"
+              className="inline-flex rounded-full bg-accent px-4 py-2 text-sm font-medium text-white"
+            >
+              Back to Home
+            </Link>
+            {!isMissingCountry ? (
+              <Link
+                to="/offline"
+                className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-medium text-accent"
+              >
+                Offline help
+              </Link>
+            ) : null}
+          </div>
         </SectionShell>
       </>
     );
   }
 
+  const brief = countryState.data;
+  const summary = createCountrySummary(brief);
+  const saved = library.savedCountries.some(
+    (country) => country.countryCode.toLowerCase() === brief.countryCode.toLowerCase(),
+  );
+  const noteValue = library.notes[brief.countryCode.toLowerCase()]?.value ?? "";
+
   return (
     <>
+      {countryState.source === "cache" ? (
+        <SectionShell id="cached" title="Offline copy" eyebrow="Cached brief">
+          <p className="text-sm leading-6 text-text-muted">
+            You are viewing the cached version of this brief. Notes and saved items still work offline.
+          </p>
+        </SectionShell>
+      ) : null}
+
       <CountryHeader
         countryName={brief.countryName}
         mainCity={brief.capitalOrMainCity}
@@ -58,12 +114,23 @@ export function CountryBriefPage() {
         lastReviewedDate={brief.lastReviewedDate}
         disclaimer={brief.disclaimer}
         action={
-          <Link
-            to={`/country/${brief.countryCode}/landing`}
-            className="inline-flex items-center rounded-full bg-accent px-4 py-3 text-sm font-medium text-white shadow-[0_14px_30px_rgba(63,124,129,0.22)] transition hover:brightness-105"
-          >
-            Before Landing
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to={`/country/${brief.countryCode}/landing`}
+              className="inline-flex items-center rounded-full bg-accent px-4 py-3 text-sm font-medium text-white shadow-[0_14px_30px_rgba(63,124,129,0.22)] transition hover:brightness-105"
+            >
+              Before Landing
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                toggleSavedCountry(summary);
+              }}
+              className="inline-flex items-center rounded-full bg-white px-4 py-3 text-sm font-medium text-accent shadow-[0_14px_30px_rgba(63,124,129,0.08)]"
+            >
+              {saved ? "Remove saved brief" : "Save for offline"}
+            </button>
+          </div>
         }
       />
 
@@ -265,6 +332,23 @@ export function CountryBriefPage() {
             </div>
           ))}
         </div>
+      </SectionShell>
+
+      <SectionShell id="notes" title="Your offline notes" eyebrow="Personal reminders">
+        <label className="block">
+          <span className="text-sm font-medium text-text-main">
+            Save reminders that should still be here after you lose signal.
+          </span>
+          <textarea
+            value={noteValue}
+            onChange={(event) => {
+              saveCountryNote(brief.countryCode, event.target.value);
+            }}
+            rows={6}
+            placeholder="Hotel transfer reminder, arrival card note, local SIM step, address in local language..."
+            className="mt-3 w-full rounded-[1.35rem] border border-border-soft bg-surface-muted/35 px-4 py-4 text-sm leading-6 text-text-main outline-none transition focus:border-accent"
+          />
+        </label>
       </SectionShell>
 
       <SectionShell

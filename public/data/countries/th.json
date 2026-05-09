@@ -1,0 +1,125 @@
+{
+  "countryCode": "th",
+  "countryName": "Thailand",
+  "capitalOrMainCity": "Bangkok",
+  "primaryAirport": "Suvarnabhumi Airport (BKK)",
+  "arrivalEssentials": [
+    "Check whether any Thailand digital arrival requirement applies before boarding.",
+    "Have baht or a working card ready for rail fares, tolls, and your first meal.",
+    "If you are heading straight into Bangkok, compare Airport Rail Link versus taxi based on traffic and luggage.",
+    "Install Grab before landing if you want an easy app-based backup to regular taxis."
+  ],
+  "airportToCity": {
+    "airportName": "Suvarnabhumi Airport (BKK)",
+    "options": [
+      {
+        "mode": "Airport Rail Link",
+        "typicalTime": "25 to 35 minutes",
+        "typicalCost": "About THB 35 to 45",
+        "bestFor": "Fast budget transfers into Bangkok with light luggage",
+        "notes": "Connects easily into the BTS or MRT network depending on where you are staying."
+      },
+      {
+        "mode": "Taxi",
+        "typicalTime": "35 to 60 minutes",
+        "typicalCost": "About THB 350 to 500 plus tolls and airport fee",
+        "bestFor": "Door-to-door convenience or late arrivals",
+        "notes": "Traffic can change the travel time a lot, especially in peak periods."
+      },
+      {
+        "mode": "Grab",
+        "typicalTime": "35 to 60 minutes",
+        "typicalCost": "Usually similar to or slightly above taxi pricing",
+        "bestFor": "App-based pickup and clearer cashless fare handling",
+        "notes": "Pickup points may be less intuitive than the public taxi rank, so check the app instructions carefully."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Carry a passport with at least 6 months validity beyond arrival.",
+    "visaSummary": "Australian passport holders commonly receive visa-exempt entry for short tourism visits, but business travel conditions and allowed stay lengths should be checked close to departure.",
+    "arrivalCardOrDeclaration": "Thailand’s digital arrival requirements can change, so check whether the Thailand Digital Arrival Card or any declaration is required for your travel dates.",
+    "officialSourceNote": "Verify the latest Thai immigration and consular guidance before departure, including the Thailand Digital Arrival Card site if it applies.",
+    "importantNotes": [
+      "Keep an onward or return ticket and accommodation details available.",
+      "Do not assume historical visa-free rules are unchanged; confirm the current allowance for Australians."
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Sawasdee khrap / Sawasdee kha",
+      "pronunciation": "sa-wat-dee krap / sa-wat-dee ka",
+      "context": "Use khrap if male and kha if female."
+    },
+    {
+      "english": "Thank you",
+      "local": "Khop khun khrap / Khop khun kha",
+      "pronunciation": "kop koon krap / kop koon ka",
+      "context": "A polite default in hotels, shops, and meetings."
+    },
+    {
+      "english": "Not spicy, please",
+      "local": "Mai phet",
+      "pronunciation": "my pet",
+      "context": "Very useful when ordering street food or casual meals."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Thai business culture often rewards calm politeness, patience, and respect for hierarchy.",
+    "tips": [
+      "Avoid openly showing frustration in meetings.",
+      "Use titles and surnames until invited to be more casual.",
+      "A wai is appreciated in some settings, but follow the other person’s lead."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Do not rely on tap water for drinking; bottled or filtered water is the safer default.",
+    "tipping": "Tipping is not mandatory, but rounding up or leaving a small amount is common in tourist-facing venues.",
+    "dietaryNotes": "Fish sauce and shrimp paste are common, so vegetarian or vegan travellers should ask directly.",
+    "commonFoodTips": "Street food is one of the easiest low-cost options, but choose busy stalls with fresh turnover.",
+    "usefulPhrases": [
+      "Mai phet.",
+      "Gin jay dai mai? (Can I have vegetarian food?)",
+      "Nam plao, please. (Water, please.)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Thai baht (THB)",
+    "cardAcceptance": "Cards are common in hotels, malls, and larger restaurants, but small vendors may still prefer cash.",
+    "cashNotes": "Carry smaller notes for street food, local markets, and older taxis.",
+    "tipping": "Rounding up or leaving around THB 20 to 100 in service settings is common but not compulsory.",
+    "roughCostExamples": [
+      "BTS or MRT trip: about THB 20 to 60",
+      "Simple meal: about THB 60 to 150",
+      "Airport Rail Link from BKK: about THB 35 to 45"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Grab",
+      "useCase": "Ride-hailing and food delivery",
+      "notes": "The simplest app-based fallback when taxis are unclear or you want a fixed price in-app."
+    },
+    {
+      "name": "Bolt",
+      "useCase": "Ride-hailing in major cities",
+      "notes": "Can be cheaper than Grab in some cases, but availability varies."
+    },
+    {
+      "name": "Google Maps",
+      "useCase": "Transit planning and walking directions",
+      "notes": "Useful for combining rail lines with short taxi hops."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "191",
+    "notes": [
+      "191 is the general emergency line commonly used for immediate help.",
+      "If you need tourist assistance, hotel staff can often help with English-language coordination."
+    ]
+  },
+  "lastReviewedDate": "2026-05-09",
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+}

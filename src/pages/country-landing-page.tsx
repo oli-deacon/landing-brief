@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 
 import { SectionShell } from "../components/section-shell";
-import { getCountryByCode } from "../data/countries";
+import { useCountryBrief } from "../hooks/use-country-data";
 
 function takeFirstSentence(value: string) {
   const match = value.match(/^[^.?!]+[.?!]/);
@@ -11,31 +11,54 @@ function takeFirstSentence(value: string) {
 
 export function CountryLandingPage() {
   const { countryCode = "" } = useParams();
-  const brief = getCountryByCode(countryCode);
+  const countryState = useCountryBrief(countryCode);
 
-  if (!brief) {
+  if (countryState.status === "loading") {
+    return (
+      <SectionShell id="landing-loading" title="Loading landing brief" eyebrow="Country data">
+        <div className="h-48 animate-pulse rounded-[1.35rem] bg-surface-muted/60" />
+      </SectionShell>
+    );
+  }
+
+  if (countryState.status === "error") {
+    const isMissingCountry = countryState.error.message === "not-found";
+
     return (
       <>
         <section className="space-y-2 px-1">
           <h1 className="text-3xl font-semibold tracking-tight text-text-main">
-            Before Landing not found
+            {isMissingCountry ? "Before Landing not found" : "Before Landing unavailable offline"}
           </h1>
           <p className="max-w-xl text-sm leading-6 text-text-muted">
-            There is no country summary available for that route yet.
+            {isMissingCountry
+              ? "There is no country summary available for that route yet."
+              : "Open this country once while connected and LandingBrief will keep its landing summary available later."}
           </p>
         </section>
         <SectionShell id="landing-not-found" title="Back to brief">
-          <Link
-            to="/"
-            className="inline-flex rounded-full bg-accent px-4 py-3 text-sm font-medium text-white"
-          >
-            Back to Home
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/"
+              className="inline-flex rounded-full bg-accent px-4 py-3 text-sm font-medium text-white"
+            >
+              Back to Home
+            </Link>
+            {!isMissingCountry ? (
+              <Link
+                to="/offline"
+                className="inline-flex rounded-full bg-white px-4 py-3 text-sm font-medium text-accent"
+              >
+                Offline help
+              </Link>
+            ) : null}
+          </div>
         </SectionShell>
       </>
     );
   }
 
+  const brief = countryState.data;
   const bestAirportOption = brief.airportToCity.options[0];
   const topArrivalEssentials = brief.arrivalEssentials.slice(0, 5);
   const entryReminder = takeFirstSentence(brief.entryRequirements.arrivalCardOrDeclaration);
@@ -45,6 +68,14 @@ export function CountryLandingPage() {
 
   return (
     <>
+      {countryState.source === "cache" ? (
+        <SectionShell id="landing-cached" title="Offline copy" eyebrow="Cached summary">
+          <p className="text-sm leading-6 text-text-muted">
+            You are viewing the cached landing summary for this destination.
+          </p>
+        </SectionShell>
+      ) : null}
+
       <section className="rounded-[2rem] border border-border-soft bg-linear-to-br from-white via-white to-accent-soft/70 p-5 shadow-card">
         <div className="flex items-start justify-between gap-4">
           <div>

@@ -1,0 +1,42 @@
+[
+  {
+    "countryCode": "sg",
+    "countryName": "Singapore",
+    "capitalOrMainCity": "Singapore",
+    "primaryAirport": "Singapore Changi Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/sg.json"
+  },
+  {
+    "countryCode": "th",
+    "countryName": "Thailand",
+    "capitalOrMainCity": "Bangkok",
+    "primaryAirport": "Suvarnabhumi Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/th.json"
+  },
+  {
+    "countryCode": "my",
+    "countryName": "Malaysia",
+    "capitalOrMainCity": "Kuala Lumpur",
+    "primaryAirport": "Kuala Lumpur International Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/my.json"
+  },
+  {
+    "countryCode": "vn",
+    "countryName": "Vietnam",
+    "capitalOrMainCity": "Ho Chi Minh City",
+    "primaryAirport": "Tan Son Nhat International Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/vn.json"
+  },
+  {
+    "countryCode": "hk",
+    "countryName": "Hong Kong",
+    "capitalOrMainCity": "Hong Kong",
+    "primaryAirport": "Hong Kong International Airport",
+    "lastReviewedDate": "May 2026",
+    "file": "/data/countries/hk.json"
+  }
+]
