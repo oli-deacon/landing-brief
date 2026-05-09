@@ -10,12 +10,68 @@ type BeforeInstallPromptEvent = Event & {
 
 type AppStatusContextValue = {
   canInstall: boolean;
+  installHint: string;
+  installInstructions: string[];
+  installLabel: string;
+  installMethod: "native-prompt" | "ios-manual" | "ios-open-in-safari" | "none";
   installApp: () => Promise<boolean>;
   isInstalled: boolean;
   isOnline: boolean;
 };
 
 const AppStatusContext = createContext<AppStatusContextValue | null>(null);
+
+function getInstallEnvironment() {
+  if (typeof window === "undefined") {
+    return {
+      installHint: "Install LandingBrief to keep it handy while travelling.",
+      installInstructions: [] as string[],
+      installLabel: "Install",
+      installMethod: "none" as const
+    };
+  }
+
+  const userAgent = window.navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(userAgent);
+  const isSafari =
+    /Safari/.test(userAgent) &&
+    !/CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo|GSA/.test(userAgent);
+
+  if (isIOS && isSafari) {
+    return {
+      installHint: "On iPhone, install from Safari using Share and Add to Home Screen.",
+      installInstructions: [
+        "Open LandingBrief in Safari.",
+        "Tap the Share button in the browser toolbar.",
+        "Scroll down and choose Add to Home Screen.",
+        "Keep Open as Web App enabled if iPhone shows that option, then tap Add."
+      ],
+      installLabel: "Add to Home Screen",
+      installMethod: "ios-manual" as const
+    };
+  }
+
+  if (isIOS) {
+    return {
+      installHint: "iPhone installation works from Safari. Open this site there, then use Add to Home Screen.",
+      installInstructions: [
+        "Open LandingBrief in Safari on your iPhone.",
+        "Tap the Share button.",
+        "Choose Add to Home Screen.",
+        "Tap Add to finish the install."
+      ],
+      installLabel: "Open in Safari",
+      installMethod: "ios-open-in-safari" as const
+    };
+  }
+
+  return {
+    installHint: "Install LandingBrief for a cleaner travel setup.",
+    installInstructions: [] as string[],
+    installLabel: "Install LandingBrief",
+    installMethod: "none" as const
+  };
+}
 
 function isStandaloneMode() {
   if (typeof window === "undefined") {
@@ -38,6 +94,7 @@ export function AppStatusProvider({ children }: PropsWithChildren) {
   );
   const [isInstalled, setIsInstalled] = useState(isStandaloneMode);
   const [installEvent, setInstallEvent] = useState<BeforeInstallPromptEvent | null>(null);
+  const installEnvironment = getInstallEnvironment();
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -72,7 +129,15 @@ export function AppStatusProvider({ children }: PropsWithChildren) {
 
   const value = useMemo<AppStatusContextValue>(
     () => ({
-      canInstall: !isInstalled && installEvent !== null,
+      canInstall:
+        !isInstalled &&
+        (installEvent !== null || installEnvironment.installMethod === "ios-manual"),
+      installHint: installEnvironment.installHint,
+      installInstructions: installEnvironment.installInstructions,
+      installLabel:
+        installEvent !== null ? "Install LandingBrief" : installEnvironment.installLabel,
+      installMethod:
+        installEvent !== null ? "native-prompt" : installEnvironment.installMethod,
       installApp: async () => {
         if (!installEvent) {
           return false;
@@ -92,7 +157,7 @@ export function AppStatusProvider({ children }: PropsWithChildren) {
       isInstalled,
       isOnline
     }),
-    [installEvent, isInstalled, isOnline],
+    [installEnvironment.installHint, installEnvironment.installInstructions, installEnvironment.installLabel, installEnvironment.installMethod, installEvent, isInstalled, isOnline],
   );
 
   return <AppStatusContext.Provider value={value}>{children}</AppStatusContext.Provider>;

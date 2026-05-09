@@ -4,7 +4,16 @@ import { useAppStatus } from "../lib/app-status";
 import { useOfflineLibrary } from "../hooks/use-offline-library";
 
 export function SettingsPage() {
-  const { canInstall, installApp, isInstalled, isOnline } = useAppStatus();
+  const {
+    canInstall,
+    installApp,
+    installHint,
+    installInstructions,
+    installLabel,
+    installMethod,
+    isInstalled,
+    isOnline
+  } = useAppStatus();
   const library = useOfflineLibrary();
 
   return (
@@ -18,13 +27,13 @@ export function SettingsPage() {
         <div className="space-y-3">
           <div className="rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4">
             <p className="text-sm font-medium text-text-main">
-              {isInstalled ? "LandingBrief is already installed." : "Install LandingBrief for a cleaner travel setup."}
+              {isInstalled ? "LandingBrief is already installed." : installHint}
             </p>
             <p className="mt-2 text-sm leading-6 text-text-muted">
               Installing helps the app feel native and keeps the offline-ready shell close at hand while travelling.
             </p>
           </div>
-          {canInstall ? (
+          {installMethod === "native-prompt" && canInstall ? (
             <button
               type="button"
               onClick={() => {
@@ -32,12 +41,54 @@ export function SettingsPage() {
               }}
               className="button-primary inline-flex rounded-full px-4 py-3 text-sm font-medium"
             >
-              Install LandingBrief
+              {installLabel}
             </button>
-          ) : (
-            <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
-              {isInstalled ? "Installed" : "Install prompt unavailable on this browser right now"}
+          ) : null}
+          {installMethod === "ios-manual" && !isInstalled ? (
+            <div className="space-y-3">
+              <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
+                {installLabel}
+              </div>
+              <ol className="space-y-2 text-sm leading-6 text-text-main">
+                {installInstructions.map((instruction) => (
+                  <li
+                    key={instruction}
+                    className="rounded-2xl border border-border-soft bg-surface-muted/35 px-4 py-3"
+                  >
+                    {instruction}
+                  </li>
+                ))}
+              </ol>
             </div>
+          ) : null}
+          {installMethod === "ios-open-in-safari" && !isInstalled ? (
+            <div className="space-y-3">
+              <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
+                {installLabel}
+              </div>
+              <ol className="space-y-2 text-sm leading-6 text-text-main">
+                {installInstructions.map((instruction) => (
+                  <li
+                    key={instruction}
+                    className="rounded-2xl border border-border-soft bg-surface-muted/35 px-4 py-3"
+                  >
+                    {instruction}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+          {!isInstalled && installMethod === "none" && !canInstall ? (
+            <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
+              Install prompt unavailable on this browser right now
+            </div>
+          ) : null}
+          {isInstalled ? (
+            <div className="pill-chip inline-flex rounded-full px-4 py-2 text-sm font-medium">
+              Installed
+            </div>
+          ) : (
+            null
           )}
         </div>
       </Card>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppStatus } from "../lib/app-status";
 
 export function Header() {
-  const { canInstall, installApp, isInstalled, isOnline } = useAppStatus();
+  const { canInstall, installApp, installMethod, isInstalled, isOnline } = useAppStatus();
 
   return (
     <header className="sticky top-0 z-20 mb-6 pt-[max(env(safe-area-inset-top),0px)]">
@@ -26,7 +26,7 @@ export function Header() {
                 Offline
               </span>
             ) : null}
-            {canInstall ? (
+            {canInstall && installMethod === "native-prompt" ? (
               <button
                 type="button"
                 onClick={() => {
@@ -36,6 +36,13 @@ export function Header() {
               >
                 Install
               </button>
+            ) : canInstall && installMethod === "ios-manual" ? (
+              <Link
+                to="/settings"
+                className="button-primary rounded-full px-3 py-2 text-xs font-medium transition hover:brightness-110"
+              >
+                Add to Home Screen
+              </Link>
             ) : (
               <div className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
                 {isInstalled ? "Installed" : "Travel mode"}
