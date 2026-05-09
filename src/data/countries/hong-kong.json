@@ -91,10 +91,10 @@
     "cashNotes": "Keep some cash for smaller food shops, markets, and older taxis, though mobile and stored-value payments are common.",
     "tipping": "Often limited to rounding up or a small extra amount if service charge is not included.",
     "roughCostExamples": [
-      "Milk tea or coffee: about HKD 20 to 35",
-      "Beer at a casual bar or restaurant: about HKD 45 to 80",
-      "Simple noodle or rice meal: about HKD 45 to 90",
-      "Airport Express to Central: about HKD 100"
+      "Milk tea or coffee: about HKD 20 to 35 (AUD 4 to 6)",
+      "Beer at a casual bar or restaurant: about HKD 45 to 80 (AUD 8 to 14)",
+      "Simple noodle or rice meal: about HKD 45 to 90 (AUD 8 to 16)",
+      "Airport Express to Central: about HKD 100 (AUD 18)"
     ]
   },
   "localTransportApps": [
