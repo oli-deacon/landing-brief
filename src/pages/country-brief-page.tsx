@@ -57,6 +57,14 @@ export function CountryBriefPage() {
         primaryAirport={brief.primaryAirport}
         lastReviewedDate={brief.lastReviewedDate}
         disclaimer={brief.disclaimer}
+        action={
+          <Link
+            to={`/country/${brief.countryCode}/landing`}
+            className="inline-flex items-center rounded-full bg-accent px-4 py-3 text-sm font-medium text-white shadow-[0_14px_30px_rgba(63,124,129,0.22)] transition hover:brightness-105"
+          >
+            Before Landing
+          </Link>
+        }
       />
 
       <SectionNav items={sectionNavItems} />

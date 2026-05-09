@@ -1,9 +1,12 @@
+import type { ReactNode } from "react";
+
 type CountryHeaderProps = {
   countryName: string;
   mainCity: string;
   primaryAirport: string;
   lastReviewedDate: string;
   disclaimer: string;
+  action?: ReactNode;
 };
 
 export function CountryHeader({
@@ -11,7 +14,8 @@ export function CountryHeader({
   mainCity,
   primaryAirport,
   lastReviewedDate,
-  disclaimer
+  disclaimer,
+  action
 }: CountryHeaderProps) {
   return (
     <section className="rounded-[2rem] border border-border-soft bg-linear-to-br from-white via-white to-accent-soft/70 p-5 shadow-card">
@@ -29,6 +33,8 @@ export function CountryHeader({
           Reviewed {lastReviewedDate}
         </div>
       </div>
+
+      {action ? <div className="mt-4">{action}</div> : null}
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-[1.5rem] border border-border-soft bg-white/70 p-4">
