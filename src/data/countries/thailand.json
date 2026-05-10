@@ -38,11 +38,21 @@
   "entryRequirements": {
     "passportValidity": "Carry a passport with at least 6 months validity beyond arrival.",
     "visaSummary": "Australian passport holders commonly receive visa-exempt entry for short tourism visits, but business travel conditions and allowed stay lengths should be checked close to departure.",
-    "arrivalCardOrDeclaration": "Thailand’s digital arrival requirements can change, so check whether the Thailand Digital Arrival Card or any declaration is required for your travel dates.",
-    "officialSourceNote": "Verify the latest Thai immigration and consular guidance before departure, including the Thailand Digital Arrival Card site if it applies.",
+    "arrivalCardOrDeclaration": "Thailand currently uses the Thailand Digital Arrival Card for non-Thai nationals, so check the official TDAC requirement and submit it before arrival if it applies to your trip.",
+    "officialSourceNote": "Verify the latest Thai immigration guidance and use the official TDAC portal only.",
     "importantNotes": [
       "Keep an onward or return ticket and accommodation details available.",
       "Do not assume historical visa-free rules are unchanged; confirm the current allowance for Australians."
+    ],
+    "officialLinks": [
+      {
+        "label": "Thailand Digital Arrival Card",
+        "url": "https://tdac.immigration.go.th"
+      },
+      {
+        "label": "TDAC guide",
+        "url": "https://tdac.immigration.go.th/manual/en/"
+      }
     ]
   },
   "handyPhrases": [

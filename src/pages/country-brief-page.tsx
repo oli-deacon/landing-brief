@@ -188,6 +188,24 @@ export function CountryBriefPage() {
             ))}
           </ul>
         </div>
+        <div className="mt-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
+            Official links
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {brief.entryRequirements.officialLinks.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="pill-chip inline-flex rounded-full px-3 py-2 text-xs font-medium"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </SectionShell>
 
       <SectionShell id="airport" title="Airport to City" eyebrow="Compare your first transfer">

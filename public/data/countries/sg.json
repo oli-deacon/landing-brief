@@ -39,10 +39,20 @@
     "passportValidity": "Aim for at least 6 months validity from your date of entry.",
     "visaSummary": "Australian passport holders generally do not need a visa for short social or business visits, but final permission to enter is decided on arrival.",
     "arrivalCardOrDeclaration": "Submit the SG Arrival Card before arriving in Singapore; it is not a visa.",
-    "officialSourceNote": "Check Singapore ICA guidance and the SG Arrival Card page before travel.",
+    "officialSourceNote": "Use Singapore ICA entry guidance and the official SG Arrival Card service before travel.",
     "importantNotes": [
       "Keep proof of onward travel and accommodation handy in case it is requested.",
       "Entry conditions can change quickly if health or immigration rules are updated."
+    ],
+    "officialLinks": [
+      {
+        "label": "SG Arrival Card",
+        "url": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card"
+      },
+      {
+        "label": "Entering Singapore",
+        "url": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore"
+      }
     ]
   },
   "handyPhrases": [

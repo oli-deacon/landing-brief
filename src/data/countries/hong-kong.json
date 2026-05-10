@@ -38,11 +38,21 @@
   "entryRequirements": {
     "passportValidity": "Use a passport valid for at least 6 months beyond arrival where possible.",
     "visaSummary": "Australian passport holders can generally visit Hong Kong visa-free for short stays, but should confirm the current permitted stay and any onward travel expectations.",
-    "arrivalCardOrDeclaration": "Check whether any digital health, customs, or arrival declarations apply for your travel dates.",
-    "officialSourceNote": "Review Hong Kong Immigration Department guidance before departure.",
+    "arrivalCardOrDeclaration": "Hong Kong visitors are generally not required to complete an immigration arrival card, but some travellers may still need a customs declaration in specific cases such as carrying large amounts of currency.",
+    "officialSourceNote": "Review Hong Kong Immigration guidance and check customs declaration rules if relevant to your trip.",
     "importantNotes": [
       "Keep onward travel details and accommodation information accessible.",
       "Rules for onward travel into mainland China are separate and should be checked independently."
+    ],
+    "officialLinks": [
+      {
+        "label": "Hong Kong immigration clearance FAQ",
+        "url": "https://www.immd.gov.hk/eng/faq/imm-clearance.html"
+      },
+      {
+        "label": "Hong Kong customs declaration guidance",
+        "url": "https://www.customs.gov.hk/en/passenger_clearance/instruments/index.html"
+      }
     ]
   },
   "handyPhrases": [

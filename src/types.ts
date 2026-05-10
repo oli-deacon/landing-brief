@@ -1,8 +1,14 @@
+export type OfficialLink = {
+  label: string;
+  url: string;
+};
+
 export type EntryRequirements = {
   passportValidity: string;
   visaSummary: string;
   arrivalCardOrDeclaration: string;
   officialSourceNote: string;
+  officialLinks: OfficialLink[];
   importantNotes: string[];
 };
 

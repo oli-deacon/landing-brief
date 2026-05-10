@@ -39,10 +39,20 @@
     "passportValidity": "Use a passport with at least 6 months validity remaining.",
     "visaSummary": "Australian passport holders generally do not need a visa for short visits, but should confirm the currently permitted stay and trip purpose before departure.",
     "arrivalCardOrDeclaration": "Check whether the Malaysia Digital Arrival Card is required for your trip and complete it before arrival when applicable.",
-    "officialSourceNote": "Review Malaysia immigration guidance and the official MDAC site close to travel.",
+    "officialSourceNote": "Review Malaysia immigration guidance and use the official MDAC portal close to travel.",
     "importantNotes": [
       "Keep proof of onward travel and your accommodation details accessible.",
       "Entry rules can differ for tourism, business meetings, and longer stays."
+    ],
+    "officialLinks": [
+      {
+        "label": "Malaysia Digital Arrival Card",
+        "url": "https://imigresen-online.imi.gov.my/mdac/main"
+      },
+      {
+        "label": "MDAC announcement",
+        "url": "https://www.imi.gov.my/index.php/en/pengumuman/malaysia-digital-arrival-card-mdac/"
+      }
     ]
   },
   "handyPhrases": [

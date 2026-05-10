@@ -38,11 +38,21 @@
   "entryRequirements": {
     "passportValidity": "Carry at least 6 months passport validity beyond arrival.",
     "visaSummary": "Australian passport holders should not assume visa-free entry; check whether you need an e-visa or another permission for your travel purpose and dates.",
-    "arrivalCardOrDeclaration": "Check the current Vietnamese immigration process and any e-visa or declaration requirements before boarding.",
-    "officialSourceNote": "Use the official Vietnam e-visa and immigration portals rather than third-party visa sites.",
+    "arrivalCardOrDeclaration": "Vietnam does not currently use a general digital arrival card for typical visitors, but you should confirm the official visa or e-visa process and any current entry formalities before boarding.",
+    "officialSourceNote": "Use the official Vietnam immigration portal for visa and entry checks rather than third-party visa sites.",
     "importantNotes": [
       "Keep a digital and printed copy of any visa approval or reference number you receive.",
       "Arrival procedures and permitted stay lengths should be verified directly against the current official rules."
+    ],
+    "officialLinks": [
+      {
+        "label": "Vietnam e-visa portal",
+        "url": "https://evisa.gov.vn"
+      },
+      {
+        "label": "Vietnam immigration portal notice",
+        "url": "https://evisa.xuatnhapcanh.gov.vn/"
+      }
     ]
   },
   "handyPhrases": [
