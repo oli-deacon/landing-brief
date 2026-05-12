@@ -5,6 +5,7 @@ type SectionShellProps = PropsWithChildren<{
   title: string;
   eyebrow?: string;
   action?: ReactNode;
+  emphasis?: "default" | "strong";
 }>;
 
 export function SectionShell({
@@ -12,11 +13,16 @@ export function SectionShell({
   title,
   eyebrow,
   action,
+  emphasis = "default",
   children
 }: SectionShellProps) {
   return (
     <section id={id} className="scroll-mt-36">
-      <div className="glass-panel rounded-[1.9rem] p-5">
+      <div
+        className={[
+          emphasis === "strong" ? "glass-panel rounded-[1.9rem] p-5" : "section-frame rounded-[1.75rem] p-5"
+        ].join(" ")}
+      >
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
