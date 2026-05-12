@@ -373,12 +373,14 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             emphasis="strong"
             action={<span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">Immediate</span>}
           >
-            <div className="rounded-[1.5rem] border border-border-strong bg-linear-to-br from-[#131f2d] via-[#162535] to-[#1d3146] p-5 text-white shadow-[0_20px_50px_rgba(2,8,18,0.34)]">
+            <div className="rounded-[1.35rem] border border-border-strong bg-linear-to-br from-[#131f2d] via-[#162535] to-[#1d3146] px-5 py-4 text-white shadow-[0_16px_38px_rgba(2,8,18,0.28)]">
               <p className="eyebrow text-slate-300">{brief.emergencyNumbers.label}</p>
-              <p className="mt-3 text-4xl font-semibold tracking-tight">{brief.emergencyNumbers.number}</p>
-              <ul className="editorial-list mt-4">
+              <p className="mt-2 text-[2.6rem] font-semibold tracking-tight sm:text-[2.9rem]">
+                {brief.emergencyNumbers.number}
+              </p>
+              <ul className="editorial-list mt-3">
                 {brief.emergencyNumbers.notes.map((note) => (
-                  <li key={note} className="editorial-list-item text-sm text-white/90">
+                  <li key={note} className="editorial-list-item text-[0.95rem] text-white/88">
                     {note}
                   </li>
                 ))}
