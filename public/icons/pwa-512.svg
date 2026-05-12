@@ -1,14 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="136" fill="#101b28" />
-  <rect x="44" y="44" width="424" height="424" rx="112" fill="#172433" stroke="#2a3a4d" stroke-width="8" />
-  <g transform="translate(70 86)">
-    <path
-      d="M0 297.5h372M209.25 147.41 46.5 211.836C35.667 108.503 -2.25 66.586 -2.25 66.586l19.417 -7.767s17.456 12.059 38.333 41.393L230.141 8.574a63.188 63.188 0 0 1 57.495 -0.389c16.346 8.144 36.371 17.865 51.031 23.379v7.767l-121.592 55.596C199.267 163.094 168.333 208.76 168.333 208.76h-34.131s10.881 -41.646 10.881 -84.646Z"
-      fill="none"
-      stroke="#f2f5f9"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="20"
-    />
-  </g>
+  <defs>
+    <linearGradient id="bg" x1="96" y1="52" x2="422" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#23364b" />
+      <stop offset="0.5" stop-color="#122131" />
+      <stop offset="1" stop-color="#09131d" />
+    </linearGradient>
+    <linearGradient id="glass" x1="120" y1="100" x2="392" y2="412" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2e4560" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#152434" stop-opacity="0.98" />
+    </linearGradient>
+    <linearGradient id="sky" x1="150" y1="132" x2="362" y2="308" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d7e7f2" />
+      <stop offset="0.55" stop-color="#90acc2" />
+      <stop offset="1" stop-color="#426078" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="136" fill="url(#bg)" />
+  <rect x="38" y="38" width="436" height="436" rx="122" fill="none" stroke="#294055" stroke-width="8" />
+  <circle cx="168" cy="122" r="92" fill="#9dc2d7" opacity="0.12" />
+  <circle cx="374" cy="388" r="100" fill="#9dc2d7" opacity="0.08" />
+
+  <rect x="126" y="74" width="260" height="364" rx="112" fill="url(#glass)" stroke="#36506b" stroke-width="10" />
+  <rect x="148" y="96" width="216" height="320" rx="90" fill="#0b1723" />
+
+  <path d="M148 247c26.5-18 57.6-27 91.9-27 58 0 93.5 25.8 122.1 56.4V120.5c-25.5 34-63.6 56.8-113.8 56.8-41.2 0-73-15.5-100.2-43.6V247Z" fill="url(#sky)" opacity="0.95" />
+  <path d="M148 247c38.3-19.2 71.7-26.3 105.6-26.3 48 0 78.2 14.5 108.4 37" fill="none" stroke="#f3f7fb" stroke-opacity="0.78" stroke-width="6" />
+  <path d="M196 314 255 247l49.5 31.7L346 207" fill="none" stroke="#f2f5f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="22" />
+  <circle cx="196" cy="314" r="13" fill="#f2f5f9" />
+  <path d="M169 357h174" stroke="#c9d9e5" stroke-opacity="0.92" stroke-linecap="round" stroke-width="16" />
 </svg>
