@@ -70,47 +70,25 @@ export function HomePage() {
                 </p>
               </Card>
             ) : null}
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-              {countryIndex.data.slice(0, 1).map((country) => (
+            <div className="grid gap-4 lg:grid-cols-2">
+              {countryIndex.data.map((country) => (
                 <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
-                  <Card className="transition hover:-translate-y-0.5 hover:border-border-strong">
-                    <div className="flex flex-col gap-4">
-                      <p className="eyebrow">{country.capitalOrMainCity}</p>
-                      <h3 className="mt-2 text-[2.4rem] leading-[0.9] text-text-main">{country.countryName}</h3>
-                      <p className="mt-3 max-w-md text-sm leading-7 text-text-muted">
-                        Start in landing mode, then expand into transport, payments, and local context when you need more depth.
-                      </p>
-                      <div className="mt-2 flex items-center justify-between gap-3">
-                        <span className="text-sm text-text-soft">Via {country.primaryAirport}</span>
-                        <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
-                          {country.countryCode.toUpperCase()}
-                        </span>
+                  <article className="section-frame h-full rounded-[1.6rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-2">
+                        <p className="eyebrow">{country.capitalOrMainCity}</p>
+                        <h3 className="text-[1.5rem] leading-[0.98] text-text-main">{country.countryName}</h3>
+                        <p className="text-sm leading-6 text-text-muted">
+                          Via {country.primaryAirport}. Entry, transport, money, and practical first-hour notes.
+                        </p>
                       </div>
+                      <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
+                        {country.countryCode.toUpperCase()}
+                      </span>
                     </div>
-                  </Card>
+                  </article>
                 </Link>
               ))}
-
-              <div className="space-y-3">
-                {countryIndex.data.slice(1).map((country) => (
-                  <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
-                    <article className="section-frame rounded-[1.6rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="space-y-2">
-                          <p className="eyebrow">{country.capitalOrMainCity}</p>
-                          <h3 className="text-[1.5rem] leading-[0.98] text-text-main">{country.countryName}</h3>
-                          <p className="text-sm leading-6 text-text-muted">
-                            Via {country.primaryAirport}. Entry, transport, money, and practical first-hour notes.
-                          </p>
-                        </div>
-                        <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
-                          {country.countryCode.toUpperCase()}
-                        </span>
-                      </div>
-                    </article>
-                  </Link>
-                ))}
-              </div>
             </div>
           </>
         ) : null}

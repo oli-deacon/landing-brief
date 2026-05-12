@@ -342,31 +342,29 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
               <span>Practical details and etiquette</span>
               <span className="text-text-muted transition group-open:rotate-45">+</span>
             </summary>
-            <div className="mt-4 grid gap-6 lg:grid-cols-2">
-              <div>
-                <h3 className="section-subtitle">Food and practicalities</h3>
-                <InfoList
-                  items={[
-                    { label: "Tap water", value: brief.foodAndPracticalities.tapWater },
-                    { label: "Tipping", value: brief.foodAndPracticalities.tipping },
-                    { label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes },
-                    { label: "Common food tips", value: brief.foodAndPracticalities.commonFoodTips }
-                  ]}
-                />
-              </div>
-              <div>
-                <h3 className="section-subtitle">Business etiquette</h3>
-                <p className="text-sm leading-6 text-text-muted">{brief.businessEtiquette.summary}</p>
-                <ul className="editorial-list mt-3">
-                  {brief.businessEtiquette.tips.map((tip) => (
-                    <li key={tip} className="editorial-list-item text-sm text-text-main">
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="mt-4">
+              <h3 className="section-subtitle">Food and practicalities</h3>
+              <InfoList
+                items={[
+                  { label: "Tap water", value: brief.foodAndPracticalities.tapWater },
+                  { label: "Tipping", value: brief.foodAndPracticalities.tipping },
+                  { label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes },
+                  { label: "Common food tips", value: brief.foodAndPracticalities.commonFoodTips }
+                ]}
+              />
             </div>
           </details>
+
+          <SectionShell id="business-etiquette" title="Business Etiquette" eyebrow="Work-travel reference">
+            <p className="text-sm leading-6 text-text-muted">{brief.businessEtiquette.summary}</p>
+            <ul className="editorial-list mt-4">
+              {brief.businessEtiquette.tips.map((tip) => (
+                <li key={tip} className="editorial-list-item text-sm text-text-main">
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </SectionShell>
 
           <SectionShell
             id="emergency"
