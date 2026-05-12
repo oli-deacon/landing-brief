@@ -86,7 +86,13 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     (country) => country.countryCode.toLowerCase() === brief.countryCode.toLowerCase()
   );
   const noteValue = library.notes[brief.countryCode.toLowerCase()]?.value ?? "";
-  const bestAirportOption = brief.airportToCity.options[0];
+  const bestAirportOption = brief.airportToCity.options[0] ?? {
+    mode: "Check local transport",
+    typicalTime: "Varies",
+    typicalCost: "Varies",
+    bestFor: "First arrival decision",
+    notes: "Transport details are temporarily unavailable in this cached copy."
+  };
   const topArrivalEssentials = mode === "landing" ? brief.arrivalEssentials.slice(0, 4) : brief.arrivalEssentials;
   const entryReminder = takeFirstSentence(brief.entryRequirements.arrivalCardOrDeclaration);
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;

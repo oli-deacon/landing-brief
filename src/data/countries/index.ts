@@ -41,6 +41,55 @@ function writeJsonToStorage<T>(key: string, value: T) {
   window.localStorage.setItem(key, JSON.stringify(value));
 }
 
+function ensureArray<T>(value: T[] | undefined | null) {
+  return Array.isArray(value) ? value : [];
+}
+
+function normalizeCountryBrief(brief: CountryBrief): CountryBrief {
+  return {
+    ...brief,
+    arrivalEssentials: ensureArray(brief.arrivalEssentials),
+    airportToCity: {
+      airportName: brief.airportToCity?.airportName ?? "",
+      options: ensureArray(brief.airportToCity?.options)
+    },
+    entryRequirements: {
+      passportValidity: brief.entryRequirements?.passportValidity ?? "",
+      visaSummary: brief.entryRequirements?.visaSummary ?? "",
+      arrivalCardOrDeclaration: brief.entryRequirements?.arrivalCardOrDeclaration ?? "",
+      officialSourceNote: brief.entryRequirements?.officialSourceNote ?? "",
+      officialLinks: ensureArray(brief.entryRequirements?.officialLinks),
+      importantNotes: ensureArray(brief.entryRequirements?.importantNotes)
+    },
+    handyPhrases: ensureArray(brief.handyPhrases),
+    businessEtiquette: {
+      summary: brief.businessEtiquette?.summary ?? "",
+      tips: ensureArray(brief.businessEtiquette?.tips)
+    },
+    foodAndPracticalities: {
+      tapWater: brief.foodAndPracticalities?.tapWater ?? "",
+      tipping: brief.foodAndPracticalities?.tipping ?? "",
+      dietaryNotes: brief.foodAndPracticalities?.dietaryNotes ?? "",
+      commonFoodTips: brief.foodAndPracticalities?.commonFoodTips ?? "",
+      usefulPhrases: ensureArray(brief.foodAndPracticalities?.usefulPhrases)
+    },
+    moneyAndPayments: {
+      currency: brief.moneyAndPayments?.currency ?? "",
+      conversion: brief.moneyAndPayments?.conversion ?? "",
+      cardAcceptance: brief.moneyAndPayments?.cardAcceptance ?? "",
+      cashNotes: brief.moneyAndPayments?.cashNotes ?? "",
+      tipping: brief.moneyAndPayments?.tipping ?? "",
+      roughCostExamples: ensureArray(brief.moneyAndPayments?.roughCostExamples)
+    },
+    localTransportApps: ensureArray(brief.localTransportApps),
+    emergencyNumbers: {
+      label: brief.emergencyNumbers?.label ?? "Emergency",
+      number: brief.emergencyNumbers?.number ?? "",
+      notes: ensureArray(brief.emergencyNumbers?.notes)
+    }
+  };
+}
+
 async function fetchJsonWithCache<T>(url: string, cacheKey: string): Promise<CachedResult<T>> {
   try {
     const response = await fetch(url);
@@ -86,8 +135,13 @@ export async function getCountryByCode(countryCode: string): Promise<CachedResul
     throw new Error("not-found");
   }
 
-  return fetchJsonWithCache<CountryBrief>(
+  const result = await fetchJsonWithCache<CountryBrief>(
     `/data/countries/${normalizedCode}.json`,
     `${COUNTRY_BRIEF_CACHE_PREFIX}.${normalizedCode}`,
   );
+
+  return {
+    data: normalizeCountryBrief(result.data),
+    source: result.source
+  };
 }
