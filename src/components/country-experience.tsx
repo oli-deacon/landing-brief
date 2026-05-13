@@ -9,6 +9,7 @@ import {
   saveCountryNote,
   toggleSavedCountry
 } from "../lib/browser-storage";
+import { getCountryArtwork } from "../lib/country-art";
 import { InfoList } from "./info-list";
 import { SectionNav } from "./section-nav";
 import { SectionShell } from "./section-shell";
@@ -98,6 +99,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
   const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
   const isLandingMode = mode === "landing";
+  const artwork = getCountryArtwork(brief.countryCode);
 
   return (
     <>
@@ -110,6 +112,9 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       ) : null}
 
       <section className="hero-frame rounded-[2.2rem] border border-border-soft/70">
+        {artwork ? (
+          <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
+        ) : null}
         <div className="hero-content flex min-h-[24rem] flex-col justify-end px-5 pb-7 pt-10 sm:px-7 sm:pb-8">
           <div className="max-w-3xl">
             <p className="eyebrow">{isLandingMode ? "90-second mode" : "Progressive country brief"}</p>

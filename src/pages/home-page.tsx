@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card } from "../components/card";
 import { SectionHeading } from "../components/section-heading";
 import { useCountryIndex } from "../hooks/use-country-data";
+import { getCountryArtwork } from "../lib/country-art";
 
 const harbourHeroImage = "/images/hk-harbour.jpg";
 
@@ -71,24 +72,35 @@ export function HomePage() {
               </Card>
             ) : null}
             <div className="grid gap-4 lg:grid-cols-2">
-              {countryIndex.data.map((country) => (
-                <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
-                  <article className="section-frame h-full rounded-[1.6rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="space-y-2">
-                        <p className="eyebrow">{country.capitalOrMainCity}</p>
-                        <h3 className="text-[1.5rem] leading-[0.98] text-text-main">{country.countryName}</h3>
-                        <p className="text-sm leading-6 text-text-muted">
-                          Via {country.primaryAirport}. Entry, transport, money, and practical first-hour notes.
-                        </p>
+              {countryIndex.data.map((country) => {
+                const artwork = getCountryArtwork(country.countryCode);
+
+                return (
+                  <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
+                    <article className="destination-card section-frame h-full rounded-[1.6rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
+                      {artwork ? (
+                        <img
+                          src={artwork.src}
+                          alt={artwork.alt}
+                          className="destination-card-media"
+                        />
+                      ) : null}
+                      <div className="destination-card-content flex items-start justify-between gap-4">
+                        <div className="space-y-2">
+                          <p className="eyebrow">{country.capitalOrMainCity}</p>
+                          <h3 className="text-[1.5rem] leading-[0.98] text-text-main">{country.countryName}</h3>
+                          <p className="text-sm leading-6 text-text-muted">
+                            Via {country.primaryAirport}. Entry, transport, money, and practical first-hour notes.
+                          </p>
+                        </div>
+                        <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
+                          {country.countryCode.toUpperCase()}
+                        </span>
                       </div>
-                      <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
-                        {country.countryCode.toUpperCase()}
-                      </span>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+                    </article>
+                  </Link>
+                );
+              })}
             </div>
           </>
         ) : null}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card } from "../components/card";
 import { SectionHeading } from "../components/section-heading";
 import { useOfflineLibrary } from "../hooks/use-offline-library";
+import { getCountryArtwork } from "../lib/country-art";
 
 export function SavedBriefsPage() {
   const library = useOfflineLibrary();
@@ -21,26 +22,33 @@ export function SavedBriefsPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {library.savedCountries.map((country) => (
-              <Link
-                key={country.countryCode}
-                to={`/country/${country.countryCode}`}
-                className="block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4 transition hover:-translate-y-0.5 hover:border-border-strong"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="eyebrow">{country.capitalOrMainCity}</p>
-                    <h2 className="mt-1 text-[1.55rem] text-text-main">{country.countryName}</h2>
-                    <p className="mt-2 text-sm leading-6 text-text-muted">
-                      {country.primaryAirport}
-                    </p>
+            {library.savedCountries.map((country) => {
+              const artwork = getCountryArtwork(country.countryCode);
+
+              return (
+                <Link
+                  key={country.countryCode}
+                  to={`/country/${country.countryCode}`}
+                  className="destination-card block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4 transition hover:-translate-y-0.5 hover:border-border-strong"
+                >
+                  {artwork ? (
+                    <img src={artwork.src} alt={artwork.alt} className="destination-card-media" />
+                  ) : null}
+                  <div className="destination-card-content flex items-start justify-between gap-3">
+                    <div>
+                      <p className="eyebrow">{country.capitalOrMainCity}</p>
+                      <h2 className="mt-1 text-[1.55rem] text-text-main">{country.countryName}</h2>
+                      <p className="mt-2 text-sm leading-6 text-text-muted">
+                        {country.primaryAirport}
+                      </p>
+                    </div>
+                    <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
+                      Saved
+                    </span>
                   </div>
-                  <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
-                    Saved
-                  </span>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         )}
       </Card>
@@ -52,18 +60,27 @@ export function SavedBriefsPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {library.recentCountries.map((country) => (
-              <Link
-                key={`${country.countryCode}-${country.viewedAt}`}
-                to={`/country/${country.countryCode}`}
-                className="block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4"
-              >
-                <p className="text-sm font-semibold text-text-main">{country.countryName}</p>
-                <p className="mt-1 text-sm text-text-muted">
-                  {country.capitalOrMainCity} via {country.primaryAirport}
-                </p>
-              </Link>
-            ))}
+            {library.recentCountries.map((country) => {
+              const artwork = getCountryArtwork(country.countryCode);
+
+              return (
+                <Link
+                  key={`${country.countryCode}-${country.viewedAt}`}
+                  to={`/country/${country.countryCode}`}
+                  className="destination-card block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4"
+                >
+                  {artwork ? (
+                    <img src={artwork.src} alt={artwork.alt} className="destination-card-media" />
+                  ) : null}
+                  <div className="destination-card-content">
+                    <p className="text-sm font-semibold text-text-main">{country.countryName}</p>
+                    <p className="mt-1 text-sm text-text-muted">
+                      {country.capitalOrMainCity} via {country.primaryAirport}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
       </Card>
