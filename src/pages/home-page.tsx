@@ -5,7 +5,7 @@ import { SectionHeading } from "../components/section-heading";
 import { useCountryIndex } from "../hooks/use-country-data";
 import { getCountryArtwork } from "../lib/country-art";
 
-const harbourHeroImage = "/images/hk-harbour.jpg";
+const harbourHeroImage = "/images/hk_harbour_line.png";
 
 export function HomePage() {
   const countryIndex = useCountryIndex();
@@ -15,7 +15,7 @@ export function HomePage() {
       <section className="hero-frame rounded-[2.2rem] border border-border-soft">
         <img
           src={harbourHeroImage}
-          alt="Hong Kong harbour viewed from the air through low clouds"
+          alt="Hong Kong harbour line drawing with skyline, ferry traffic, and illuminated towers"
           className="hero-media"
         />
         <div className="hero-content flex min-h-[32rem] flex-col justify-end px-5 pb-8 pt-16 sm:min-h-[36rem] sm:px-7 sm:pb-10 sm:pt-20">
