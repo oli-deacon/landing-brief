@@ -53,10 +53,52 @@
       "context": "A polite standard greeting that works in most everyday situations."
     },
     {
+      "english": "Please",
+      "local": "Juseyo",
+      "pronunciation": "joo-seh-yo",
+      "context": "Useful at the end of many requests when ordering or asking for something."
+    },
+    {
       "english": "Thank you",
       "local": "Gamsahamnida",
       "pronunciation": "gam-sah-ham-nee-da",
       "context": "Useful with drivers, shop staff, and restaurant teams."
+    },
+    {
+      "english": "Excuse me",
+      "local": "Sillyehamnida",
+      "pronunciation": "shil-lye-ham-nee-da",
+      "context": "Useful for getting attention politely or moving past someone."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Gyesanseo juseyo",
+      "pronunciation": "gye-san-suh joo-seh-yo",
+      "context": "Useful in restaurants and cafes."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Hwajangsil eodi-yeyo?",
+      "pronunciation": "hwa-jang-shil uh-dee-yeh-yo",
+      "context": "Useful in stations, malls, and restaurants."
+    },
+    {
+      "english": "How much is this?",
+      "local": "Igeo eolmayeyo?",
+      "pronunciation": "ee-guh ol-ma-yeh-yo",
+      "context": "Helpful in shops and markets."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Kadeu dwaeyo?",
+      "pronunciation": "kah-deu dwae-yo",
+      "context": "Useful at market stalls or smaller food shops."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Taeksi jom bulleo juseyo",
+      "pronunciation": "taek-shi jom bool-luh joo-seh-yo",
+      "context": "Useful at hotels, stations, or when asking staff for help."
     },
     {
       "english": "Please no spicy food",

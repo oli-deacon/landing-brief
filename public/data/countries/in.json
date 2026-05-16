@@ -53,16 +53,58 @@
       "context": "A polite greeting that is widely recognised, though many regions use other local languages too."
     },
     {
+      "english": "Please",
+      "local": "Kripya",
+      "pronunciation": "kri-pya",
+      "context": "A polite formal please that works well in everyday travel situations."
+    },
+    {
       "english": "Thank you",
       "local": "Dhanyavaad",
       "pronunciation": "dhan-yuh-vaad",
       "context": "Useful in formal or respectful situations; English is also widely used."
     },
     {
+      "english": "Excuse me",
+      "local": "Maaf kijiye",
+      "pronunciation": "maaf kee-jee-yeh",
+      "context": "Useful when getting attention politely or apologising lightly."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Bill dijiye, kripya",
+      "pronunciation": "bil dee-jee-yeh, kri-pya",
+      "context": "Useful in restaurants and cafes."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Bathroom kahan hai?",
+      "pronunciation": "bath-room kah-haan hay",
+      "context": "Useful in airports, stations, and restaurants."
+    },
+    {
       "english": "How much is this?",
       "local": "Yeh kitne ka hai?",
       "pronunciation": "yeh kit-nay ka hay",
       "context": "Helpful in markets or smaller shops where prices are not obvious."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Card chalta hai?",
+      "pronunciation": "card chal-tah hay",
+      "context": "Useful in shops, cabs, and restaurants."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Mujhe taxi chahiye",
+      "pronunciation": "moo-jhay tak-see chaa-hee-yeh",
+      "context": "Useful at airports, stations, and hotels."
+    },
+    {
+      "english": "Not too spicy, please",
+      "local": "Zyada spicy mat, kripya",
+      "pronunciation": "zyaa-dah spy-see muht, kri-pya",
+      "context": "Helpful when ordering food and easing into local spice levels."
     }
   ],
   "businessEtiquette": {

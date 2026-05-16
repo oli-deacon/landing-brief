@@ -63,15 +63,57 @@
       "context": "Use khrap if male and kha if female."
     },
     {
+      "english": "Please",
+      "local": "Karuna",
+      "pronunciation": "kah-roo-nah",
+      "context": "A polite formal way to say please; many travellers also soften requests with khrap or kha."
+    },
+    {
       "english": "Thank you",
       "local": "Khop khun khrap / Khop khun kha",
       "pronunciation": "kop koon krap / kop koon ka",
       "context": "A polite default in hotels, shops, and meetings."
     },
     {
+      "english": "Excuse me",
+      "local": "Khor thot khrap / Khor thot kha",
+      "pronunciation": "kor thote krap / kor thote ka",
+      "context": "Useful when apologising lightly or getting attention politely."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Check bin duay khrap / Check bin duay kha",
+      "pronunciation": "chek bin doo-ay krap / chek bin doo-ay ka",
+      "context": "Useful in restaurants and cafes."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Hong nam yoo tee nai?",
+      "pronunciation": "hong naam yoo tee nai",
+      "context": "Useful in malls, stations, and markets."
+    },
+    {
+      "english": "How much is this?",
+      "local": "An nee tao rai?",
+      "pronunciation": "an nee tao rye",
+      "context": "Helpful in shops and markets."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Chai bat dai mai?",
+      "pronunciation": "chai baht dai mai",
+      "context": "Helpful at smaller venues where payment method is not obvious."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Ao taxi khrap / Ao taxi kha",
+      "pronunciation": "ow tak-see krap / ow tak-see ka",
+      "context": "Useful outside hotels, stations, and airports."
+    },
+    {
       "english": "Not spicy, please",
-      "local": "Mai phet",
-      "pronunciation": "my pet",
+      "local": "Mai phet khrap / Mai phet kha",
+      "pronunciation": "my pet krap / my pet ka",
       "context": "Very useful when ordering street food or casual meals."
     }
   ],

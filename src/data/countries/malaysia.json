@@ -63,15 +63,57 @@
       "context": "Common polite greetings depending on time of day."
     },
     {
+      "english": "Please",
+      "local": "Sila / Tolong",
+      "pronunciation": "see-lah / toh-long",
+      "context": "Sila fits formal polite requests, while tolong is common in everyday spoken requests."
+    },
+    {
       "english": "Thank you",
       "local": "Terima kasih",
       "pronunciation": "tuh-ree-muh kah-seh",
       "context": "Useful everywhere from hotels to hawker stalls."
     },
     {
-      "english": "No spicy, please",
-      "local": "Tak mahu pedas",
-      "pronunciation": "tahk mah-hoo puh-dahs",
+      "english": "Excuse me",
+      "local": "Maaf",
+      "pronunciation": "mah-af",
+      "context": "Useful when moving through a crowd or starting a polite question."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Bil, tolong",
+      "pronunciation": "beel, toh-long",
+      "context": "Useful in restaurants and casual food courts."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Di mana tandas?",
+      "pronunciation": "dee mah-nah tahn-das",
+      "context": "Useful in malls, stations, and cafes."
+    },
+    {
+      "english": "How much is this?",
+      "local": "Berapa harga ini?",
+      "pronunciation": "buh-rah-pah har-gah ee-nee",
+      "context": "Helpful in markets or smaller shops."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Boleh bayar dengan kad?",
+      "pronunciation": "boh-leh buy-yar duh-ngan kad",
+      "context": "Handy at hawker centres, taxis, and smaller retailers."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Saya perlukan teksi",
+      "pronunciation": "sah-yah purr-loo-kan tek-see",
+      "context": "Useful at airports, hotels, and station exits."
+    },
+    {
+      "english": "Not spicy, please",
+      "local": "Tak mahu pedas, tolong",
+      "pronunciation": "tahk mah-hoo puh-dahs, toh-long",
       "context": "Helpful when ordering local dishes."
     }
   ],

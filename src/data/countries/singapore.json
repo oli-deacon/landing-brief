@@ -63,16 +63,58 @@
       "context": "English is widely spoken, but a warm multilingual greeting can still land well."
     },
     {
+      "english": "Please",
+      "local": "Please / Qing / Tolong",
+      "pronunciation": "English phrase / ching / toh-long",
+      "context": "English is the safest default, but common polite words from Mandarin and Malay are also widely recognised."
+    },
+    {
       "english": "Thank you",
       "local": "Xie xie / Terima kasih",
       "pronunciation": "shieh shieh / tuh-ree-muh kah-seh",
       "context": "Useful in hawker centres, taxis, and small shops."
     },
     {
+      "english": "Excuse me",
+      "local": "Excuse me / Bu hao yi si",
+      "pronunciation": "English phrase / boo how ee suh",
+      "context": "English works almost everywhere, with Mandarin also common in many everyday settings."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Bill, please / Mai dan",
+      "pronunciation": "English phrase / my dahn",
+      "context": "English is standard, but the Mandarin version can still be useful in casual eateries."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Where is the toilet? / Ce suo zai nali?",
+      "pronunciation": "English phrase / tsuh swor dzai nah-lee",
+      "context": "English is usually the quickest option in malls, MRT stations, and restaurants."
+    },
+    {
+      "english": "How much is this?",
+      "local": "How much is this? / Zhe ge duo shao qian?",
+      "pronunciation": "English phrase / juh guh dwor shao chyen",
+      "context": "English is fine, but the Mandarin phrasing can help at smaller stalls."
+    },
+    {
       "english": "Can I pay by card?",
       "local": "Can pay by card?",
       "pronunciation": "English phrase",
       "context": "Singlish-style phrasing is common and easily understood."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Need taxi / Wo yao taxi",
+      "pronunciation": "English phrase / wor yow tak-see",
+      "context": "English is standard and direct, especially at hotels and airports."
+    },
+    {
+      "english": "No spicy, please",
+      "local": "No spicy, please / Bu yao la jiao",
+      "pronunciation": "English phrase / boo yow lah jyao",
+      "context": "English is widely understood, but the Mandarin version can help at hawker stalls."
     }
   ],
   "businessEtiquette": {

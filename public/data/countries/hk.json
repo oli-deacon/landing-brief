@@ -63,16 +63,58 @@
       "context": "A friendly Cantonese greeting, though English is common in many business settings."
     },
     {
+      "english": "Please",
+      "local": "M goi",
+      "pronunciation": "mm goy",
+      "context": "A flexible everyday polite word used when asking for help, ordering, or getting someone's attention."
+    },
+    {
       "english": "Thank you",
       "local": "M goi / Doh jeh",
       "pronunciation": "mm goy / dor jeh",
       "context": "M goi is often used for service or small favours; doh jeh is more for gifts or bigger thanks."
     },
     {
-      "english": "Octopus card?",
-      "local": "Baat daat tung?",
-      "pronunciation": "baat daat toong",
-      "context": "Useful when asking about stored-value transit payment options."
+      "english": "Excuse me",
+      "local": "M goi",
+      "pronunciation": "mm goy",
+      "context": "Also commonly used to say excuse me when moving through a crowd or asking a quick question."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Sap fong, m goi",
+      "pronunciation": "sap fong, mm goy",
+      "context": "Useful in cafes, cha chaan tengs, and restaurants."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Chi so hai bin dou?",
+      "pronunciation": "chee soh high been doe",
+      "context": "Handy in stations, malls, and restaurants."
+    },
+    {
+      "english": "How much is this?",
+      "local": "Ni go gei chin a?",
+      "pronunciation": "nee gor gay cheen ah",
+      "context": "Useful in markets and smaller shops."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Ho m ho yi yung kaat?",
+      "pronunciation": "hor m hor yee yoong kaart",
+      "context": "Helpful at older eateries, taxis, and small retailers."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Ngoh yiu dik si",
+      "pronunciation": "ngor yiu dik see",
+      "context": "Useful outside stations, hotels, or the airport."
+    },
+    {
+      "english": "Not spicy, please",
+      "local": "M hou laht, m goi",
+      "pronunciation": "m hoh laht, mm goy",
+      "context": "Helpful when you want to tone down the heat level."
     }
   ],
   "businessEtiquette": {

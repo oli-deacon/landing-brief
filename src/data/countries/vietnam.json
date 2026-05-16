@@ -63,16 +63,58 @@
       "context": "A good general-purpose greeting."
     },
     {
+      "english": "Please",
+      "local": "Lam on",
+      "pronunciation": "lahm uhn",
+      "context": "Useful for softening a request and sounding more polite."
+    },
+    {
       "english": "Thank you",
       "local": "Cam on",
       "pronunciation": "gahm uhn",
       "context": "Useful in shops, hotels, and cafes."
     },
     {
+      "english": "Excuse me",
+      "local": "Xin loi",
+      "pronunciation": "sin loy",
+      "context": "Useful when apologising lightly or getting someone's attention."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Tinh tien, lam on",
+      "pronunciation": "tin tee-en, lahm uhn",
+      "context": "Useful in cafes and restaurants."
+    },
+    {
+      "english": "Where is the bathroom?",
+      "local": "Nha ve sinh o dau?",
+      "pronunciation": "nya veh sin uh dow",
+      "context": "Useful in stations, cafes, and markets."
+    },
+    {
       "english": "How much is this?",
       "local": "Cai nay bao nhieu?",
       "pronunciation": "guy nay bao nyew",
       "context": "Helpful at markets or informal food stalls."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Toi co the thanh toan bang the khong?",
+      "pronunciation": "toy koh teh tahn toahn bahng teh khom",
+      "context": "Useful at smaller hotels, taxis, and shops."
+    },
+    {
+      "english": "I need a taxi",
+      "local": "Toi can taxi",
+      "pronunciation": "toy cun tak-see",
+      "context": "Useful at airports, hotels, or train stations."
+    },
+    {
+      "english": "Not spicy, please",
+      "local": "Khong cay, lam on",
+      "pronunciation": "khom kai, lahm uhn",
+      "context": "Helpful when ordering food."
     }
   ],
   "businessEtiquette": {
