@@ -17,21 +17,23 @@ export function SectionShell({
   children
 }: SectionShellProps) {
   return (
-    <section id={id} className="scroll-mt-36">
-      <div
-        className={[
-          emphasis === "strong" ? "glass-panel rounded-[1.9rem] p-5" : "section-frame rounded-[1.75rem] p-5"
-        ].join(" ")}
-      >
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <div>
-            {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-            <h2 className="mt-2 text-[1.55rem] text-text-main">{title}</h2>
-          </div>
-          {action}
+    <section
+      id={id}
+      className={[
+        "scroll-mt-28",
+        emphasis === "strong"
+          ? "glass-panel rounded-[1.9rem] p-5 sm:p-6"
+          : "border-t border-border-soft/70 px-1 pt-6 sm:pt-7"
+      ].join(" ")}
+    >
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+          <h2 className="mt-2 text-[1.55rem] text-text-main">{title}</h2>
         </div>
-        {children}
+        {action}
       </div>
+      {children}
     </section>
   );
 }

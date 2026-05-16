@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
-import { SectionHeading } from "../components/section-heading";
 import { useCountryIndex } from "../hooks/use-country-data";
 import { getCountryArtwork } from "../lib/country-art";
 
@@ -25,17 +24,19 @@ export function HomePage() {
               LandingBrief
             </h1>
             <p className="max-w-sm text-sm leading-7 text-slate-200">
-              Country briefings for the last stretch before touchdown and the first hour after
-              arrival.
+              The fastest way to get your bearings before touchdown and during the first hour after arrival.
             </p>
           </div>
         </div>
       </section>
 
-      <SectionHeading
-        title="Choose your arrival brief"
-        description="Start with a destination, then move between a 90-second landing scan and the deeper country guide without losing your place."
-      />
+      <section className="space-y-2 px-1">
+        <p className="eyebrow">Destinations</p>
+        <h2 className="max-w-xl text-3xl leading-[0.98] text-text-main sm:text-[3.1rem]">Choose your arrival brief</h2>
+        <p className="max-w-xl text-sm leading-7 text-text-muted">
+          Pick a destination, start with the landing scan, and open deeper detail only when you need it.
+        </p>
+      </section>
 
       <section className="space-y-3">
         {countryIndex.status === "loading" ? (
@@ -77,7 +78,7 @@ export function HomePage() {
 
                 return (
                   <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
-                    <article className="destination-card section-frame h-full rounded-[1.6rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
+                    <article className="destination-card section-frame h-full rounded-[1.4rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
                       {artwork ? (
                         <img
                           src={artwork.src}
@@ -88,9 +89,9 @@ export function HomePage() {
                       <div className="destination-card-content flex items-start justify-between gap-4">
                         <div className="space-y-2">
                           <p className="eyebrow">{country.capitalOrMainCity}</p>
-                          <h3 className="text-[1.5rem] leading-[0.98] text-text-main">{country.countryName}</h3>
+                          <h3 className="text-[1.4rem] leading-[0.98] text-text-main">{country.countryName}</h3>
                           <p className="text-sm leading-6 text-text-muted">
-                            Via {country.primaryAirport}. Entry, transport, money, and practical first-hour notes.
+                            Via {country.primaryAirport}. Arrival essentials, transport, money, and first-hour notes.
                           </p>
                         </div>
                         <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">

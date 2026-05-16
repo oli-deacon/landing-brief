@@ -11,18 +11,11 @@ import {
 } from "../lib/browser-storage";
 import { getCountryArtwork } from "../lib/country-art";
 import { InfoList } from "./info-list";
-import { SectionNav } from "./section-nav";
 import { SectionShell } from "./section-shell";
 
 type CountryExperienceProps = {
   mode: "landing" | "full";
 };
-
-const flowNavItems = [
-  { id: "arrive", label: "Arrive" },
-  { id: "move", label: "Move" },
-  { id: "settle", label: "Settle" }
-] as const;
 
 function takeFirstSentence(value: string) {
   const match = value.match(/^[^.?!]+[.?!]/);
@@ -100,11 +93,13 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
+  const modeToggleLabel = isLandingMode ? "Open full brief" : "Switch to landing mode";
+  const modeToggleHref = isLandingMode ? `/country/${brief.countryCode}` : `/country/${brief.countryCode}/landing`;
 
   return (
     <>
       {countryState.source === "cache" ? (
-        <SectionShell id="cached" title="Offline copy" eyebrow="Cached brief" emphasis="strong">
+        <SectionShell id="cached" title="Offline copy" eyebrow="Cached brief">
           <p className="text-sm leading-6 text-text-muted">
             You are viewing a cached copy. Notes and saved items still work offline.
           </p>
@@ -122,7 +117,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
               <div>
                 <h1 className="text-[3rem] leading-[0.88] text-white sm:text-[4rem]">{brief.countryName}</h1>
                 <p className="mt-3 max-w-xl text-sm leading-7 text-slate-200">
-                  {brief.capitalOrMainCity} via {brief.primaryAirport}. Start with the fastest arrival path, then open deeper details only when you need them.
+                  {brief.capitalOrMainCity} via {brief.primaryAirport}. Start with the fastest arrival path, then open deeper detail only if it earns your attention.
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -138,43 +133,63 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              to={isLandingMode ? `/country/${brief.countryCode}` : `/country/${brief.countryCode}/landing`}
+              to={modeToggleHref}
               className="button-primary inline-flex rounded-full px-4 py-3 text-sm font-medium transition hover:brightness-110"
             >
-              {isLandingMode ? "Open full brief" : "Switch to landing mode"}
+              {modeToggleLabel}
             </Link>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <button
               type="button"
               onClick={() => {
                 toggleSavedCountry(summary);
               }}
-              className="button-secondary inline-flex rounded-full px-4 py-3 text-sm font-medium"
+              className="text-text-soft underline decoration-border-strong underline-offset-4 transition hover:text-text-main"
             >
               {saved ? "Remove saved brief" : "Save for offline"}
             </button>
+            <a
+              href="#arrive"
+              className="text-slate-200 underline decoration-white/25 underline-offset-4 transition hover:text-white"
+            >
+              Jump to arrival essentials
+            </a>
           </div>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
-            <div className="subtle-panel rounded-[1.4rem] p-4">
-              <p className="eyebrow">First move</p>
-              <p className="mt-2 text-base font-semibold text-text-main">{bestAirportOption.mode}</p>
+          <div className="mt-7">
+            <div className="subtle-panel max-w-2xl rounded-[1.4rem] p-4">
+              <p className="eyebrow">Arrival snapshot</p>
+              <p className="mt-2 text-base font-semibold text-text-main">
+                {bestAirportOption.mode} to {brief.capitalOrMainCity}
+              </p>
               <p className="mt-1 text-sm text-text-muted">
                 {bestAirportOption.typicalTime} · {bestAirportOption.typicalCost}
               </p>
-            </div>
-            <div className="subtle-panel rounded-[1.4rem] p-4">
-              <p className="eyebrow">Entry reminder</p>
-              <p className="mt-2 text-sm leading-6 text-text-main">{entryReminder}</p>
-            </div>
-            <div className="subtle-panel rounded-[1.4rem] p-4">
-              <p className="eyebrow">Travel note</p>
-              <p className="mt-2 text-sm leading-6 text-text-main">{brief.disclaimer}</p>
+              <p className="mt-3 text-sm leading-6 text-text-main">{entryReminder}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <SectionNav items={flowNavItems} />
+      <details className="section-frame rounded-[1.25rem] px-4 py-3">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium text-text-main">
+          <span>Jump to</span>
+          <span className="text-text-muted">Arrive / Move / Settle</span>
+        </summary>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <a href="#arrive" className="nav-context-pill">
+            Arrive
+          </a>
+          <a href="#move" className="nav-context-pill">
+            Move
+          </a>
+          <a href="#settle" className="nav-context-pill">
+            Settle
+          </a>
+        </div>
+      </details>
 
       <SectionShell
         id="arrive"
@@ -247,7 +262,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             <p className="mt-1 text-sm leading-6 text-text-muted">{brief.airportToCity.airportName}</p>
             <div className="mt-4 space-y-3">
               {brief.airportToCity.options.map((option) => (
-                <div key={option.mode} className="subtle-panel rounded-[1.35rem] p-4">
+                <div key={option.mode} className="rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h4 className="text-[1.2rem] text-text-main">{option.mode}</h4>
@@ -271,7 +286,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </summary>
             <div className="mt-4 space-y-3">
               {brief.localTransportApps.map((app) => (
-                <div key={app.name} className="subtle-panel rounded-[1.35rem] p-4">
+                <div key={app.name} className="rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <h4 className="text-base font-semibold text-text-main">{app.name}</h4>
                     <span className="eyebrow">App</span>
@@ -290,7 +305,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </summary>
             <div className="mt-4 grid gap-3">
               {brief.handyPhrases.map((phrase) => (
-                <div key={`${phrase.english}-${phrase.local}`} className="subtle-panel rounded-[1.35rem] p-4">
+                <div key={`${phrase.english}-${phrase.local}`} className="rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
                   <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
                     <div>
                       <p className="eyebrow">English</p>
@@ -313,14 +328,14 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       <SectionShell id="settle" title="Settle" eyebrow="Money, food, notes, and backup details">
         <div className="space-y-8">
           <div className="grid gap-4 lg:grid-cols-2">
-            <div className="subtle-panel rounded-[1.35rem] p-4">
+            <div className="rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
               <p className="eyebrow">Money and payments</p>
               <p className="mt-2 text-base leading-7 text-text-main">{paymentNote}</p>
               <p className="mt-3 text-sm text-text-muted">
                 {brief.moneyAndPayments.currency} · {brief.moneyAndPayments.conversion}
               </p>
             </div>
-            <div className="subtle-panel rounded-[1.35rem] p-4">
+            <div className="rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
               <p className="eyebrow">Food and water</p>
               <p className="mt-2 text-base leading-7 text-text-main">{foodAndWaterNote}</p>
             </div>
@@ -338,7 +353,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
               }}
               rows={5}
               placeholder="Hotel transfer reminder, address in local language, SIM pickup note..."
-              className="subtle-panel mt-3 w-full rounded-[1.35rem] px-4 py-4 text-sm leading-6 text-text-main outline-none transition focus:border-accent"
+              className="mt-3 w-full rounded-[1.1rem] border border-border-soft/80 bg-transparent px-4 py-4 text-sm leading-6 text-text-main outline-none transition focus:border-accent"
             />
           </label>
 
@@ -360,7 +375,9 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </div>
           </details>
 
-          <SectionShell id="business-etiquette" title="Business Etiquette" eyebrow="Work-travel reference">
+          <div id="business-etiquette" className="border-t border-border-soft/70 pt-6">
+            <p className="eyebrow">Work-travel reference</p>
+            <h3 className="mt-2 text-[1.55rem] text-text-main">Business Etiquette</h3>
             <p className="text-sm leading-6 text-text-muted">{brief.businessEtiquette.summary}</p>
             <ul className="editorial-list mt-4">
               {brief.businessEtiquette.tips.map((tip) => (
@@ -369,23 +386,22 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                 </li>
               ))}
             </ul>
-          </SectionShell>
+          </div>
 
           <SectionShell
             id="emergency"
             title="Emergency"
             eyebrow="Keep handy"
-            emphasis="strong"
             action={<span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">Immediate</span>}
           >
-            <div className="rounded-[1.35rem] border border-border-strong bg-linear-to-br from-[#131f2d] via-[#162535] to-[#1d3146] px-5 py-4 text-white shadow-[0_16px_38px_rgba(2,8,18,0.28)]">
-              <p className="eyebrow text-slate-300">{brief.emergencyNumbers.label}</p>
-              <p className="mt-2 text-[2.6rem] font-semibold tracking-tight sm:text-[2.9rem]">
+            <div className="max-w-md rounded-[1.1rem] border border-border-soft/80 px-4 py-4">
+              <p className="eyebrow">{brief.emergencyNumbers.label}</p>
+              <p className="mt-2 text-[1.85rem] font-semibold tracking-tight text-text-main sm:text-[2rem]">
                 {brief.emergencyNumbers.number}
               </p>
               <ul className="editorial-list mt-3">
                 {brief.emergencyNumbers.notes.map((note) => (
-                  <li key={note} className="editorial-list-item text-[0.95rem] text-white/88">
+                  <li key={note} className="editorial-list-item text-sm text-text-main">
                     {note}
                   </li>
                 ))}
