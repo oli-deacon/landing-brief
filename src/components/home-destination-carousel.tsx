@@ -22,6 +22,8 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   const [activeIndex, setActiveIndex] = useState(0);
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
+  const mobileItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const wheelLockRef = useRef<number | null>(null);
   const dragStateRef = useRef<DragState | null>(null);
   const settleTimerRef = useRef<number | null>(null);
@@ -29,6 +31,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   useEffect(() => {
     desktopItemRefs.current = desktopItemRefs.current.slice(0, countries.length);
+    mobileItemRefs.current = mobileItemRefs.current.slice(0, countries.length);
   }, [countries.length]);
 
   useEffect(() => {
@@ -42,10 +45,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }, [countries.length]);
 
   useEffect(() => {
-    function centerActiveCard() {
-      const track = desktopTrackRef.current;
-      const activeItem = desktopItemRefs.current[activeIndex];
-
+    function centerActiveCard(track: HTMLDivElement | null, activeItem: HTMLElement | null) {
       if (!track || !activeItem) {
         return;
       }
@@ -65,14 +65,23 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       });
     }
 
-    const frameId = window.requestAnimationFrame(centerActiveCard);
+    function syncActiveCardPosition() {
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        centerActiveCard(mobileTrackRef.current, mobileItemRefs.current[activeIndex]);
+        return;
+      }
+
+      centerActiveCard(desktopTrackRef.current, desktopItemRefs.current[activeIndex]);
+    }
+
+    const frameId = window.requestAnimationFrame(syncActiveCardPosition);
 
     if (settleTimerRef.current !== null) {
       window.clearTimeout(settleTimerRef.current);
     }
 
     settleTimerRef.current = window.setTimeout(() => {
-      centerActiveCard();
+      syncActiveCardPosition();
       settleTimerRef.current = null;
     }, 280);
 
@@ -182,12 +191,56 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     }
   }
 
+  function handleMobileScroll() {
+    const track = mobileTrackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    mobileItemRefs.current.forEach((item, index) => {
+      if (!item) {
+        return;
+      }
+
+      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+      const distance = Math.abs(itemCenter - trackCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveIndex((currentIndex) => (currentIndex === closestIndex ? currentIndex : closestIndex));
+  }
+
   if (countries.length === 0) {
     return null;
   }
 
   return (
     <section className="space-y-5">
+      <div className="arrival-carousel-stage-header">
+        <div className="arrival-carousel-progress">
+          <span className="arrival-carousel-progress-current">{formatIndex(activeIndex + 1)}</span>
+          <span className="arrival-carousel-progress-divider">/</span>
+          <span className="arrival-carousel-progress-total">{formatIndex(countries.length)}</span>
+        </div>
+        <div className="arrival-carousel-markers" aria-hidden="true">
+          {countries.map((country, index) => (
+            <span
+              key={country.countryCode}
+              className={index === activeIndex ? "arrival-carousel-marker is-active" : "arrival-carousel-marker"}
+            />
+          ))}
+        </div>
+      </div>
+
       <div
         className="arrival-carousel-stage rounded-[2rem]"
         onWheel={handleWheel}
@@ -195,22 +248,6 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
       >
-        <div className="arrival-carousel-stage-header">
-          <div className="arrival-carousel-progress">
-            <span className="arrival-carousel-progress-current">{formatIndex(activeIndex + 1)}</span>
-            <span className="arrival-carousel-progress-divider">/</span>
-            <span className="arrival-carousel-progress-total">{formatIndex(countries.length)}</span>
-          </div>
-          <div className="arrival-carousel-markers" aria-hidden="true">
-            {countries.map((country, index) => (
-              <span
-                key={country.countryCode}
-                className={index === activeIndex ? "arrival-carousel-marker is-active" : "arrival-carousel-marker"}
-              />
-            ))}
-          </div>
-        </div>
-
         <div
           ref={desktopTrackRef}
           className="arrival-carousel-track"
@@ -281,15 +318,24 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         </div>
       </div>
 
-      <div className="arrival-mobile-carousel" aria-label="Choose your arrival brief">
-        {countries.map((country) => {
+      <div
+        ref={mobileTrackRef}
+        className="arrival-mobile-carousel"
+        aria-label="Choose your arrival brief"
+        onScroll={handleMobileScroll}
+      >
+        {countries.map((country, index) => {
           const artwork = getCountryArtwork(country.countryCode);
+          const isActive = index === activeIndex;
 
           return (
             <Link
               key={country.countryCode}
               to={`/country/${country.countryCode}`}
-              className="arrival-mobile-card"
+              ref={(node) => {
+                mobileItemRefs.current[index] = node;
+              }}
+              className={isActive ? "arrival-mobile-card is-active" : "arrival-mobile-card"}
             >
               {artwork?.kind === "image" ? (
                 <img
@@ -318,6 +364,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 <span className="arrival-mobile-card-description">
                   Via {country.primaryAirport}. Arrival essentials, transport, money, and first-hour notes.
                 </span>
+                <span className="arrival-mobile-card-cta">Open brief</span>
               </span>
             </Link>
           );
