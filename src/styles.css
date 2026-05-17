@@ -263,6 +263,54 @@ a {
   transform: scale(1.02);
 }
 
+.hero-media-placeholder,
+.arrival-art-placeholder,
+.destination-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 205, 145, 0.18), transparent 24%),
+    radial-gradient(circle at 76% 20%, rgba(102, 167, 209, 0.18), transparent 28%),
+    linear-gradient(140deg, rgba(9, 18, 28, 0.96) 0%, rgba(16, 33, 48, 0.92) 52%, rgba(10, 22, 36, 0.98) 100%);
+}
+
+.hero-media-placeholder::before,
+.arrival-art-placeholder::before,
+.destination-card-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 1.2rem;
+  border: 1px dashed rgba(226, 238, 248, 0.28);
+  border-radius: 1.7rem;
+}
+
+.hero-placeholder-card,
+.arrival-art-placeholder-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.55rem;
+  max-width: 28rem;
+  padding: 1.4rem;
+  text-align: center;
+}
+
+.arrival-art-placeholder-label {
+  color: rgba(224, 235, 244, 0.68);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.arrival-art-placeholder-title {
+  color: #fff6e7;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;

@@ -112,8 +112,21 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       ) : null}
 
       <section className="hero-frame rounded-[2.2rem] border border-border-soft/70">
-        {artwork ? (
+        {artwork?.kind === "image" ? (
           <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
+        ) : null}
+        {artwork?.kind === "placeholder" ? (
+          <div className="hero-media hero-media-placeholder">
+            <div className="hero-placeholder-card">
+              <p className="eyebrow text-text-soft">{artwork.label}</p>
+              <h2 className="mt-3 text-[1.8rem] leading-[0.92] text-white sm:text-[2.4rem]">
+                {artwork.title}
+              </h2>
+              <p className="mt-3 max-w-lg text-sm leading-7 text-slate-200">
+                {artwork.description}
+              </p>
+            </div>
+          </div>
         ) : null}
         <div className="hero-content flex min-h-[24rem] flex-col justify-end px-5 pb-6 pt-10 sm:px-7 sm:pb-8">
           <div className="max-w-3xl">

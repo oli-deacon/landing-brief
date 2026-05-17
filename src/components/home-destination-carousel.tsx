@@ -235,12 +235,20 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                   navigate(`/country/${country.countryCode}`);
                 }}
               >
-                {artwork ? (
+                {artwork?.kind === "image" ? (
                   <img
                     src={artwork.src}
                     alt={artwork.alt}
                     className="arrival-carousel-item-media"
                   />
+                ) : null}
+                {artwork?.kind === "placeholder" ? (
+                  <span className="arrival-carousel-item-media arrival-art-placeholder" aria-hidden="true">
+                    <span className="arrival-art-placeholder-inner">
+                      <span className="arrival-art-placeholder-label">{artwork.label}</span>
+                      <span className="arrival-art-placeholder-title">{artwork.title}</span>
+                    </span>
+                  </span>
                 ) : null}
                 <span className="arrival-carousel-item-overlay" aria-hidden="true" />
                 <span className="arrival-carousel-item-content">
@@ -283,12 +291,20 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
               to={`/country/${country.countryCode}`}
               className="arrival-mobile-card"
             >
-              {artwork ? (
+              {artwork?.kind === "image" ? (
                 <img
                   src={artwork.src}
                   alt={artwork.alt}
                   className="arrival-mobile-card-media"
                 />
+              ) : null}
+              {artwork?.kind === "placeholder" ? (
+                <span className="arrival-mobile-card-media arrival-art-placeholder" aria-hidden="true">
+                  <span className="arrival-art-placeholder-inner">
+                    <span className="arrival-art-placeholder-label">{artwork.label}</span>
+                    <span className="arrival-art-placeholder-title">{artwork.title}</span>
+                  </span>
+                </span>
               ) : null}
               <span className="arrival-mobile-card-overlay" aria-hidden="true" />
               <span className="arrival-mobile-card-content">

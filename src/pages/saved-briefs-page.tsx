@@ -31,8 +31,16 @@ export function SavedBriefsPage() {
                   to={`/country/${country.countryCode}`}
                   className="destination-card block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4 transition hover:-translate-y-0.5 hover:border-border-strong"
                 >
-                  {artwork ? (
+                  {artwork?.kind === "image" ? (
                     <img src={artwork.src} alt={artwork.alt} className="destination-card-media" />
+                  ) : null}
+                  {artwork?.kind === "placeholder" ? (
+                    <div className="destination-card-media destination-card-placeholder" aria-hidden="true">
+                      <div className="arrival-art-placeholder-inner">
+                        <span className="arrival-art-placeholder-label">{artwork.label}</span>
+                        <span className="arrival-art-placeholder-title">{artwork.title}</span>
+                      </div>
+                    </div>
                   ) : null}
                   <div className="destination-card-content flex items-start justify-between gap-3">
                     <div>
@@ -69,8 +77,16 @@ export function SavedBriefsPage() {
                   to={`/country/${country.countryCode}`}
                   className="destination-card block rounded-[1.35rem] border border-border-soft bg-surface-muted/55 p-4"
                 >
-                  {artwork ? (
+                  {artwork?.kind === "image" ? (
                     <img src={artwork.src} alt={artwork.alt} className="destination-card-media" />
+                  ) : null}
+                  {artwork?.kind === "placeholder" ? (
+                    <div className="destination-card-media destination-card-placeholder" aria-hidden="true">
+                      <div className="arrival-art-placeholder-inner">
+                        <span className="arrival-art-placeholder-label">{artwork.label}</span>
+                        <span className="arrival-art-placeholder-title">{artwork.title}</span>
+                      </div>
+                    </div>
                   ) : null}
                   <div className="destination-card-content">
                     <p className="text-sm font-semibold text-text-main">{country.countryName}</p>
