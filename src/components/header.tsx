@@ -54,3 +54,20 @@ export function Header() {
     </header>
   );
 }
+
+export function HomeTopChrome() {
+  return (
+    <header className="home-top-chrome px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="home-top-chrome-mark flex items-end justify-between gap-4">
+          <div className="min-w-0">
+            <p className="eyebrow">Portable country intelligence</p>
+            <Link to="/" className="mt-1 block text-[1.35rem] leading-none text-text-main sm:text-[1.55rem]">
+              LandingBrief
+            </Link>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

@@ -1,41 +1,19 @@
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
+import { HomeDestinationCarousel } from "../components/home-destination-carousel";
 import { useCountryIndex } from "../hooks/use-country-data";
-import { getCountryArtwork } from "../lib/country-art";
-
-const harbourHeroImage = "/images/hk_harbour_line.png";
 
 export function HomePage() {
   const countryIndex = useCountryIndex();
 
   return (
     <>
-      <section className="hero-frame rounded-[2.2rem] border border-border-soft">
-        <img
-          src={harbourHeroImage}
-          alt="Hong Kong harbour line drawing with skyline, ferry traffic, and illuminated towers"
-          className="hero-media"
-        />
-        <div className="hero-content flex min-h-[32rem] flex-col justify-end px-5 pb-8 pt-16 sm:min-h-[36rem] sm:px-7 sm:pb-10 sm:pt-20">
-          <div className="max-w-md space-y-4">
-            <p className="eyebrow text-text-soft">Open in travel mode</p>
-            <h1 className="text-[3.2rem] leading-[0.88] text-white sm:text-[4.2rem]">
-              LandingBrief
-            </h1>
-            <p className="max-w-sm text-sm leading-7 text-slate-200">
-              The fastest way to get your bearings before touchdown and during the first hour after arrival.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section className="space-y-2 px-1">
-        <p className="eyebrow">Destinations</p>
-        <h2 className="max-w-xl text-3xl leading-[0.98] text-text-main sm:text-[3.1rem]">Choose your arrival brief</h2>
-        <p className="max-w-xl text-sm leading-7 text-text-muted">
-          Pick a destination, start with the landing scan, and open deeper detail only when you need it.
-        </p>
+        <p className="eyebrow">Portable country intelligence</p>
+        <h1 className="max-w-none text-[1.55rem] leading-[1.08] text-text-main sm:text-[1.85rem] lg:text-[1.72rem] lg:whitespace-nowrap">
+          Choose your arrival brief. <span className="text-text-muted">The fastest way to get your bearings before touchdown.</span>
+        </h1>
       </section>
 
       <section className="space-y-3">
@@ -72,37 +50,7 @@ export function HomePage() {
                 </p>
               </Card>
             ) : null}
-            <div className="grid gap-4 lg:grid-cols-2">
-              {countryIndex.data.map((country) => {
-                const artwork = getCountryArtwork(country.countryCode);
-
-                return (
-                  <Link key={country.countryCode} to={`/country/${country.countryCode}`} className="block">
-                    <article className="destination-card section-frame h-full rounded-[1.4rem] p-4 transition hover:-translate-y-0.5 hover:border-border-strong">
-                      {artwork ? (
-                        <img
-                          src={artwork.src}
-                          alt={artwork.alt}
-                          className="destination-card-media"
-                        />
-                      ) : null}
-                      <div className="destination-card-content flex items-start justify-between gap-4">
-                        <div className="space-y-2">
-                          <p className="eyebrow">{country.capitalOrMainCity}</p>
-                          <h3 className="text-[1.4rem] leading-[0.98] text-text-main">{country.countryName}</h3>
-                          <p className="text-sm leading-6 text-text-muted">
-                            Via {country.primaryAirport}. Arrival essentials, transport, money, and first-hour notes.
-                          </p>
-                        </div>
-                        <span className="pill-chip rounded-full px-3 py-1 text-xs font-medium">
-                          {country.countryCode.toUpperCase()}
-                        </span>
-                      </div>
-                    </article>
-                  </Link>
-                );
-              })}
-            </div>
+            <HomeDestinationCarousel countries={countryIndex.data} />
           </>
         ) : null}
       </section>
