@@ -214,6 +214,17 @@ a {
     rgba(15, 24, 36, 0.44);
 }
 
+.hero-snapshot {
+  border: 1px solid rgba(194, 210, 228, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
+    rgba(10, 18, 29, 0.64);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 36px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px);
+}
+
 .hero-frame {
   position: relative;
   overflow: hidden;
@@ -710,6 +721,53 @@ a {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+.country-section-intro {
+  border-top: 1px solid rgba(194, 210, 228, 0.08);
+  padding-top: 0.25rem;
+}
+
+.muted-module {
+  border: 1px solid rgba(194, 210, 228, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    rgba(11, 19, 29, 0.3);
+}
+
+.decision-card {
+  border: 1px solid rgba(194, 210, 228, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)),
+    rgba(9, 17, 27, 0.34);
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.decision-card:hover {
+  border-color: rgba(194, 210, 228, 0.14);
+  transform: translateY(-1px);
+}
+
+.decision-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+
+.decision-card-meta span {
+  border: 1px solid rgba(216, 235, 246, 0.12);
+  border-radius: 999px;
+  padding: 0.42rem 0.8rem;
+  background: rgba(8, 16, 25, 0.44);
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.disclosure-block {
+  border-top: 1px solid rgba(194, 210, 228, 0.08);
+  padding-top: 0.1rem;
+}
+
 .editorial-list {
   display: grid;
   gap: 0.7rem;
@@ -738,6 +796,13 @@ a {
 
 .editorial-list-item + .editorial-list-item {
   padding-top: 0.45rem;
+}
+
+.editorial-list-strong .editorial-list-item::before {
+  width: 0.52rem;
+  height: 0.52rem;
+  background: #f1f6fa;
+  box-shadow: 0 0 0 0.28rem rgba(157, 194, 215, 0.06);
 }
 
 .section-subtitle {

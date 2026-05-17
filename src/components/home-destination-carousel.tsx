@@ -20,9 +20,11 @@ function formatIndex(value: number) {
 
 export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
   const wheelLockRef = useRef<number | null>(null);
   const dragStateRef = useRef<DragState | null>(null);
+  const settleTimerRef = useRef<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,23 +42,58 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }, [countries.length]);
 
   useEffect(() => {
-    const activeItem = desktopItemRefs.current[activeIndex];
+    function centerActiveCard() {
+      const track = desktopTrackRef.current;
+      const activeItem = desktopItemRefs.current[activeIndex];
 
-    if (!activeItem) {
-      return;
+      if (!track || !activeItem) {
+        return;
+      }
+
+      const trackStyles = window.getComputedStyle(track);
+      const paddingLeft = Number.parseFloat(trackStyles.paddingLeft) || 0;
+      const paddingRight = Number.parseFloat(trackStyles.paddingRight) || 0;
+      const visibleWidth = track.clientWidth - paddingLeft - paddingRight;
+      const rawTarget =
+        activeItem.offsetLeft - paddingLeft - (visibleWidth - activeItem.offsetWidth) / 2;
+      const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+      const nextScrollLeft = Math.max(0, Math.min(rawTarget, maxScrollLeft));
+
+      track.scrollTo({
+        left: nextScrollLeft,
+        behavior: "smooth"
+      });
     }
 
-    activeItem.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest"
-    });
+    const frameId = window.requestAnimationFrame(centerActiveCard);
+
+    if (settleTimerRef.current !== null) {
+      window.clearTimeout(settleTimerRef.current);
+    }
+
+    settleTimerRef.current = window.setTimeout(() => {
+      centerActiveCard();
+      settleTimerRef.current = null;
+    }, 280);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+
+      if (settleTimerRef.current !== null) {
+        window.clearTimeout(settleTimerRef.current);
+        settleTimerRef.current = null;
+      }
+    };
   }, [activeIndex]);
 
   useEffect(() => {
     return () => {
       if (wheelLockRef.current !== null) {
         window.clearTimeout(wheelLockRef.current);
+      }
+
+      if (settleTimerRef.current !== null) {
+        window.clearTimeout(settleTimerRef.current);
       }
     };
   }, []);
@@ -175,6 +212,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         </div>
 
         <div
+          ref={desktopTrackRef}
           className="arrival-carousel-track"
           tabIndex={0}
           role="region"
