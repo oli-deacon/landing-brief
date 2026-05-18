@@ -17,6 +17,10 @@ type DragState = {
 const MOBILE_STACK_SIZE = 4;
 const MOBILE_SWIPE_THRESHOLD = 72;
 const MOBILE_TAP_THRESHOLD = 10;
+const DESKTOP_DRAG_THRESHOLD = 40;
+const DESKTOP_SCROLL_SETTLE_DELAY = 240;
+const DESKTOP_WHEEL_STEP_THRESHOLD = 90;
+const DESKTOP_WHEEL_IDLE_RESET = 180;
 
 function formatIndex(value: number) {
   return String(value).padStart(2, "0");
@@ -27,8 +31,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   const [mobileDragOffset, setMobileDragOffset] = useState(0);
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
-  const wheelLockRef = useRef<number | null>(null);
   const desktopDragStateRef = useRef<DragState | null>(null);
+  const desktopScrollBehaviorRef = useRef<ScrollBehavior>("auto");
+  const desktopWheelDeltaRef = useRef(0);
+  const desktopWheelResetTimerRef = useRef<number | null>(null);
   const mobileDragStateRef = useRef<DragState | null>(null);
   const settleTimerRef = useRef<number | null>(null);
   const navigate = useNavigate();
@@ -52,7 +58,11 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }, [activeIndex]);
 
   useEffect(() => {
-    function centerActiveCard(track: HTMLDivElement | null, activeItem: HTMLElement | null) {
+    function centerActiveCard(
+      track: HTMLDivElement | null,
+      activeItem: HTMLElement | null,
+      behavior: ScrollBehavior,
+    ) {
       if (!track || !activeItem) {
         return;
       }
@@ -68,12 +78,16 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
       track.scrollTo({
         left: nextScrollLeft,
-        behavior: "smooth"
+        behavior
       });
     }
 
     function syncActiveCardPosition() {
-      centerActiveCard(desktopTrackRef.current, desktopItemRefs.current[activeIndex]);
+      centerActiveCard(
+        desktopTrackRef.current,
+        desktopItemRefs.current[activeIndex],
+        desktopScrollBehaviorRef.current,
+      );
     }
 
     const frameId = window.requestAnimationFrame(syncActiveCardPosition);
@@ -83,9 +97,11 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     }
 
     settleTimerRef.current = window.setTimeout(() => {
-      syncActiveCardPosition();
+      centerActiveCard(desktopTrackRef.current, desktopItemRefs.current[activeIndex], "auto");
       settleTimerRef.current = null;
-    }, 280);
+    }, DESKTOP_SCROLL_SETTLE_DELAY);
+
+    desktopScrollBehaviorRef.current = "auto";
 
     return () => {
       window.cancelAnimationFrame(frameId);
@@ -99,8 +115,8 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   useEffect(() => {
     return () => {
-      if (wheelLockRef.current !== null) {
-        window.clearTimeout(wheelLockRef.current);
+      if (desktopWheelResetTimerRef.current !== null) {
+        window.clearTimeout(desktopWheelResetTimerRef.current);
       }
 
       if (settleTimerRef.current !== null) {
@@ -117,6 +133,15 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     setActiveIndex((currentIndex) => clampIndex(currentIndex + direction));
   }
 
+  function resetDesktopWheelGesture() {
+    desktopWheelDeltaRef.current = 0;
+
+    if (desktopWheelResetTimerRef.current !== null) {
+      window.clearTimeout(desktopWheelResetTimerRef.current);
+      desktopWheelResetTimerRef.current = null;
+    }
+  }
+
   function handleWheel(event: WheelEvent<HTMLDivElement>) {
     if (window.matchMedia("(max-width: 767px)").matches) {
       return;
@@ -124,15 +149,36 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
     const dominantDelta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
 
-    if (Math.abs(dominantDelta) < 18 || wheelLockRef.current !== null) {
+    if (Math.abs(dominantDelta) < 8) {
       return;
     }
 
     event.preventDefault();
-    nudgeIndex(dominantDelta > 0 ? 1 : -1);
-    wheelLockRef.current = window.setTimeout(() => {
-      wheelLockRef.current = null;
-    }, 340);
+    desktopWheelDeltaRef.current += dominantDelta;
+
+    if (desktopWheelResetTimerRef.current !== null) {
+      window.clearTimeout(desktopWheelResetTimerRef.current);
+    }
+
+    desktopWheelResetTimerRef.current = window.setTimeout(() => {
+      resetDesktopWheelGesture();
+    }, DESKTOP_WHEEL_IDLE_RESET);
+
+    if (Math.abs(desktopWheelDeltaRef.current) < DESKTOP_WHEEL_STEP_THRESHOLD) {
+      return;
+    }
+
+    const direction = desktopWheelDeltaRef.current > 0 ? 1 : -1;
+    const nextIndex = clampIndex(activeIndex + direction);
+
+    if (nextIndex === activeIndex) {
+      resetDesktopWheelGesture();
+      return;
+    }
+
+    desktopScrollBehaviorRef.current = "auto";
+    setActiveIndex(nextIndex);
+    desktopWheelDeltaRef.current -= DESKTOP_WHEEL_STEP_THRESHOLD * direction;
   }
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
@@ -140,6 +186,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
+    resetDesktopWheelGesture();
     desktopDragStateRef.current = {
       startX: event.clientX,
       pointerId: event.pointerId
@@ -159,7 +206,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     desktopDragStateRef.current = null;
     event.currentTarget.releasePointerCapture(event.pointerId);
 
-    if (Math.abs(deltaX) < 12) {
+    if (Math.abs(deltaX) < DESKTOP_DRAG_THRESHOLD) {
       const target = document.elementFromPoint(event.clientX, event.clientY);
 
       if (target instanceof Element) {
@@ -174,6 +221,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
+    desktopScrollBehaviorRef.current = "auto";
     nudgeIndex(deltaX < 0 ? 1 : -1);
   }
 
@@ -184,11 +232,15 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowRight") {
       event.preventDefault();
+      resetDesktopWheelGesture();
+      desktopScrollBehaviorRef.current = "auto";
       nudgeIndex(1);
     }
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
+      resetDesktopWheelGesture();
+      desktopScrollBehaviorRef.current = "auto";
       nudgeIndex(-1);
     }
   }

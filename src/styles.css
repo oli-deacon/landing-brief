@@ -433,6 +433,7 @@ a {
   padding: 0 7vw;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
   cursor: grab;
 }
 
