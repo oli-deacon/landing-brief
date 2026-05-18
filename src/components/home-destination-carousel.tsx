@@ -114,6 +114,58 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }, [activeIndex]);
 
   useEffect(() => {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    const track = desktopTrackRef.current;
+    const activeItem = desktopItemRefs.current[activeIndex];
+
+    if (!track || !activeItem || typeof ResizeObserver === "undefined") {
+      return;
+    }
+
+    const observedTrack = track;
+    const observedActiveItem = activeItem;
+
+    function centerAfterResize() {
+      const trackStyles = window.getComputedStyle(observedTrack);
+      const paddingLeft = Number.parseFloat(trackStyles.paddingLeft) || 0;
+      const paddingRight = Number.parseFloat(trackStyles.paddingRight) || 0;
+      const visibleWidth = observedTrack.clientWidth - paddingLeft - paddingRight;
+      const rawTarget =
+        observedActiveItem.offsetLeft -
+        paddingLeft -
+        (visibleWidth - observedActiveItem.offsetWidth) / 2;
+      const maxScrollLeft = Math.max(0, observedTrack.scrollWidth - observedTrack.clientWidth);
+      const nextScrollLeft = Math.max(0, Math.min(rawTarget, maxScrollLeft));
+
+      observedTrack.scrollTo({
+        left: nextScrollLeft,
+        behavior: "auto"
+      });
+    }
+
+    let frameId = 0;
+    const scheduleCenter = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(centerAfterResize);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      scheduleCenter();
+    });
+
+    resizeObserver.observe(observedTrack);
+    resizeObserver.observe(observedActiveItem);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      resizeObserver.disconnect();
+    };
+  }, [activeIndex]);
+
+  useEffect(() => {
     return () => {
       if (desktopWheelResetTimerRef.current !== null) {
         window.clearTimeout(desktopWheelResetTimerRef.current);
