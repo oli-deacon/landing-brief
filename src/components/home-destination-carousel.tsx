@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { KeyboardEvent, PointerEvent, WheelEvent } from "react";
+import type { CSSProperties, KeyboardEvent, PointerEvent, WheelEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { getCountryArtwork } from "../lib/country-art";
@@ -14,24 +14,27 @@ type DragState = {
   pointerId: number;
 };
 
+const MOBILE_STACK_SIZE = 4;
+const MOBILE_SWIPE_THRESHOLD = 72;
+const MOBILE_TAP_THRESHOLD = 10;
+
 function formatIndex(value: number) {
   return String(value).padStart(2, "0");
 }
 
 export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileDragOffset, setMobileDragOffset] = useState(0);
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
-  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
-  const mobileItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const wheelLockRef = useRef<number | null>(null);
-  const dragStateRef = useRef<DragState | null>(null);
+  const desktopDragStateRef = useRef<DragState | null>(null);
+  const mobileDragStateRef = useRef<DragState | null>(null);
   const settleTimerRef = useRef<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     desktopItemRefs.current = desktopItemRefs.current.slice(0, countries.length);
-    mobileItemRefs.current = mobileItemRefs.current.slice(0, countries.length);
   }, [countries.length]);
 
   useEffect(() => {
@@ -43,6 +46,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return Math.min(currentIndex, countries.length - 1);
     });
   }, [countries.length]);
+
+  useEffect(() => {
+    setMobileDragOffset(0);
+  }, [activeIndex]);
 
   useEffect(() => {
     function centerActiveCard(track: HTMLDivElement | null, activeItem: HTMLElement | null) {
@@ -66,11 +73,6 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     }
 
     function syncActiveCardPosition() {
-      if (window.matchMedia("(max-width: 767px)").matches) {
-        centerActiveCard(mobileTrackRef.current, mobileItemRefs.current[activeIndex]);
-        return;
-      }
-
       centerActiveCard(desktopTrackRef.current, desktopItemRefs.current[activeIndex]);
     }
 
@@ -138,7 +140,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    dragStateRef.current = {
+    desktopDragStateRef.current = {
       startX: event.clientX,
       pointerId: event.pointerId
     };
@@ -147,14 +149,14 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }
 
   function handlePointerUp(event: PointerEvent<HTMLDivElement>) {
-    const dragState = dragStateRef.current;
+    const dragState = desktopDragStateRef.current;
 
     if (!dragState || dragState.pointerId !== event.pointerId) {
       return;
     }
 
     const deltaX = event.clientX - dragState.startX;
-    dragStateRef.current = null;
+    desktopDragStateRef.current = null;
     event.currentTarget.releasePointerCapture(event.pointerId);
 
     if (Math.abs(deltaX) < 12) {
@@ -176,7 +178,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }
 
   function handlePointerCancel() {
-    dragStateRef.current = null;
+    desktopDragStateRef.current = null;
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -191,37 +193,89 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     }
   }
 
-  function handleMobileScroll() {
-    const track = mobileTrackRef.current;
+  function handleMobileCardKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      navigate(`/country/${currentCountry.countryCode}`);
+    }
 
-    if (!track) {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      nudgeIndex(1);
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      nudgeIndex(-1);
+    }
+  }
+
+  function handleMobilePointerDown(event: PointerEvent<HTMLElement>) {
+    if (!window.matchMedia("(max-width: 767px)").matches) {
       return;
     }
 
-    const trackCenter = track.scrollLeft + track.clientWidth / 2;
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
+    mobileDragStateRef.current = {
+      startX: event.clientX,
+      pointerId: event.pointerId
+    };
+    setMobileDragOffset(0);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
 
-    mobileItemRefs.current.forEach((item, index) => {
-      if (!item) {
-        return;
-      }
+  function handleMobilePointerMove(event: PointerEvent<HTMLElement>) {
+    const dragState = mobileDragStateRef.current;
 
-      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-      const distance = Math.abs(itemCenter - trackCenter);
+    if (!dragState || dragState.pointerId !== event.pointerId) {
+      return;
+    }
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
+    const deltaX = event.clientX - dragState.startX;
+    const resistance =
+      (deltaX > 0 && activeIndex === 0) || (deltaX < 0 && activeIndex === countries.length - 1)
+        ? 0.35
+        : 1;
+    setMobileDragOffset(deltaX * resistance);
+  }
 
-    setActiveIndex((currentIndex) => (currentIndex === closestIndex ? currentIndex : closestIndex));
+  function handleMobilePointerEnd(event: PointerEvent<HTMLElement>) {
+    const dragState = mobileDragStateRef.current;
+
+    if (!dragState || dragState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const deltaX = event.clientX - dragState.startX;
+    mobileDragStateRef.current = null;
+    event.currentTarget.releasePointerCapture(event.pointerId);
+    setMobileDragOffset(0);
+
+    if (Math.abs(deltaX) <= MOBILE_TAP_THRESHOLD) {
+      navigate(`/country/${currentCountry.countryCode}`);
+      return;
+    }
+
+    if (Math.abs(deltaX) < MOBILE_SWIPE_THRESHOLD) {
+      return;
+    }
+
+    nudgeIndex(deltaX < 0 ? 1 : -1);
+  }
+
+  function handleMobilePointerCancel(event: PointerEvent<HTMLElement>) {
+    if (mobileDragStateRef.current?.pointerId === event.pointerId) {
+      mobileDragStateRef.current = null;
+    }
+
+    setMobileDragOffset(0);
   }
 
   if (countries.length === 0) {
     return null;
   }
+
+  const currentCountry = countries[activeIndex];
+  const visibleMobileCards = countries.slice(activeIndex, activeIndex + MOBILE_STACK_SIZE);
 
   return (
     <section className="space-y-5">
@@ -318,24 +372,60 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         </div>
       </div>
 
-      <div
-        ref={mobileTrackRef}
-        className="arrival-mobile-carousel"
-        aria-label="Choose your arrival brief"
-        onScroll={handleMobileScroll}
-      >
-        {countries.map((country, index) => {
+      <div className="arrival-mobile-carousel" aria-label="Choose your arrival brief">
+        {visibleMobileCards.map((country, stackIndex) => {
           const artwork = getCountryArtwork(country.countryCode);
-          const isActive = index === activeIndex;
+          const isActive = stackIndex === 0;
+          const cardClassName = isActive ? "arrival-mobile-card is-active" : "arrival-mobile-card";
+          const dragOffset = isActive ? mobileDragOffset : 0;
 
           return (
-            <Link
+            <article
               key={country.countryCode}
-              to={`/country/${country.countryCode}`}
-              ref={(node) => {
-                mobileItemRefs.current[index] = node;
-              }}
-              className={isActive ? "arrival-mobile-card is-active" : "arrival-mobile-card"}
+              className={cardClassName}
+              data-stack-index={stackIndex}
+              style={{
+                "--mobile-card-offset": `${dragOffset}px`,
+                "--mobile-card-stack-index": stackIndex
+              } as CSSProperties}
+              tabIndex={isActive ? 0 : -1}
+              role={isActive ? "link" : undefined}
+              aria-label={isActive ? `Open ${country.countryName} brief` : undefined}
+              onKeyDown={
+                isActive
+                  ? (event) => {
+                      handleMobileCardKeyDown(event);
+                    }
+                  : undefined
+              }
+              onPointerDown={
+                isActive
+                  ? (event) => {
+                      handleMobilePointerDown(event);
+                    }
+                  : undefined
+              }
+              onPointerMove={
+                isActive
+                  ? (event) => {
+                      handleMobilePointerMove(event);
+                    }
+                  : undefined
+              }
+              onPointerUp={
+                isActive
+                  ? (event) => {
+                      handleMobilePointerEnd(event);
+                    }
+                  : undefined
+              }
+              onPointerCancel={
+                isActive
+                  ? (event) => {
+                      handleMobilePointerCancel(event);
+                    }
+                  : undefined
+              }
             >
               {artwork?.kind === "image" ? (
                 <img
@@ -366,7 +456,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 </span>
                 <span className="arrival-mobile-card-cta">Open brief</span>
               </span>
-            </Link>
+            </article>
           );
         })}
       </div>
