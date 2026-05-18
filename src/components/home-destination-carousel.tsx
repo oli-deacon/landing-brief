@@ -278,7 +278,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   const visibleMobileCards = countries.slice(activeIndex, activeIndex + MOBILE_STACK_SIZE);
 
   return (
-    <section className="space-y-5">
+    <section className="arrival-carousel-shell space-y-3 sm:space-y-5">
       <div className="arrival-carousel-stage-header">
         <div className="arrival-carousel-progress">
           <span className="arrival-carousel-progress-current">{formatIndex(activeIndex + 1)}</span>

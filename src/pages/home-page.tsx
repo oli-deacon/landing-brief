@@ -9,14 +9,14 @@ export function HomePage() {
 
   return (
     <>
-      <section className="space-y-2 px-1">
+      <section className="home-hero space-y-1 px-0 sm:space-y-2 sm:px-1">
         <p className="eyebrow">Portable country intelligence</p>
-        <h1 className="max-w-none text-[1.55rem] leading-[1.08] text-text-main sm:text-[1.85rem] lg:text-[1.72rem] lg:whitespace-nowrap">
+        <h1 className="max-w-none text-[1.42rem] leading-[1.01] text-text-main sm:text-[1.85rem] sm:leading-[1.08] lg:text-[1.72rem] lg:whitespace-nowrap">
           Choose your arrival brief. <span className="text-text-muted">The fastest way to get your bearings before touchdown.</span>
         </h1>
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 sm:space-y-3">
         {countryIndex.status === "loading" ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, index) => (

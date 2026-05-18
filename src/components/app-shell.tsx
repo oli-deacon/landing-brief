@@ -15,7 +15,7 @@ export function AppShell() {
       <div
         className={[
           "mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-12 sm:px-6 lg:px-8 lg:pb-14",
-          isHomeRoute ? "pt-4 sm:pt-5" : "pt-5"
+          isHomeRoute ? "pt-[max(env(safe-area-inset-top),0.4rem)] sm:pt-5" : "pt-5"
         ].join(" ")}
       >
         {!isOnline ? (
