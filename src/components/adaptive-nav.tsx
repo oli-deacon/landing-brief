@@ -2,26 +2,51 @@ import { Link, NavLink } from "react-router-dom";
 
 import { useAppStatus } from "../lib/app-status";
 
+type AdaptiveNavProps = {
+  variant?: "default" | "country";
+};
+
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/saved", label: "Saved" }
 ];
 
-export function AdaptiveNav() {
+export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
   const { canInstall, installApp, installMethod, isInstalled, isOnline } = useAppStatus();
+  const isCountryVariant = variant === "country";
 
   return (
     <header className="sticky top-0 z-30 px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8">
-      <div className="nav-surface mx-auto flex w-full max-w-6xl flex-col gap-3 rounded-[1.4rem] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+      <div
+        className={[
+          "mx-auto flex w-full max-w-6xl flex-col gap-3 rounded-[1.4rem] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5",
+          isCountryVariant ? "country-nav-surface" : "nav-surface"
+        ].join(" ")}
+      >
         <div className="min-w-0">
-          <p className="eyebrow">Portable country intelligence</p>
-          <Link to="/" className="mt-1 block text-[1.45rem] leading-none text-text-main sm:text-[1.7rem]">
+          <p className={["eyebrow", isCountryVariant ? "country-nav-eyebrow" : ""].join(" ").trim()}>
+            Portable country intelligence
+          </p>
+          <Link
+            to="/"
+            className={[
+              "mt-1 block leading-none text-text-main sm:text-[1.7rem]",
+              isCountryVariant ? "country-nav-brand text-[1.35rem]" : "text-[1.45rem]"
+            ].join(" ")}
+          >
             LandingBrief
           </Link>
         </div>
 
         <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start">
-          <nav className="flex min-w-0 flex-1 items-center gap-1 rounded-full border border-border-soft bg-white/3 p-1 sm:flex-initial">
+          <nav
+            className={[
+              "flex min-w-0 flex-1 items-center gap-1 rounded-full p-1 sm:flex-initial",
+              isCountryVariant
+                ? "country-nav-tabs border border-white/8 bg-white/[0.03]"
+                : "border border-border-soft bg-white/3"
+            ].join(" ")}
+          >
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -29,9 +54,13 @@ export function AdaptiveNav() {
                 className={({ isActive }) =>
                   [
                     "flex-1 rounded-full px-3 py-2 text-center text-sm font-medium transition sm:flex-none sm:px-4",
-                    isActive
-                      ? "bg-white text-app-bg shadow-[0_10px_22px_rgba(4,10,16,0.16)]"
-                      : "text-text-muted hover:text-text-main"
+                    isCountryVariant
+                      ? isActive
+                        ? "country-nav-tab-active"
+                        : "country-nav-tab"
+                      : isActive
+                        ? "bg-white text-app-bg shadow-[0_10px_22px_rgba(4,10,16,0.16)]"
+                        : "text-text-muted hover:text-text-main"
                   ].join(" ")
                 }
               >
@@ -41,10 +70,10 @@ export function AdaptiveNav() {
           </nav>
 
           <details className="nav-utility-menu">
-            <summary className="nav-utility-trigger">
+            <summary className={isCountryVariant ? "nav-utility-trigger country-nav-utility-trigger" : "nav-utility-trigger"}>
               <span>More</span>
             </summary>
-            <div className="nav-utility-panel">
+            <div className={isCountryVariant ? "nav-utility-panel country-nav-utility-panel" : "nav-utility-panel"}>
               {!isOnline ? (
                 <span className="nav-utility-status">
                   Offline mode
