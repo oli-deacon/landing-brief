@@ -18,9 +18,9 @@ const MOBILE_STACK_SIZE = 4;
 const MOBILE_SWIPE_THRESHOLD = 72;
 const MOBILE_TAP_THRESHOLD = 10;
 const DESKTOP_DRAG_THRESHOLD = 40;
-const DESKTOP_SCROLL_SETTLE_DELAY = 240;
 const DESKTOP_WHEEL_STEP_THRESHOLD = 90;
 const DESKTOP_WHEEL_IDLE_RESET = 180;
+const DESKTOP_SCROLL_SETTLE_DELAY = 140;
 
 function formatIndex(value: number) {
   return String(value).padStart(2, "0");
@@ -32,9 +32,11 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
   const desktopDragStateRef = useRef<DragState | null>(null);
+  const desktopAutoCenterRef = useRef(true);
   const desktopScrollBehaviorRef = useRef<ScrollBehavior>("auto");
   const desktopWheelDeltaRef = useRef(0);
   const desktopWheelResetTimerRef = useRef<number | null>(null);
+  const desktopScrollSyncFrameRef = useRef<number | null>(null);
   const mobileDragStateRef = useRef<DragState | null>(null);
   const settleTimerRef = useRef<number | null>(null);
   const navigate = useNavigate();
@@ -80,6 +82,12 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         left: nextScrollLeft,
         behavior
       });
+    }
+
+    if (!desktopAutoCenterRef.current) {
+      desktopAutoCenterRef.current = true;
+      desktopScrollBehaviorRef.current = "auto";
+      return;
     }
 
     function syncActiveCardPosition() {
@@ -171,6 +179,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         window.clearTimeout(desktopWheelResetTimerRef.current);
       }
 
+      if (desktopScrollSyncFrameRef.current !== null) {
+        window.cancelAnimationFrame(desktopScrollSyncFrameRef.current);
+      }
+
       if (settleTimerRef.current !== null) {
         window.clearTimeout(settleTimerRef.current);
       }
@@ -183,6 +195,66 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   function nudgeIndex(direction: 1 | -1) {
     setActiveIndex((currentIndex) => clampIndex(currentIndex + direction));
+  }
+
+  function centerDesktopItem(index: number, behavior: ScrollBehavior) {
+    const track = desktopTrackRef.current;
+    const activeItem = desktopItemRefs.current[index];
+
+    if (!track || !activeItem) {
+      return;
+    }
+
+    const trackStyles = window.getComputedStyle(track);
+    const paddingLeft = Number.parseFloat(trackStyles.paddingLeft) || 0;
+    const paddingRight = Number.parseFloat(trackStyles.paddingRight) || 0;
+    const visibleWidth = track.clientWidth - paddingLeft - paddingRight;
+    const rawTarget = activeItem.offsetLeft - paddingLeft - (visibleWidth - activeItem.offsetWidth) / 2;
+    const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+    const nextScrollLeft = Math.max(0, Math.min(rawTarget, maxScrollLeft));
+
+    track.scrollTo({
+      left: nextScrollLeft,
+      behavior
+    });
+  }
+
+  function getClosestDesktopIndex(track: HTMLDivElement) {
+    const trackRect = track.getBoundingClientRect();
+    const trackCenterX = trackRect.left + trackRect.width / 2;
+    let closestIndex = activeIndex;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    desktopItemRefs.current.forEach((item, index) => {
+      if (!item) {
+        return;
+      }
+
+      const itemRect = item.getBoundingClientRect();
+      const itemCenterX = itemRect.left + itemRect.width / 2;
+      const distance = Math.abs(itemCenterX - trackCenterX);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    return closestIndex;
+  }
+
+  function queueDesktopSettle(targetIndex: number) {
+    if (settleTimerRef.current !== null) {
+      window.clearTimeout(settleTimerRef.current);
+    }
+
+    settleTimerRef.current = window.setTimeout(() => {
+      desktopAutoCenterRef.current = true;
+      desktopScrollBehaviorRef.current = "smooth";
+      setActiveIndex(targetIndex);
+      centerDesktopItem(targetIndex, "smooth");
+      settleTimerRef.current = null;
+    }, DESKTOP_SCROLL_SETTLE_DELAY);
   }
 
   function resetDesktopWheelGesture() {
@@ -228,9 +300,41 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    desktopScrollBehaviorRef.current = "auto";
+    desktopAutoCenterRef.current = true;
+    desktopScrollBehaviorRef.current = "smooth";
     setActiveIndex(nextIndex);
     desktopWheelDeltaRef.current -= DESKTOP_WHEEL_STEP_THRESHOLD * direction;
+  }
+
+  function handleDesktopScroll() {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    if (desktopScrollSyncFrameRef.current !== null) {
+      window.cancelAnimationFrame(desktopScrollSyncFrameRef.current);
+    }
+
+    desktopScrollSyncFrameRef.current = window.requestAnimationFrame(() => {
+      const track = desktopTrackRef.current;
+
+      if (!track) {
+        return;
+      }
+
+      const closestIndex = getClosestDesktopIndex(track);
+
+      if (closestIndex !== activeIndex) {
+        desktopAutoCenterRef.current = false;
+        setActiveIndex(closestIndex);
+      }
+
+      if (!desktopDragStateRef.current) {
+        queueDesktopSettle(closestIndex);
+      }
+
+      desktopScrollSyncFrameRef.current = null;
+    });
   }
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
@@ -273,7 +377,8 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    desktopScrollBehaviorRef.current = "auto";
+    desktopAutoCenterRef.current = true;
+    desktopScrollBehaviorRef.current = "smooth";
     nudgeIndex(deltaX < 0 ? 1 : -1);
   }
 
@@ -285,14 +390,16 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     if (event.key === "ArrowRight") {
       event.preventDefault();
       resetDesktopWheelGesture();
-      desktopScrollBehaviorRef.current = "auto";
+      desktopAutoCenterRef.current = true;
+      desktopScrollBehaviorRef.current = "smooth";
       nudgeIndex(1);
     }
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       resetDesktopWheelGesture();
-      desktopScrollBehaviorRef.current = "auto";
+      desktopAutoCenterRef.current = true;
+      desktopScrollBehaviorRef.current = "smooth";
       nudgeIndex(-1);
     }
   }
@@ -389,6 +496,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
           <span className="arrival-carousel-progress-divider">/</span>
           <span className="arrival-carousel-progress-total">{formatIndex(countries.length)}</span>
         </div>
+        <div className="arrival-carousel-active-country" aria-live="polite">
+          <span className="arrival-carousel-active-country-label">In focus</span>
+          <span className="arrival-carousel-active-country-name">{currentCountry.countryName}</span>
+        </div>
         <div className="arrival-carousel-markers" aria-hidden="true">
           {countries.map((country, index) => (
             <span
@@ -413,6 +524,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
           role="region"
           aria-label="Choose your arrival brief"
           onKeyDown={handleKeyDown}
+          onScroll={handleDesktopScroll}
         >
           {countries.map((country, index) => {
             const artwork = getCountryArtwork(country.countryCode);
