@@ -28,6 +28,7 @@ function formatIndex(value: number) {
 
 export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [desktopFocusIndex, setDesktopFocusIndex] = useState(0);
   const [mobileDragOffset, setMobileDragOffset] = useState(0);
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopItemRefs = useRef<(HTMLElement | null)[]>([]);
@@ -54,6 +55,20 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return Math.min(currentIndex, countries.length - 1);
     });
   }, [countries.length]);
+
+  useEffect(() => {
+    setDesktopFocusIndex((currentIndex) => {
+      if (countries.length === 0) {
+        return 0;
+      }
+
+      return Math.min(currentIndex, countries.length - 1);
+    });
+  }, [countries.length]);
+
+  useEffect(() => {
+    setDesktopFocusIndex(activeIndex);
+  }, [activeIndex]);
 
   useEffect(() => {
     setMobileDragOffset(0);
@@ -222,7 +237,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   function getClosestDesktopIndex(track: HTMLDivElement) {
     const trackRect = track.getBoundingClientRect();
     const trackCenterX = trackRect.left + trackRect.width / 2;
-    let closestIndex = activeIndex;
+    let closestIndex = desktopFocusIndex;
     let closestDistance = Number.POSITIVE_INFINITY;
 
     desktopItemRefs.current.forEach((item, index) => {
@@ -302,6 +317,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
     desktopAutoCenterRef.current = true;
     desktopScrollBehaviorRef.current = "smooth";
+    setDesktopFocusIndex(nextIndex);
     setActiveIndex(nextIndex);
     desktopWheelDeltaRef.current -= DESKTOP_WHEEL_STEP_THRESHOLD * direction;
   }
@@ -324,9 +340,8 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
       const closestIndex = getClosestDesktopIndex(track);
 
-      if (closestIndex !== activeIndex) {
-        desktopAutoCenterRef.current = false;
-        setActiveIndex(closestIndex);
+      if (closestIndex !== desktopFocusIndex) {
+        setDesktopFocusIndex(closestIndex);
       }
 
       if (!desktopDragStateRef.current) {
@@ -379,6 +394,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
     desktopAutoCenterRef.current = true;
     desktopScrollBehaviorRef.current = "smooth";
+    setDesktopFocusIndex(clampIndex(activeIndex + (deltaX < 0 ? 1 : -1)));
     nudgeIndex(deltaX < 0 ? 1 : -1);
   }
 
@@ -392,6 +408,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       resetDesktopWheelGesture();
       desktopAutoCenterRef.current = true;
       desktopScrollBehaviorRef.current = "smooth";
+      setDesktopFocusIndex(clampIndex(activeIndex + 1));
       nudgeIndex(1);
     }
 
@@ -400,6 +417,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       resetDesktopWheelGesture();
       desktopAutoCenterRef.current = true;
       desktopScrollBehaviorRef.current = "smooth";
+      setDesktopFocusIndex(clampIndex(activeIndex - 1));
       nudgeIndex(-1);
     }
   }
@@ -486,25 +504,26 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }
 
   const currentCountry = countries[activeIndex];
+  const desktopCurrentCountry = countries[desktopFocusIndex];
   const visibleMobileCards = countries.slice(activeIndex, activeIndex + MOBILE_STACK_SIZE);
 
   return (
     <section className="arrival-carousel-shell space-y-3 sm:space-y-5">
       <div className="arrival-carousel-stage-header">
         <div className="arrival-carousel-progress">
-          <span className="arrival-carousel-progress-current">{formatIndex(activeIndex + 1)}</span>
+          <span className="arrival-carousel-progress-current">{formatIndex(desktopFocusIndex + 1)}</span>
           <span className="arrival-carousel-progress-divider">/</span>
           <span className="arrival-carousel-progress-total">{formatIndex(countries.length)}</span>
         </div>
         <div className="arrival-carousel-active-country" aria-live="polite">
           <span className="arrival-carousel-active-country-label">In focus</span>
-          <span className="arrival-carousel-active-country-name">{currentCountry.countryName}</span>
+          <span className="arrival-carousel-active-country-name">{desktopCurrentCountry.countryName}</span>
         </div>
         <div className="arrival-carousel-markers" aria-hidden="true">
           {countries.map((country, index) => (
             <span
               key={country.countryCode}
-              className={index === activeIndex ? "arrival-carousel-marker is-active" : "arrival-carousel-marker"}
+              className={index === desktopFocusIndex ? "arrival-carousel-marker is-active" : "arrival-carousel-marker"}
             />
           ))}
         </div>
@@ -528,7 +547,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         >
           {countries.map((country, index) => {
             const artwork = getCountryArtwork(country.countryCode);
-            const isActive = index === activeIndex;
+            const isActive = index === desktopFocusIndex;
 
             return (
               <article
