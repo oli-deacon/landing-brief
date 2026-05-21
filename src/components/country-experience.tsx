@@ -480,18 +480,27 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
               </div>
             </details>
 
-            <div className="country-side-card rounded-[1.3rem] p-5" id="business-etiquette">
-              <p className="country-kicker">Work-travel reference</p>
-              <h3 className="mt-3 text-[1.5rem] text-text-main">Business etiquette</h3>
-              <p className="mt-3 text-sm leading-7 text-text-muted">{brief.businessEtiquette.summary}</p>
-              <ul className="editorial-list mt-4">
-                {brief.businessEtiquette.tips.map((tip) => (
-                  <li key={tip} className="editorial-list-item text-sm text-text-main">
-                    {tip}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <details
+              className="group disclosure-block country-disclosure-block"
+              id="business-etiquette"
+            >
+              <summary className="liquid-summary country-liquid-summary">
+                <span>Business etiquette</span>
+                <span className="text-text-muted transition group-open:rotate-45">+</span>
+              </summary>
+              <div className="mt-5 country-side-card rounded-[1.3rem] p-5">
+                <p className="country-kicker">Work-travel reference</p>
+                <h3 className="mt-3 text-[1.5rem] text-text-main">Business etiquette</h3>
+                <p className="mt-3 text-sm leading-7 text-text-muted">{brief.businessEtiquette.summary}</p>
+                <ul className="editorial-list mt-4">
+                  {brief.businessEtiquette.tips.map((tip) => (
+                    <li key={tip} className="editorial-list-item text-sm text-text-main">
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
           </div>
         </div>
       </SectionShell>

@@ -11,10 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --app-bg: #09131d;
-  --app-bg-deep: #050b12;
-  --surface: rgba(14, 24, 36, 0.76);
-  --surface-strong: rgba(18, 31, 45, 0.92);
+  --app-bg: #0b1722;
+  --app-bg-deep: #07101a;
+  --surface: rgba(16, 28, 41, 0.78);
+  --surface-strong: rgba(21, 35, 51, 0.94);
   --surface-muted: rgba(112, 140, 162, 0.12);
   --surface-elevated: rgba(24, 39, 57, 0.92);
   --glass: rgba(12, 21, 33, 0.64);
@@ -58,9 +58,9 @@
 
 html {
   background:
-    radial-gradient(circle at top, rgba(111, 143, 173, 0.12), transparent 32%),
-    radial-gradient(circle at 20% 20%, rgba(157, 194, 215, 0.08), transparent 26%),
-    linear-gradient(180deg, #0f1b28 0%, #09131d 48%, #050b12 100%);
+    radial-gradient(circle at top, rgba(128, 160, 191, 0.14), transparent 34%),
+    radial-gradient(circle at 20% 20%, rgba(157, 194, 215, 0.1), transparent 28%),
+    linear-gradient(180deg, #132334 0%, #0b1722 48%, #07101a 100%);
   color-scheme: dark;
   scroll-behavior: smooth;
 }
@@ -70,8 +70,8 @@ body {
   min-height: 100vh;
   color: var(--text-main);
   background:
-    radial-gradient(circle at top, rgba(132, 161, 187, 0.08), transparent 24%),
-    linear-gradient(180deg, rgba(9, 19, 29, 0.96) 0%, rgba(5, 11, 18, 1) 100%);
+    radial-gradient(circle at top, rgba(132, 161, 187, 0.1), transparent 26%),
+    linear-gradient(180deg, rgba(11, 23, 34, 0.96) 0%, rgba(7, 16, 26, 1) 100%);
 }
 
 #root {
@@ -353,14 +353,14 @@ a {
   position: relative;
   display: none;
   overflow: hidden;
-  border: 1px solid rgba(194, 210, 228, 0.08);
+  border: 1px solid rgba(194, 210, 228, 0.12);
   background:
-    radial-gradient(circle at 50% 10%, rgba(167, 197, 220, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(8, 15, 24, 0.98) 0%, rgba(6, 11, 18, 0.98) 100%);
+    radial-gradient(circle at 50% 10%, rgba(167, 197, 220, 0.1), transparent 20%),
+    linear-gradient(180deg, rgba(12, 21, 32, 0.98) 0%, rgba(8, 15, 24, 0.98) 100%);
   padding: 1.4rem 0 2.1rem;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 32px 80px rgba(0, 0, 0, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 32px 80px rgba(0, 0, 0, 0.24);
 }
 
 .arrival-carousel-stage::before {
@@ -368,8 +368,8 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(5, 11, 18, 0.9) 0%, transparent 12%, transparent 88%, rgba(5, 11, 18, 0.9) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 28%);
+    linear-gradient(90deg, rgba(7, 14, 22, 0.82) 0%, transparent 12%, transparent 88%, rgba(7, 14, 22, 0.82) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%);
   pointer-events: none;
   z-index: 2;
 }
