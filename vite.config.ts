@@ -68,6 +68,8 @@ export default defineConfig({
             }
           },
           {
+            // Country reference data is public offline content. Keep freshness visible in the UI
+            // and do not reuse this cache strategy for sensitive or user-specific responses.
             urlPattern: ({ request }) => request.url.includes("/data/countries/"),
             handler: "StaleWhileRevalidate",
             options: {

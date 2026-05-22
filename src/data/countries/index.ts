@@ -15,6 +15,8 @@ export type CachedResult<T> = {
   source: CachedSource;
 };
 
+// Cached JSON is treated as public content for offline viewing only.
+// Never place secrets, tokens, or user-specific sensitive records in this storage layer.
 function readJsonFromStorage<T>(key: string): T | null {
   if (typeof window === "undefined") {
     return null;

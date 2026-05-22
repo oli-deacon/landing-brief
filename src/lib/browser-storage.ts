@@ -28,6 +28,8 @@ export type OfflineLibrarySnapshot = {
   notes: CountryNoteMap;
 };
 
+// localStorage is only for low-sensitivity convenience data that is safe to expose on-device.
+// Never store tokens, auth material, travel documents, or personal identifiers here.
 function readJsonFromStorage<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") {
     return fallback;

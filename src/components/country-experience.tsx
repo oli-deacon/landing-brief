@@ -10,6 +10,7 @@ import {
   toggleSavedCountry
 } from "../lib/browser-storage";
 import { getCountryArtwork } from "../lib/country-art";
+import { getSafeExternalUrl } from "../lib/safe-url";
 import { InfoList } from "./info-list";
 import { SectionShell } from "./section-shell";
 
@@ -104,6 +105,11 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const artwork = getCountryArtwork(brief.countryCode);
   const modeToggleLabel = isLandingMode ? "Open full brief" : "Switch to landing mode";
   const modeToggleHref = isLandingMode ? `/country/${brief.countryCode}` : `/country/${brief.countryCode}/landing`;
+  const safeOfficialLinks = brief.entryRequirements.officialLinks.flatMap((link) => {
+    const safeUrl = getSafeExternalUrl(link.url);
+
+    return safeUrl ? [{ ...link, safeUrl }] : [];
+  });
   const heroMetadata = [
     brief.countryCode.toUpperCase(),
     `Reviewed ${brief.lastReviewedDate}`,
@@ -283,18 +289,23 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                   {brief.entryRequirements.officialSourceNote}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {brief.entryRequirements.officialLinks.map((link) => (
+                  {safeOfficialLinks.map((link) => (
                     <a
-                      key={link.url}
-                      href={link.url}
+                      key={link.safeUrl}
+                      href={link.safeUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="pill-chip country-pill-chip inline-flex rounded-full px-3 py-2 text-xs font-medium"
                     >
                       {link.label}
                     </a>
                   ))}
                 </div>
+                {safeOfficialLinks.length === 0 ? (
+                  <p className="mt-4 text-sm leading-7 text-text-muted">
+                    Official links are temporarily unavailable in this copy of the brief.
+                  </p>
+                ) : null}
               </div>
             </aside>
           </div>

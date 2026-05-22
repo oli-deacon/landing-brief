@@ -65,6 +65,25 @@ Recommended Vercel settings:
 
 Client-side routing is handled by [vercel.json](/Users/olideacon/code/landing-brief/vercel.json), which rewrites all routes to `index.html`.
 
+The Vercel config also applies response headers for CSP, anti-framing, referrer policy, MIME sniffing protection, and a restrictive permissions policy. These protections are intended to be enforced at the HTTP layer rather than through HTML meta tags.
+
+## Security Notes
+
+- This is a frontend-only app. Anything shipped to the browser should be treated as public.
+- Do not place secrets in `VITE_*` variables, static JSON, `public/`, or any client-delivered config.
+- `localStorage` in this project is for low-sensitivity offline convenience data only. Never store tokens, auth material, travel documents, passport details, or personal identifiers there.
+- Official reference links should stay `https:` only and render through the shared URL safety guardrail in the app.
+- Country briefing data is cached for offline use. Keep content freshness visible in the UI and avoid reusing the same cache strategy for future sensitive or user-specific responses.
+
+## Public Repo Checklist
+
+- Confirm there are no tracked `.env` files, private keys, certificates, or copied production credentials.
+- Keep `.env*`, `.vercel/`, logs, and build artifacts out of Git.
+- If client config is introduced later, add an `.env.example` with public placeholders only.
+- Run `npm audit` or an equivalent dependency review from a network-enabled environment before publishing.
+- Enable GitHub secret scanning, Dependabot alerts, and dependency updates after the repo is shared.
+- If source maps are ever uploaded or published, decide deliberately whether they should be public.
+
 ## Notes
 
 - Country briefing data is static for now; there is no backend yet.
