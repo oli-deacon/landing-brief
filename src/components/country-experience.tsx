@@ -496,7 +496,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
               id="business-etiquette"
             >
               <summary className="liquid-summary country-liquid-summary">
-                <span>Business etiquette</span>
+                <span>Expand: Work-travel reference</span>
+                <span className="text-text-main">Business etiquette</span>
                 <span className="text-text-muted transition group-open:rotate-45">+</span>
               </summary>
               <div className="mt-5 country-side-card rounded-[1.3rem] p-5">
