@@ -562,11 +562,14 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 }}
               >
                 {artwork?.kind === "image" ? (
-                  <img
-                    src={artwork.src}
-                    alt={artwork.alt}
-                    className="arrival-carousel-item-media"
-                  />
+                  <>
+                    <img
+                      src={artwork.src}
+                      alt={artwork.alt}
+                      className="arrival-carousel-item-media"
+                    />
+                    <span className="artwork-seam-mask" aria-hidden="true" />
+                  </>
                 ) : null}
                 {artwork?.kind === "placeholder" ? (
                   <span className="arrival-carousel-item-media arrival-art-placeholder" aria-hidden="true">
@@ -663,11 +666,14 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
               }
             >
               {artwork?.kind === "image" ? (
-                <img
-                  src={artwork.src}
-                  alt={artwork.alt}
-                  className="arrival-mobile-card-media"
-                />
+                <>
+                  <img
+                    src={artwork.src}
+                    alt={artwork.alt}
+                    className="arrival-mobile-card-media"
+                  />
+                  <span className="artwork-seam-mask" aria-hidden="true" />
+                </>
               ) : null}
               {artwork?.kind === "placeholder" ? (
                 <span className="arrival-mobile-card-media arrival-art-placeholder" aria-hidden="true">

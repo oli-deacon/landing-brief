@@ -264,19 +264,19 @@ a {
   transform: scale(1.02);
 }
 
-.hero-media-seam-mask {
+.artwork-seam-mask {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 1.5rem;
+  width: 1.25rem;
   transform: translateX(-50%);
   background: linear-gradient(
     90deg,
     rgba(10, 10, 15, 0) 0%,
-    rgba(10, 10, 15, 0.38) 24%,
-    rgba(10, 10, 15, 0.82) 50%,
-    rgba(10, 10, 15, 0.38) 76%,
+    rgba(10, 10, 15, 0.18) 22%,
+    rgba(10, 10, 15, 0.5) 50%,
+    rgba(10, 10, 15, 0.18) 78%,
     rgba(10, 10, 15, 0) 100%
   );
   pointer-events: none;
