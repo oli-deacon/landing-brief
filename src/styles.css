@@ -374,19 +374,6 @@ a {
   z-index: 2;
 }
 
-.arrival-carousel-stage::after {
-  content: "";
-  position: absolute;
-  top: 1.15rem;
-  bottom: 1.85rem;
-  left: 50%;
-  width: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent 0%, rgba(216, 235, 246, 0.2) 18%, rgba(216, 235, 246, 0.34) 50%, rgba(216, 235, 246, 0.2) 82%, transparent 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-
 .arrival-carousel-stage-header {
   display: flex;
   align-items: center;
