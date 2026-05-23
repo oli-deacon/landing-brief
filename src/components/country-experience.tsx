@@ -135,9 +135,17 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         </SectionShell>
       ) : null}
 
-      <section className="country-hero hero-frame rounded-[2rem] border border-white/8">
+      <section
+        className="country-hero hero-frame rounded-[2rem] border border-white/8"
+        data-country-code={brief.countryCode.toLowerCase()}
+      >
         {artwork?.kind === "image" ? (
-          <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
+          <>
+            <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
+            {brief.countryCode.toLowerCase() === "kr" ? (
+              <span aria-hidden="true" className="hero-media-seam-mask" />
+            ) : null}
+          </>
         ) : null}
         {artwork?.kind === "placeholder" ? (
           <div className="hero-media hero-media-placeholder">

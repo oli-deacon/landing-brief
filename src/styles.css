@@ -264,6 +264,24 @@ a {
   transform: scale(1.02);
 }
 
+.hero-media-seam-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1.5rem;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 15, 0) 0%,
+    rgba(10, 10, 15, 0.38) 24%,
+    rgba(10, 10, 15, 0.82) 50%,
+    rgba(10, 10, 15, 0.38) 76%,
+    rgba(10, 10, 15, 0) 100%
+  );
+  pointer-events: none;
+}
+
 .hero-media-placeholder,
 .arrival-art-placeholder,
 .destination-card-placeholder {
