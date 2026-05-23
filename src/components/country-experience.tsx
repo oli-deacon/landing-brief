@@ -137,10 +137,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
 
       <section className="country-hero hero-frame rounded-[2rem] border border-white/8">
         {artwork?.kind === "image" ? (
-          <>
-            <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
-            <span aria-hidden="true" className="artwork-seam-mask" />
-          </>
+          <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
         ) : null}
         {artwork?.kind === "placeholder" ? (
           <div className="hero-media hero-media-placeholder">
