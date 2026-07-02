@@ -1,6 +1,6 @@
 # LandingBrief
 
-LandingBrief is a mobile-first PWA for quick country arrival briefings. This repository currently uses a static JSON data layer with sample country content for Singapore, Thailand, Malaysia, Vietnam, Hong Kong, South Korea, and India.
+LandingBrief is a mobile-first PWA for quick country arrival briefings. This repository currently uses a static JSON data layer with sample country content for Singapore, Thailand, Malaysia, Vietnam, Hong Kong, Macau, South Korea, and India.
 
 ## Stack
 

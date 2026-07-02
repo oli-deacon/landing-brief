@@ -40,6 +40,14 @@
     "file": "/data/countries/hk.json"
   },
   {
+    "countryCode": "mo",
+    "countryName": "Macau",
+    "capitalOrMainCity": "Macau",
+    "primaryAirport": "Macau International Airport",
+    "lastReviewedDate": "Jul 2026",
+    "file": "/data/countries/mo.json"
+  },
+  {
     "countryCode": "kr",
     "countryName": "South Korea",
     "capitalOrMainCity": "Seoul",

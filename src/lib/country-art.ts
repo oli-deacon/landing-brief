@@ -2,6 +2,7 @@ import imageBkk from "../images/image_bkk.png";
 import imageHk from "../images/image_hk.png";
 import imageInd from "../images/image_ind.png";
 import imageKl from "../images/image_kl.png";
+import imageMc from "../images/image_mc.png";
 import imageKr from "../images/image_kr.png";
 import imageSf from "../images/image_sf.png";
 import imageSg from "../images/image_sg.png";
@@ -47,6 +48,11 @@ const countryArtwork: Record<string, CountryArtwork> = {
     kind: "image",
     src: imageHk,
     alt: "Hong Kong travel poster with gold line art of trams, harbour skyline, and dense urban streets."
+  },
+  mo: {
+    kind: "image",
+    src: imageMc,
+    alt: "Macau travel poster with gold line art of the Ruins of Saint Paul's, Senado-style streets, and the Grand Lisboa skyline."
   },
   kr: {
     kind: "image",

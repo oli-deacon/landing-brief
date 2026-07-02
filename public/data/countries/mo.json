@@ -1,0 +1,160 @@
+{
+  "countryCode": "mo",
+  "countryName": "Macau",
+  "capitalOrMainCity": "Macau",
+  "primaryAirport": "Macau International Airport (MFM)",
+  "arrivalEssentials": [
+    "Decide whether the light rail, a taxi, or a hotel shuttle is the quickest path for your first stop.",
+    "Keep your passport, accommodation details, and any onward travel information easy to reach at arrival.",
+    "Have a card plus a small amount of cash ready because payment habits can vary between major resorts and older local shops.",
+    "If you are continuing to Hong Kong or mainland China, check those border and ferry requirements separately before you move."
+  ],
+  "airportToCity": {
+    "airportName": "Macau International Airport (MFM)",
+    "options": [
+      {
+        "mode": "Macau Light Rapid Transit",
+        "typicalTime": "20 to 35 minutes depending on your interchange",
+        "typicalCost": "Low-cost public transport fare",
+        "bestFor": "A simple first move into Taipa, Cotai, or onward links",
+        "notes": "The airport is directly connected to the light rail network, which is often the easiest low-friction option if you are packing light."
+      },
+      {
+        "mode": "Taxi",
+        "typicalTime": "15 to 30 minutes depending on bridge traffic and destination",
+        "typicalCost": "Higher than rail or bus, with airport and luggage surcharges possible",
+        "bestFor": "Door-to-door arrival with bags or a late-night landing",
+        "notes": "Useful if you are heading straight to the Macau Peninsula or do not want to navigate an interchange on first arrival."
+      },
+      {
+        "mode": "Hotel or casino shuttle",
+        "typicalTime": "Varies by property and stop pattern",
+        "typicalCost": "Usually free if offered by your property",
+        "bestFor": "Major Cotai or resort stays",
+        "notes": "Large hotels and casino resorts may run direct buses, so check your booking details before defaulting to a taxi."
+      }
+    ]
+  },
+  "entryRequirements": {
+    "passportValidity": "Use a passport with at least 6 months validity beyond arrival where possible.",
+    "visaSummary": "Australian passport holders can generally visit Macau visa-free for a short stay, but you should confirm the current allowance and any carrier-specific boarding checks before departure.",
+    "arrivalCardOrDeclaration": "Arrival processes can change. Check the latest Macau immigration and customs guidance before you fly, especially if you are carrying restricted items, large cash amounts, or making an onward border transfer.",
+    "officialSourceNote": "Use Macau immigration, tourism, and airport guidance as your source of truth before travel.",
+    "importantNotes": [
+      "Macau runs its own immigration system, separate from mainland China.",
+      "Onward travel to Hong Kong or mainland China should be treated as a separate entry decision."
+    ],
+    "officialLinks": [
+      {
+        "label": "Macau Public Security Police Force",
+        "url": "https://www.fsm.gov.mo/psp/eng/"
+      },
+      {
+        "label": "Macao Government Tourism Office",
+        "url": "https://www.macaotourism.gov.mo/en/"
+      },
+      {
+        "label": "Macau International Airport",
+        "url": "https://www.macau-airport.com/en/"
+      }
+    ]
+  },
+  "handyPhrases": [
+    {
+      "english": "Hello",
+      "local": "Nei hou",
+      "pronunciation": "nay hoh",
+      "context": "A friendly Cantonese greeting, though English is common in many hotels and tourism-heavy areas."
+    },
+    {
+      "english": "Please",
+      "local": "M goi",
+      "pronunciation": "mm goy",
+      "context": "Useful when ordering, asking for help, or getting someone's attention politely."
+    },
+    {
+      "english": "Thank you",
+      "local": "M goi / Doh jeh",
+      "pronunciation": "mm goy / dor jeh",
+      "context": "M goi often covers service and small favours; doh jeh is commonly used for bigger thanks or gifts."
+    },
+    {
+      "english": "Where is the taxi stand?",
+      "local": "Dik si jaam hai bin dou?",
+      "pronunciation": "dik see jaam high been doe",
+      "context": "Helpful when you are moving between the airport, ferry terminals, and resort precincts."
+    },
+    {
+      "english": "The bill, please",
+      "local": "Mai daan, m goi",
+      "pronunciation": "my daan, mm goy",
+      "context": "Useful in cafes, bakeries, and casual restaurants."
+    },
+    {
+      "english": "Can I pay by card?",
+      "local": "Ho m ho yi yung kaat?",
+      "pronunciation": "hor m hor yee yoong kaart",
+      "context": "Worth checking in smaller eateries and older neighbourhood businesses."
+    }
+  ],
+  "businessEtiquette": {
+    "summary": "Macau business settings usually reward punctuality, concise communication, and being prepared to move quickly from introductions into practical next steps.",
+    "tips": [
+      "Be on time and assume meetings may run efficiently rather than ceremonially.",
+      "Bring the details that matter such as pricing, timing, approvals, or next actions.",
+      "Smart business dress still reads well in formal meetings, hospitality, and gaming-adjacent contexts.",
+      "If a meeting touches mainland China or Hong Kong operations, clarify which jurisdiction or entity is being discussed."
+    ]
+  },
+  "foodAndPracticalities": {
+    "tapWater": "Tap water is treated, but many visitors still prefer bottled or filtered water.",
+    "tipping": "Service charges are common in hotels and larger restaurants, so extra tipping is usually modest.",
+    "dietaryNotes": "Macanese, Cantonese, and Portuguese influences show up often, so vegetarian travellers may need to ask about broth, seafood, or pork ingredients.",
+    "commonFoodTips": "Egg tarts, noodles, congee, Portuguese-style cafes, and hotel food courts are easy first-day options when you need a low-effort meal.",
+    "usefulPhrases": [
+      "M goi.",
+      "Mai yiu yuk. (No meat.)",
+      "Mai daan. (The bill, please.)"
+    ]
+  },
+  "moneyAndPayments": {
+    "currency": "Macanese pataca (MOP)",
+    "conversion": "AUD conversion moves over time, so check a live rate before travel.",
+    "cardAcceptance": "Cards are widely accepted in hotels, malls, and major restaurants.",
+    "cashNotes": "Keep some cash for taxis, smaller local restaurants, and older shops. Hong Kong dollars are commonly accepted in many places, but change may be returned in patacas.",
+    "tipping": "Usually limited to rounding up or leaving a small extra amount when a service charge has not already been added.",
+    "roughCostExamples": [
+      "Coffee or milk tea: about MOP 20 to 35 in a casual cafe",
+      "Simple noodle or rice meal: about MOP 45 to 80 outside major resorts",
+      "Taxi from the airport: fare varies by destination, plus possible surcharges",
+      "Light rail or local bus: usually the cheapest way to start moving"
+    ]
+  },
+  "localTransportApps": [
+    {
+      "name": "Google Maps",
+      "useCase": "Walking directions, place lookup, and basic route planning",
+      "notes": "A good default for first-day orientation, especially around ferry terminals and resort districts."
+    },
+    {
+      "name": "Macau LRT",
+      "useCase": "Light rail planning",
+      "notes": "Useful if you expect to move between the airport, Taipa, Cotai, and the Macau Peninsula using rail."
+    },
+    {
+      "name": "Hotel shuttle information",
+      "useCase": "Resort transfers",
+      "notes": "Not always a separate app, but worth checking your hotel or resort site before you land."
+    }
+  ],
+  "emergencyNumbers": {
+    "label": "Police, ambulance, and fire",
+    "number": "999",
+    "notes": [
+      "999 is the main emergency number.",
+      "Some overseas travellers may also see references to 112 redirecting to emergency support, but treat 999 as the primary number."
+    ]
+  },
+  "lastReviewedDate": "2026-07-03",
+  "disclaimer": "Travel guidance only. Entry rules, transport options, and payment conditions can change. Confirm current details with official Macau sources before travel."
+}
