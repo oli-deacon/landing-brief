@@ -585,7 +585,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                   <span className="arrival-carousel-item-copy">
                     <span className="arrival-carousel-item-title">{country.countryName}</span>
                     <span className="arrival-carousel-item-description">
-                      Via {country.primaryAirport}. Arrival essentials, transport, money, and first-hour notes.
+                      Arrival essentials, transport, money, and first-hour notes via {country.primaryAirport}.
                     </span>
                   </span>
                   <span className="arrival-carousel-item-cta">
@@ -687,7 +687,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 </span>
                 <span className="arrival-mobile-card-title">{country.countryName}</span>
                 <span className="arrival-mobile-card-description">
-                  Via {country.primaryAirport}. Arrival essentials, transport, money, and first-hour notes.
+                  Arrival essentials, transport, money, and first-hour notes via {country.primaryAirport}.
                 </span>
                 <span className="arrival-mobile-card-cta">Open brief</span>
               </span>

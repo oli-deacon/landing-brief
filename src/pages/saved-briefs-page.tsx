@@ -91,7 +91,7 @@ export function SavedBriefsPage() {
                   <div className="destination-card-content">
                     <p className="text-sm font-semibold text-text-main">{country.countryName}</p>
                     <p className="mt-1 text-sm text-text-muted">
-                      {country.capitalOrMainCity} via {country.primaryAirport}
+                      {country.capitalOrMainCity}. Arrival route: {country.primaryAirport}
                     </p>
                   </div>
                 </Link>

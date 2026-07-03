@@ -90,7 +90,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     (country) => country.countryCode.toLowerCase() === brief.countryCode.toLowerCase()
   );
   const noteValue = library.notes[brief.countryCode.toLowerCase()]?.value ?? "";
-  const bestAirportOption = brief.airportToCity.options[0] ?? {
+  const bestArrivalOption = brief.airportToCity.options[0] ?? {
     mode: "Check local transport",
     typicalTime: "Varies",
     typicalCost: "Varies",
@@ -202,18 +202,18 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             <div className="hero-snapshot country-hero-snapshot rounded-[1.3rem] px-4 py-4 sm:px-5">
               <p className="country-kicker">Arrival snapshot</p>
               <p className="mt-3 text-[1.25rem] font-semibold leading-6 text-text-main">
-                {bestAirportOption.mode} to {brief.capitalOrMainCity}
+                {bestArrivalOption.mode} to {brief.capitalOrMainCity}
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-sm text-text-soft">
-                <span className="country-meta-pill">{bestAirportOption.typicalTime}</span>
-                <span className="country-meta-pill">{bestAirportOption.typicalCost}</span>
+                <span className="country-meta-pill">{bestArrivalOption.typicalTime}</span>
+                <span className="country-meta-pill">{bestArrivalOption.typicalCost}</span>
               </div>
-              <p className="mt-4 text-sm leading-7 text-text-muted">{bestAirportOption.bestFor}</p>
+              <p className="mt-4 text-sm leading-7 text-text-muted">{bestArrivalOption.bestFor}</p>
               <p className="mt-3 text-sm leading-7 text-text-main">{entryReminder}</p>
             </div>
 
             <div className="country-side-card rounded-[1.3rem] p-5">
-              <p className="country-kicker">Primary airport</p>
+              <p className="country-kicker">Primary arrival point</p>
               <p className="mt-3 text-lg font-semibold text-text-main">{brief.primaryAirport}</p>
               <p className="mt-2 text-sm leading-7 text-text-muted">{brief.disclaimer}</p>
             </div>
@@ -242,14 +242,14 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       <SectionShell
         id="arrive"
         title="Arrive"
-        eyebrow="The first decisions after touchdown"
+        eyebrow="The first decisions after arrival"
         action={<span className="pill-chip country-pill-chip rounded-full px-3 py-1 text-xs font-medium">Start here</span>}
         variant="country"
       >
         <div className="space-y-8">
           <div className="country-section-intro">
             <p className="max-w-2xl text-sm leading-7 text-text-muted">
-              This section should answer the first few questions before you leave the arrivals hall:
+              This section should answer the first few questions before you leave the terminal or border hall:
               what to clear, what to keep handy, and what decision gets you moving fastest.
             </p>
           </div>
@@ -331,14 +331,14 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           <div className="country-section-intro">
             <p className="max-w-2xl text-sm leading-7 text-text-muted">
               Once you are through formalities, the goal is speed and confidence: pick the right
-              airport transfer, keep one or two trusted local tools handy, and defer the rest.
+              arrival transfer, keep one or two trusted local tools handy, and defer the rest.
             </p>
           </div>
 
           <div>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h3 className="section-subtitle">Airport to city</h3>
+                <h3 className="section-subtitle">Arrival route options</h3>
                 <p className="mt-1 text-sm leading-6 text-text-muted">{brief.airportToCity.airportName}</p>
               </div>
             </div>

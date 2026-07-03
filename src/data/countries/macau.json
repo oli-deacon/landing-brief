@@ -2,47 +2,48 @@
   "countryCode": "mo",
   "countryName": "Macau",
   "capitalOrMainCity": "Macau",
-  "primaryAirport": "Macau International Airport (MFM)",
+  "primaryAirport": "Hong Kong ferry or HZMB coach arrival",
   "arrivalEssentials": [
-    "Decide whether the light rail, a taxi, or a hotel shuttle is the quickest path for your first stop.",
-    "Keep your passport, accommodation details, and any onward travel information easy to reach at arrival.",
-    "Have a card plus a small amount of cash ready because payment habits can vary between major resorts and older local shops.",
-    "If you are continuing to Hong Kong or mainland China, check those border and ferry requirements separately before you move."
+    "Decide before departure whether the ferry or the Hong Kong-Zhuhai-Macao Bridge shuttle bus is better for your final Macau destination.",
+    "Keep your passport and accommodation details easy to reach because both ferry and HZMB coach routes involve Hong Kong exit controls and Macau entry controls.",
+    "If you are taking the ferry, check which Macau terminal you arrive at before boarding so your onward taxi, bus, or hotel transfer choice is simple.",
+    "If you are taking the HZMB coach, expect a fast cross-boundary transfer but plan the last leg from the Macau Port into Cotai, Taipa, or the Macau Peninsula."
   ],
   "airportToCity": {
-    "airportName": "Macau International Airport (MFM)",
+    "airportName": "Hong Kong to Macau arrival routes",
     "options": [
       {
-        "mode": "Macau Light Rapid Transit",
-        "typicalTime": "20 to 35 minutes depending on your interchange",
-        "typicalCost": "Low-cost public transport fare",
-        "bestFor": "A simple first move into Taipa, Cotai, or onward links",
-        "notes": "The airport is directly connected to the light rail network, which is often the easiest low-friction option if you are packing light."
+        "mode": "HZMB shuttle bus via Hong Kong Port",
+        "typicalTime": "About 40 minutes on the bridge, plus time for clearance on both sides",
+        "typicalCost": "HKD 65 daytime or HKD 70 overnight from Hong Kong Port",
+        "bestFor": "Fast, frequent service if you want a predictable cross-boundary coach from Hong Kong",
+        "notes": "The official shuttle bus between Hong Kong Port and Macao Port runs 24 hours, with more frequent departures in peak periods. Once you clear into Macau, choose a taxi, bus, or onward connection from Macau Port."
       },
       {
-        "mode": "Taxi",
-        "typicalTime": "15 to 30 minutes depending on bridge traffic and destination",
-        "typicalCost": "Higher than rail or bus, with airport and luggage surcharges possible",
-        "bestFor": "Door-to-door arrival with bags or a late-night landing",
-        "notes": "Useful if you are heading straight to the Macau Peninsula or do not want to navigate an interchange on first arrival."
+        "mode": "Ferry from Hong Kong",
+        "typicalTime": "About 1 hour on the water, plus terminal check-in and immigration time",
+        "typicalCost": "Varies by operator, sailing time, and class",
+        "bestFor": "A direct Hong Kong to Macau transfer when the ferry terminal lines up well with your final stop",
+        "notes": "TurboJET’s official booking flow shows Hong Kong sailings into Macau and Taipa. Check the exact terminal before you book so you do not add an unnecessary transfer on arrival."
       },
       {
-        "mode": "Hotel or casino shuttle",
-        "typicalTime": "Varies by property and stop pattern",
-        "typicalCost": "Usually free if offered by your property",
-        "bestFor": "Major Cotai or resort stays",
-        "notes": "Large hotels and casino resorts may run direct buses, so check your booking details before defaulting to a taxi."
+        "mode": "Hotel shuttle, taxi, or local transfer after arrival",
+        "typicalTime": "Varies by terminal, traffic, and destination",
+        "typicalCost": "From low-cost public transport to full taxi fare",
+        "bestFor": "The final leg once you have entered Macau",
+        "notes": "For Cotai and Taipa stays, aim to minimise one extra change. For the Macau Peninsula, compare the convenience of your ferry terminal against the simplicity of arriving through Macau Port and taking a direct taxi onward."
       }
     ]
   },
   "entryRequirements": {
     "passportValidity": "Use a passport with at least 6 months validity beyond arrival where possible.",
     "visaSummary": "Australian passport holders can generally visit Macau visa-free for a short stay, but you should confirm the current allowance and any carrier-specific boarding checks before departure.",
-    "arrivalCardOrDeclaration": "Arrival processes can change. Check the latest Macau immigration and customs guidance before you fly, especially if you are carrying restricted items, large cash amounts, or making an onward border transfer.",
-    "officialSourceNote": "Use Macau immigration, tourism, and airport guidance as your source of truth before travel.",
+    "arrivalCardOrDeclaration": "On both ferry and HZMB routes, expect to complete Hong Kong exit formalities and then Macau entry formalities. Check the latest Macau immigration and customs guidance before departure, especially if you are carrying restricted items, large cash amounts, or making another onward border crossing.",
+    "officialSourceNote": "Use Macau immigration guidance plus the official Hong Kong ferry or HZMB transport pages as your source of truth before travel.",
     "importantNotes": [
       "Macau runs its own immigration system, separate from mainland China.",
-      "Onward travel to Hong Kong or mainland China should be treated as a separate entry decision."
+      "Ferry and HZMB coach routes both require you to clear out of Hong Kong and into Macau.",
+      "Onward travel from Macau into mainland China should be treated as a separate entry decision."
     ],
     "officialLinks": [
       {
@@ -50,12 +51,16 @@
         "url": "https://www.fsm.gov.mo/psp/eng/"
       },
       {
-        "label": "Macao Government Tourism Office",
-        "url": "https://www.macaotourism.gov.mo/en/"
+        "label": "Hong Kong HZMB transport guide",
+        "url": "https://www.td.gov.hk/en/transport_in_hong_kong/land_based_cross_boundary_transport/access_to_hzmb_hong_kong_port/index.html"
       },
       {
-        "label": "Macau International Airport",
-        "url": "https://www.macau-airport.com/en/"
+        "label": "TurboJET Hong Kong-Macau routes",
+        "url": "https://www.turbojet.com.hk/en/"
+      },
+      {
+        "label": "Macao Government Tourism Office",
+        "url": "https://www.macaotourism.gov.mo/en/"
       }
     ]
   },
@@ -82,7 +87,7 @@
       "english": "Where is the taxi stand?",
       "local": "Dik si jaam hai bin dou?",
       "pronunciation": "dik see jaam high been doe",
-      "context": "Helpful when you are moving between the airport, ferry terminals, and resort precincts."
+      "context": "Helpful when you are moving out of the ferry terminal or Macau Port toward your hotel."
     },
     {
       "english": "The bill, please",
@@ -110,7 +115,7 @@
     "tapWater": "Tap water is treated, but many visitors still prefer bottled or filtered water.",
     "tipping": "Service charges are common in hotels and larger restaurants, so extra tipping is usually modest.",
     "dietaryNotes": "Macanese, Cantonese, and Portuguese influences show up often, so vegetarian travellers may need to ask about broth, seafood, or pork ingredients.",
-    "commonFoodTips": "Egg tarts, noodles, congee, Portuguese-style cafes, and hotel food courts are easy first-day options when you need a low-effort meal.",
+    "commonFoodTips": "Egg tarts, noodles, congee, Portuguese-style cafes, and hotel food courts are easy first-stop options when you want something reliable after the Hong Kong crossing.",
     "usefulPhrases": [
       "M goi.",
       "Mai yiu yuk. (No meat.)",
@@ -126,25 +131,25 @@
     "roughCostExamples": [
       "Coffee or milk tea: about MOP 20 to 35 in a casual cafe",
       "Simple noodle or rice meal: about MOP 45 to 80 outside major resorts",
-      "Taxi from the airport: fare varies by destination, plus possible surcharges",
-      "Light rail or local bus: usually the cheapest way to start moving"
+      "Taxi from the ferry terminal or Macau Port: fare varies by destination",
+      "Local bus or light rail: usually the cheapest way to start moving"
     ]
   },
   "localTransportApps": [
     {
       "name": "Google Maps",
       "useCase": "Walking directions, place lookup, and basic route planning",
-      "notes": "A good default for first-day orientation, especially around ferry terminals and resort districts."
+      "notes": "A good default for first-day orientation, especially around ferry terminals, Macau Port, and resort districts."
     },
     {
       "name": "Macau LRT",
       "useCase": "Light rail planning",
-      "notes": "Useful if you expect to move between the airport, Taipa, Cotai, and the Macau Peninsula using rail."
+      "notes": "Useful if your arrival or onward movement takes you near Taipa Ferry Terminal or through the Taipa and Cotai side of the city."
     },
     {
       "name": "Hotel shuttle information",
       "useCase": "Resort transfers",
-      "notes": "Not always a separate app, but worth checking your hotel or resort site before you land."
+      "notes": "Not always a separate app, but worth checking your hotel or resort site before you leave Hong Kong so you know whether the final leg is already covered."
     }
   ],
   "emergencyNumbers": {

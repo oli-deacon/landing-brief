@@ -36,7 +36,7 @@ export function CountryHeader({
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-[1.5rem] border border-border-soft bg-surface-muted/60 p-4">
-          <p className="eyebrow">Primary airport</p>
+          <p className="eyebrow">Primary arrival point</p>
           <p className="mt-2 text-base font-semibold text-text-main">{primaryAirport}</p>
         </div>
         <div className="rounded-[1.5rem] border border-border-soft bg-surface-muted/60 p-4">
