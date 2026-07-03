@@ -4,7 +4,6 @@ import imageInd from "../images/image_ind.png";
 import imageKl from "../images/image_kl.png";
 import imageMc from "../images/image_mc.png";
 import imageKr from "../images/image_kr.png";
-import imageSf from "../images/image_sf.png";
 import imageSg from "../images/image_sg.png";
 import imageVn from "../images/image_vn.png";
 
@@ -63,11 +62,6 @@ const countryArtwork: Record<string, CountryArtwork> = {
     kind: "image",
     src: imageInd,
     alt: "New Delhi travel poster with gold line art of India Gate, buses, metro signs, and city streets."
-  },
-  sf: {
-    kind: "image",
-    src: imageSf,
-    alt: "San Francisco travel poster artwork featuring the city skyline and arrival mood."
   }
 };
 
