@@ -459,14 +459,16 @@ a {
 }
 
 .arrival-carousel-track {
+  --arrival-carousel-card-width: clamp(18rem, 27vw, 22rem);
+  --arrival-carousel-side-gutter: max(7vw, calc(50% - (var(--arrival-carousel-card-width) / 2)));
   display: flex;
   align-items: stretch;
   gap: 0.78rem;
   overflow-x: auto;
-  padding: 0 7vw;
+  padding-inline: var(--arrival-carousel-side-gutter);
   scrollbar-width: none;
-  scroll-padding-inline: 7vw;
-  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--arrival-carousel-side-gutter);
+  scroll-snap-type: x mandatory;
   scroll-behavior: auto;
   overscroll-behavior-x: contain;
   cursor: grab;
@@ -489,7 +491,7 @@ a {
 .arrival-carousel-item {
   position: relative;
   display: flex;
-  flex: 0 0 clamp(18rem, 27vw, 22rem);
+  flex: 0 0 var(--arrival-carousel-card-width);
   min-height: 28rem;
   overflow: hidden;
   border: 1px solid rgba(214, 228, 241, 0.08);
@@ -923,8 +925,11 @@ a {
 }
 
 @media (min-width: 1200px) {
+  .arrival-carousel-track {
+    --arrival-carousel-card-width: clamp(19rem, 24vw, 23rem);
+  }
+
   .arrival-carousel-item {
-    flex-basis: clamp(19rem, 24vw, 23rem);
     min-height: 31rem;
   }
 }
