@@ -465,7 +465,8 @@ a {
   overflow-x: auto;
   padding: 0 7vw;
   scrollbar-width: none;
-  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 7vw;
+  scroll-snap-type: x proximity;
   scroll-behavior: auto;
   overscroll-behavior-x: contain;
   cursor: grab;
@@ -488,7 +489,7 @@ a {
 .arrival-carousel-item {
   position: relative;
   display: flex;
-  flex: 0 0 5.35rem;
+  flex: 0 0 clamp(18rem, 27vw, 22rem);
   min-height: 28rem;
   overflow: hidden;
   border: 1px solid rgba(214, 228, 241, 0.08);
@@ -496,9 +497,7 @@ a {
   background: rgba(7, 14, 22, 0.88);
   padding: 0;
   scroll-snap-align: center;
-  scroll-snap-stop: always;
   transition:
-    flex-basis 520ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 280ms ease,
     filter 280ms ease,
@@ -514,8 +513,8 @@ a {
 }
 
 .arrival-carousel-item.is-active {
-  flex-basis: min(44rem, 62vw);
   border-color: rgba(216, 235, 246, 0.18);
+  transform: translateY(-0.2rem) scale(1.015);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -925,12 +924,8 @@ a {
 
 @media (min-width: 1200px) {
   .arrival-carousel-item {
-    flex-basis: 5.8rem;
+    flex-basis: clamp(19rem, 24vw, 23rem);
     min-height: 31rem;
-  }
-
-  .arrival-carousel-item.is-active {
-    flex-basis: min(48rem, 58vw);
   }
 }
 

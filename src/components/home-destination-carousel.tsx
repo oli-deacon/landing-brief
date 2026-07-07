@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, KeyboardEvent, PointerEvent, WheelEvent } from "react";
+import type { CSSProperties, KeyboardEvent, PointerEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { getCountryArtwork } from "../lib/country-art";
@@ -12,14 +12,19 @@ type HomeDestinationCarouselProps = {
 type DragState = {
   startX: number;
   pointerId: number;
+  startScrollLeft: number;
+  hasDragged: boolean;
+};
+
+type MobileDragState = {
+  startX: number;
+  pointerId: number;
 };
 
 const MOBILE_STACK_SIZE = 4;
 const MOBILE_SWIPE_THRESHOLD = 72;
 const MOBILE_TAP_THRESHOLD = 10;
-const DESKTOP_DRAG_THRESHOLD = 40;
-const DESKTOP_WHEEL_STEP_THRESHOLD = 90;
-const DESKTOP_WHEEL_IDLE_RESET = 180;
+const DESKTOP_DRAG_THRESHOLD = 6;
 const DESKTOP_SCROLL_SETTLE_DELAY = 140;
 
 function formatIndex(value: number) {
@@ -35,10 +40,9 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   const desktopDragStateRef = useRef<DragState | null>(null);
   const desktopAutoCenterRef = useRef(true);
   const desktopScrollBehaviorRef = useRef<ScrollBehavior>("auto");
-  const desktopWheelDeltaRef = useRef(0);
-  const desktopWheelResetTimerRef = useRef<number | null>(null);
   const desktopScrollSyncFrameRef = useRef<number | null>(null);
-  const mobileDragStateRef = useRef<DragState | null>(null);
+  const desktopSuppressClickRef = useRef(false);
+  const mobileDragStateRef = useRef<MobileDragState | null>(null);
   const settleTimerRef = useRef<number | null>(null);
   const navigate = useNavigate();
 
@@ -190,10 +194,6 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   useEffect(() => {
     return () => {
-      if (desktopWheelResetTimerRef.current !== null) {
-        window.clearTimeout(desktopWheelResetTimerRef.current);
-      }
-
       if (desktopScrollSyncFrameRef.current !== null) {
         window.cancelAnimationFrame(desktopScrollSyncFrameRef.current);
       }
@@ -258,68 +258,18 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     return closestIndex;
   }
 
-  function queueDesktopSettle(targetIndex: number) {
+  function queueDesktopSettle(targetIndex: number, behavior: ScrollBehavior = "smooth") {
     if (settleTimerRef.current !== null) {
       window.clearTimeout(settleTimerRef.current);
     }
 
     settleTimerRef.current = window.setTimeout(() => {
-      desktopAutoCenterRef.current = true;
-      desktopScrollBehaviorRef.current = "smooth";
+      desktopAutoCenterRef.current = false;
+      desktopScrollBehaviorRef.current = behavior;
       setActiveIndex(targetIndex);
-      centerDesktopItem(targetIndex, "smooth");
+      centerDesktopItem(targetIndex, behavior);
       settleTimerRef.current = null;
     }, DESKTOP_SCROLL_SETTLE_DELAY);
-  }
-
-  function resetDesktopWheelGesture() {
-    desktopWheelDeltaRef.current = 0;
-
-    if (desktopWheelResetTimerRef.current !== null) {
-      window.clearTimeout(desktopWheelResetTimerRef.current);
-      desktopWheelResetTimerRef.current = null;
-    }
-  }
-
-  function handleWheel(event: WheelEvent<HTMLDivElement>) {
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      return;
-    }
-
-    const dominantDelta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-
-    if (Math.abs(dominantDelta) < 8) {
-      return;
-    }
-
-    event.preventDefault();
-    desktopWheelDeltaRef.current += dominantDelta;
-
-    if (desktopWheelResetTimerRef.current !== null) {
-      window.clearTimeout(desktopWheelResetTimerRef.current);
-    }
-
-    desktopWheelResetTimerRef.current = window.setTimeout(() => {
-      resetDesktopWheelGesture();
-    }, DESKTOP_WHEEL_IDLE_RESET);
-
-    if (Math.abs(desktopWheelDeltaRef.current) < DESKTOP_WHEEL_STEP_THRESHOLD) {
-      return;
-    }
-
-    const direction = desktopWheelDeltaRef.current > 0 ? 1 : -1;
-    const nextIndex = clampIndex(activeIndex + direction);
-
-    if (nextIndex === activeIndex) {
-      resetDesktopWheelGesture();
-      return;
-    }
-
-    desktopAutoCenterRef.current = true;
-    desktopScrollBehaviorRef.current = "smooth";
-    setDesktopFocusIndex(nextIndex);
-    setActiveIndex(nextIndex);
-    desktopWheelDeltaRef.current -= DESKTOP_WHEEL_STEP_THRESHOLD * direction;
   }
 
   function handleDesktopScroll() {
@@ -357,13 +307,44 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    resetDesktopWheelGesture();
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    if (settleTimerRef.current !== null) {
+      window.clearTimeout(settleTimerRef.current);
+      settleTimerRef.current = null;
+    }
+
     desktopDragStateRef.current = {
       startX: event.clientX,
-      pointerId: event.pointerId
+      pointerId: event.pointerId,
+      startScrollLeft: event.currentTarget.scrollLeft,
+      hasDragged: false
     };
 
     event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    const dragState = desktopDragStateRef.current;
+
+    if (!dragState || dragState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const deltaX = event.clientX - dragState.startX;
+
+    if (!dragState.hasDragged && Math.abs(deltaX) >= DESKTOP_DRAG_THRESHOLD) {
+      dragState.hasDragged = true;
+      desktopSuppressClickRef.current = true;
+    }
+
+    if (!dragState.hasDragged) {
+      return;
+    }
+
+    event.currentTarget.scrollLeft = dragState.startScrollLeft - deltaX;
   }
 
   function handlePointerUp(event: PointerEvent<HTMLDivElement>) {
@@ -373,11 +354,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    const deltaX = event.clientX - dragState.startX;
     desktopDragStateRef.current = null;
     event.currentTarget.releasePointerCapture(event.pointerId);
 
-    if (Math.abs(deltaX) < DESKTOP_DRAG_THRESHOLD) {
+    if (!dragState.hasDragged) {
       const target = document.elementFromPoint(event.clientX, event.clientY);
 
       if (target instanceof Element) {
@@ -392,20 +372,22 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       return;
     }
 
-    desktopAutoCenterRef.current = true;
-    desktopScrollBehaviorRef.current = "smooth";
-    setDesktopFocusIndex(clampIndex(activeIndex + (deltaX < 0 ? 1 : -1)));
-    nudgeIndex(deltaX < 0 ? 1 : -1);
+    const targetIndex = getClosestDesktopIndex(event.currentTarget);
+    setDesktopFocusIndex(targetIndex);
+    queueDesktopSettle(targetIndex);
   }
 
-  function handlePointerCancel() {
+  function handlePointerCancel(event: PointerEvent<HTMLDivElement>) {
+    if (desktopDragStateRef.current?.pointerId === event.pointerId) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
     desktopDragStateRef.current = null;
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      resetDesktopWheelGesture();
       desktopAutoCenterRef.current = true;
       desktopScrollBehaviorRef.current = "smooth";
       setDesktopFocusIndex(clampIndex(activeIndex + 1));
@@ -414,7 +396,6 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      resetDesktopWheelGesture();
       desktopAutoCenterRef.current = true;
       desktopScrollBehaviorRef.current = "smooth";
       setDesktopFocusIndex(clampIndex(activeIndex - 1));
@@ -531,8 +512,8 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
       <div
         className="arrival-carousel-stage rounded-[2rem]"
-        onWheel={handleWheel}
         onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
       >
@@ -558,6 +539,11 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 data-country-route={`/country/${country.countryCode}`}
                 className={isActive ? "arrival-carousel-item is-active" : "arrival-carousel-item"}
                 onClick={() => {
+                  if (desktopSuppressClickRef.current) {
+                    desktopSuppressClickRef.current = false;
+                    return;
+                  }
+
                   navigate(`/country/${country.countryCode}`);
                 }}
               >
