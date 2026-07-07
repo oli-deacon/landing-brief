@@ -25,7 +25,7 @@ const MOBILE_STACK_SIZE = 4;
 const MOBILE_SWIPE_THRESHOLD = 72;
 const MOBILE_TAP_THRESHOLD = 10;
 const DESKTOP_DRAG_THRESHOLD = 6;
-const DESKTOP_SCROLL_SETTLE_DELAY = 140;
+const DESKTOP_SCROLL_SETTLE_DELAY = 80;
 
 function formatIndex(value: number) {
   return String(value).padStart(2, "0");
@@ -295,7 +295,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       }
 
       if (!desktopDragStateRef.current) {
-        queueDesktopSettle(closestIndex);
+        queueDesktopSettle(closestIndex, "auto");
       }
 
       desktopScrollSyncFrameRef.current = null;

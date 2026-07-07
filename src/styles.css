@@ -607,10 +607,7 @@ a {
   font-size: 1.4rem;
   line-height: 0.92;
   letter-spacing: -0.03em;
-  transition:
-    writing-mode 0ms linear 240ms,
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 240ms ease;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
 }
 
 .arrival-carousel-item-description,
@@ -618,9 +615,11 @@ a {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
+  transform: translateY(0.65rem);
   transition:
-    opacity 240ms ease,
-    max-height 320ms ease;
+    opacity 160ms ease,
+    transform 180ms ease,
+    max-height 180ms ease;
 }
 
 .arrival-carousel-item-hint {
@@ -643,6 +642,7 @@ a {
 .arrival-carousel-item.is-active .arrival-carousel-item-cta {
   opacity: 1;
   max-height: 8rem;
+  transform: translateY(0);
 }
 
 .arrival-carousel-item.is-active .arrival-carousel-item-description {
