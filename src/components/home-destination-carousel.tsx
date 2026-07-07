@@ -485,7 +485,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
   }
 
   const currentCountry = countries[activeIndex];
-  const desktopCurrentCountry = countries[desktopFocusIndex];
+  const desktopPreviewCountry = countries[desktopFocusIndex];
   const visibleMobileCards = countries.slice(activeIndex, activeIndex + MOBILE_STACK_SIZE);
 
   return (
@@ -498,7 +498,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         </div>
         <div className="arrival-carousel-active-country" aria-live="polite">
           <span className="arrival-carousel-active-country-label">In focus</span>
-          <span className="arrival-carousel-active-country-name">{desktopCurrentCountry.countryName}</span>
+          <span className="arrival-carousel-active-country-name">{desktopPreviewCountry.countryName}</span>
         </div>
         <div className="arrival-carousel-markers" aria-hidden="true">
           {countries.map((country, index) => (
@@ -528,7 +528,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         >
           {countries.map((country, index) => {
             const artwork = getCountryArtwork(country.countryCode);
-            const isActive = index === desktopFocusIndex;
+            const isActive = index === activeIndex;
 
             return (
               <article
