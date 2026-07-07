@@ -102,6 +102,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
   const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
   const primaryEsimOption = brief.communications.esimOptions[0];
+  const handyPhrasePreview = brief.handyPhrases.slice(0, 5);
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
   const modeToggleLabel = isLandingMode ? "Open full brief" : "Switch to landing mode";
@@ -116,6 +117,22 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     `Reviewed ${brief.lastReviewedDate}`,
     `${brief.capitalOrMainCity} via ${brief.primaryAirport}`
   ];
+  const renderPhraseCard = (phrase: (typeof brief.handyPhrases)[number]) => (
+    <div key={`${phrase.english}-${phrase.local}`} className="country-side-card rounded-[1.2rem] p-4">
+      <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div>
+          <p className="country-kicker">English</p>
+          <p className="mt-1 text-sm font-semibold text-text-main">{phrase.english}</p>
+        </div>
+        <div>
+          <p className="country-kicker">Local</p>
+          <p className="mt-1 text-sm font-semibold text-text-main">{phrase.local}</p>
+        </div>
+      </div>
+      <p className="mt-3 text-sm text-text-muted">Pronunciation: {phrase.pronunciation}</p>
+      <p className="mt-2 text-sm leading-6 text-text-muted">{phrase.context}</p>
+    </div>
+  );
 
   return (
     <div className="country-page space-y-6 sm:space-y-8">
@@ -383,28 +400,28 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </div>
           </details>
 
-          <details className="group disclosure-block country-disclosure-block">
+          {isLandingMode ? (
+            <div className="country-side-card rounded-[1.3rem] p-5 sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="country-kicker">Local language quick card</p>
+                  <h3 className="section-subtitle mt-2">Handy words and phrases</h3>
+                </div>
+                <span className="country-meta-pill">{handyPhrasePreview.length} phrases</span>
+              </div>
+              <div className="mt-5 grid gap-3">
+                {handyPhrasePreview.map(renderPhraseCard)}
+              </div>
+            </div>
+          ) : null}
+
+          <details className="group disclosure-block country-disclosure-block" open={!isLandingMode}>
             <summary className="liquid-summary country-liquid-summary">
               <span>Handy phrases</span>
               <span className="text-text-muted transition group-open:rotate-45">+</span>
             </summary>
             <div className="mt-5 grid gap-3">
-              {brief.handyPhrases.map((phrase) => (
-                <div key={`${phrase.english}-${phrase.local}`} className="country-side-card rounded-[1.2rem] p-4">
-                  <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-                    <div>
-                      <p className="country-kicker">English</p>
-                      <p className="mt-1 text-sm font-semibold text-text-main">{phrase.english}</p>
-                    </div>
-                    <div>
-                      <p className="country-kicker">Local</p>
-                      <p className="mt-1 text-sm font-semibold text-text-main">{phrase.local}</p>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-sm text-text-muted">Pronunciation: {phrase.pronunciation}</p>
-                  <p className="mt-2 text-sm leading-6 text-text-muted">{phrase.context}</p>
-                </div>
-              ))}
+              {brief.handyPhrases.map(renderPhraseCard)}
             </div>
           </details>
         </div>
