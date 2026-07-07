@@ -101,6 +101,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const entryReminder = takeFirstSentence(brief.entryRequirements.arrivalCardOrDeclaration);
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
   const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
+  const primaryEsimOption = brief.communications.esimOptions[0];
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
   const modeToggleLabel = isLandingMode ? "Open full brief" : "Switch to landing mode";
@@ -436,6 +437,16 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                 <p className="country-kicker">Food and water</p>
                 <p className="mt-3 text-base leading-7 text-text-main">{foodAndWaterNote}</p>
               </div>
+              <div className="country-side-card rounded-[1.3rem] p-5">
+                <p className="country-kicker">Communications</p>
+                <p className="mt-3 text-base leading-7 text-text-main">{brief.communications.bestMobileNetwork}</p>
+                <p className="mt-3 text-sm leading-6 text-text-muted">{brief.communications.networkWhy}</p>
+                {primaryEsimOption ? (
+                  <p className="mt-4 text-sm leading-6 text-text-soft">
+                    Best first eSIM look: {primaryEsimOption.name} for {primaryEsimOption.bestFor.toLowerCase()}.
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             <div className="country-side-card rounded-[1.3rem] p-5">
@@ -475,18 +486,44 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                 <span>Practical details and etiquette</span>
                 <span className="text-text-muted transition group-open:rotate-45">+</span>
               </summary>
-              <div className="mt-5 country-side-card rounded-[1.3rem] p-5">
-                <h3 className="section-subtitle">Food and practicalities</h3>
-                <div className="mt-4">
-                  <InfoList
-                    variant="country"
-                    items={[
-                      { label: "Tap water", value: brief.foodAndPracticalities.tapWater },
-                      { label: "Tipping", value: brief.foodAndPracticalities.tipping },
-                      { label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes },
-                      { label: "Common food tips", value: brief.foodAndPracticalities.commonFoodTips }
-                    ]}
-                  />
+              <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                <div className="country-side-card rounded-[1.3rem] p-5">
+                  <h3 className="section-subtitle">Food and practicalities</h3>
+                  <div className="mt-4">
+                    <InfoList
+                      variant="country"
+                      items={[
+                        { label: "Tap water", value: brief.foodAndPracticalities.tapWater },
+                        { label: "Tipping", value: brief.foodAndPracticalities.tipping },
+                        { label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes },
+                        { label: "Common food tips", value: brief.foodAndPracticalities.commonFoodTips }
+                      ]}
+                    />
+                  </div>
+                </div>
+
+                <div className="country-side-card rounded-[1.3rem] p-5">
+                  <p className="country-kicker">Signal setup</p>
+                  <h3 className="mt-3 text-[1.5rem] text-text-main">Communications</h3>
+                  <p className="mt-3 text-sm leading-7 text-text-muted">
+                    Best mobile network: <span className="font-semibold text-text-main">{brief.communications.bestMobileNetwork}</span>
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-text-muted">{brief.communications.networkWhy}</p>
+
+                  <div className="mt-5 space-y-3">
+                    {brief.communications.esimOptions.map((option, index) => (
+                      <div key={option.name} className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-4">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-semibold text-text-main">{option.name}</p>
+                            <p className="mt-1 text-sm text-text-soft">{option.bestFor}</p>
+                          </div>
+                          <span className="country-kicker">{index === 0 ? "Top pick" : `Option ${index + 1}`}</span>
+                        </div>
+                        <p className="mt-3 text-sm leading-6 text-text-muted">{option.notes}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </details>

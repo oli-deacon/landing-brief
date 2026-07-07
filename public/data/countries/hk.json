@@ -177,5 +177,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "CSL",
+    "networkWhy": "Best premium traveller default for strong urban coverage, MTR performance, and consistent service across Hong Kong Island, Kowloon, and the airport corridor.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "quick city-break setup",
+        "notes": "One of the easiest ways to get data running before landing for a short Hong Kong trip."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "work trips with hotspot needs",
+        "notes": "A good fit if you expect to tether often or want a more generous mid-stay plan."
+      },
+      {
+        "name": "Ubigi",
+        "bestFor": "travellers prioritising 5G and regional reuse",
+        "notes": "Worth checking if you want a polished app and may continue on to other Asian stops."
+      }
+    ]
+  }
 }

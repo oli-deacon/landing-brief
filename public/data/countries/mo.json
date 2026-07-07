@@ -161,5 +161,26 @@
     ]
   },
   "lastReviewedDate": "2026-07-03",
-  "disclaimer": "Travel guidance only. Entry rules, transport options, and payment conditions can change. Confirm current details with official Macau sources before travel."
+  "disclaimer": "Travel guidance only. Entry rules, transport options, and payment conditions can change. Confirm current details with official Macau sources before travel.",
+  "communications": {
+    "bestMobileNetwork": "CTM",
+    "networkWhy": "Best local default in Macau for straightforward coverage across the peninsula, Taipa, Cotai, and typical hotel zones.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "short Macau stopovers",
+        "notes": "A simple option when Macau is a quick add-on and you want data ready in advance."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "paired Hong Kong and Macau trips",
+        "notes": "Helpful if your route mixes both markets and you want an app that is easy to manage."
+      },
+      {
+        "name": "Holafly",
+        "bestFor": "heavier map and messaging use",
+        "notes": "A reasonable pick if you want to avoid watching your remaining data too closely."
+      }
+    ]
+  }
 }

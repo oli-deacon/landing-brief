@@ -66,6 +66,18 @@ export type TransportApp = {
   notes: string;
 };
 
+export type EsimOption = {
+  name: string;
+  bestFor: string;
+  notes: string;
+};
+
+export type Communications = {
+  bestMobileNetwork: string;
+  networkWhy: string;
+  esimOptions: EsimOption[];
+};
+
 export type CountryBrief = {
   countryCode: string;
   countryName: string;
@@ -78,6 +90,7 @@ export type CountryBrief = {
   businessEtiquette: BusinessEtiquette;
   foodAndPracticalities: FoodAndPracticalities;
   moneyAndPayments: MoneyAndPayments;
+  communications: Communications;
   localTransportApps: TransportApp[];
   emergencyNumbers: EmergencyNumbers;
   lastReviewedDate: string;

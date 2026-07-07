@@ -162,5 +162,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "SK Telecom",
+    "networkWhy": "Best overall network for travellers thanks to consistently strong speeds, broad national coverage, and dependable service on intercity rail routes.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "easy arrival setup",
+        "notes": "A dependable first choice if you want South Korea data active before you hit the airport train."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "longer stays and tethering",
+        "notes": "Good for medium-length trips where you may need more data headroom or a quick top-up."
+      },
+      {
+        "name": "Ubigi",
+        "bestFor": "5G-focused travellers",
+        "notes": "Worth considering if fast mobile data is a priority and you prefer a polished app flow."
+      }
+    ]
+  }
 }
