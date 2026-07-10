@@ -21,6 +21,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
         { to: "/", label: "Home", end: true },
         { to: `/country/${countryCode}/landing`, label: "Brief" },
         { to: `/country/${countryCode}/explore`, label: "Explore" },
+        { to: `/country/${countryCode}/run`, label: "Run" },
         { to: "/saved", label: "Saved", end: true }
       ]
     : defaultNavItems;

@@ -9,6 +9,7 @@ import { HomePage } from "./pages/home-page";
 import { OfflinePage } from "./pages/offline-page";
 import { SavedBriefsPage } from "./pages/saved-briefs-page";
 import { SettingsPage } from "./pages/settings-page";
+import { CountryRunPage } from "./pages/country-run-page";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "country/:countryCode/explore",
         element: <CountryExplorePage />
+      },
+      {
+        path: "country/:countryCode/run",
+        element: <CountryRunPage />
       },
       {
         path: "saved",

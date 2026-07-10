@@ -125,6 +125,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             <div className="destination-mode-switch mt-7" aria-label="Destination modes">
               <span className="destination-mode-link is-active">Arrival brief</span>
               <Link to={`/country/${brief.countryCode}/explore`} className="destination-mode-link">Explore</Link>
+              <Link to={`/country/${brief.countryCode}/run`} className="destination-mode-link">Run</Link>
             </div>
           </div>
         </section>
@@ -244,6 +245,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             <div className="destination-mode-switch mt-7" aria-label="Destination modes">
               <Link to={`/country/${brief.countryCode}/landing`} className="destination-mode-link">Arrival brief</Link>
               <Link to={`/country/${brief.countryCode}/explore`} className="destination-mode-link">Explore</Link>
+              <Link to={`/country/${brief.countryCode}/run`} className="destination-mode-link">Run</Link>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ export function AppShell() {
   const isCountryRoute =
     location.pathname.startsWith("/country/") &&
     !location.pathname.startsWith("/country//");
-  const isExploreRoute = /^\/country\/[^/]+\/explore$/.test(location.pathname);
+  const isImmersiveRoute = /^\/country\/[^/]+\/(explore|run)$/.test(location.pathname);
 
   return (
     <div className="min-h-screen bg-app-bg text-text-main">
@@ -21,7 +21,7 @@ export function AppShell() {
           "mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-12 sm:px-6 lg:px-8 lg:pb-14",
           isHomeRoute
             ? "pt-[max(env(safe-area-inset-top),0.4rem)] sm:pt-5"
-            : isExploreRoute
+            : isImmersiveRoute
               ? "max-w-none px-0 pb-0 pt-0"
               : "pt-5"
         ].join(" ")}
@@ -34,7 +34,7 @@ export function AppShell() {
         <PageContainer
           className={[
             isCountryRoute ? "theme-country-dark" : "",
-            isExploreRoute ? "macau-explore-container" : ""
+            isImmersiveRoute ? "macau-explore-container" : ""
           ].join(" ")}
         >
           <Outlet />

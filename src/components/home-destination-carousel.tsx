@@ -592,6 +592,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         <div className="destination-mode-switch">
           <Link to={`/country/${currentCountry.countryCode}/landing`} className="destination-mode-link is-active">Arrival brief</Link>
           <Link to={`/country/${currentCountry.countryCode}/explore`} className="destination-mode-link">Explore</Link>
+          <Link to={`/country/${currentCountry.countryCode}/run`} className="destination-mode-link">Run</Link>
         </div>
       </div>
     </section>
