@@ -352,26 +352,12 @@ a {
 .arrival-carousel-stage {
   position: relative;
   display: none;
-  overflow: hidden;
-  border: 1px solid rgba(194, 210, 228, 0.12);
-  background:
-    radial-gradient(circle at 50% 10%, rgba(167, 197, 220, 0.1), transparent 20%),
-    linear-gradient(180deg, rgba(12, 21, 32, 0.98) 0%, rgba(8, 15, 24, 0.98) 100%);
-  padding: 1.4rem 0 2.1rem;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 32px 80px rgba(0, 0, 0, 0.24);
+  overflow: visible;
+  padding: 0.2rem 0 1.4rem;
 }
 
 .arrival-carousel-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(7, 14, 22, 0.82) 0%, transparent 12%, transparent 88%, rgba(7, 14, 22, 0.82) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%);
-  pointer-events: none;
-  z-index: 2;
+  content: none;
 }
 
 .arrival-carousel-stage-header {
@@ -379,22 +365,23 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 0 0.15rem 0.4rem;
+  padding: 0 0.25rem 0.8rem;
 }
 
 .arrival-carousel-progress {
   display: inline-flex;
   align-items: baseline;
   gap: 0.32rem;
-  color: rgba(233, 242, 249, 0.8);
-  font-size: 0.92rem;
-  letter-spacing: 0.18em;
+  color: rgba(233, 242, 249, 0.68);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .arrival-carousel-progress-current {
-  color: #ffffff;
-  font-size: 1.12rem;
+  color: var(--accent-strong);
+  font-size: 0.82rem;
 }
 
 .arrival-carousel-progress-divider,
@@ -402,68 +389,43 @@ a {
   color: rgba(168, 184, 201, 0.72);
 }
 
-.arrival-carousel-markers {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.42rem;
-  flex-shrink: 0;
-}
-
 .arrival-carousel-active-country {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.55rem;
+  display: grid;
+  gap: 0.08rem;
   min-width: 0;
   margin-left: auto;
-  margin-right: auto;
-  padding: 0.5rem 0.9rem 0.45rem;
-  border: 1px solid rgba(216, 235, 246, 0.08);
-  border-radius: 999px;
-  background: rgba(8, 16, 25, 0.62);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.arrival-carousel-active-country-label {
-  color: rgba(168, 184, 201, 0.72);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  text-align: right;
 }
 
 .arrival-carousel-active-country-name {
   min-width: 0;
   color: rgba(246, 250, 253, 0.96);
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
-.arrival-carousel-marker {
-  width: 1.35rem;
-  height: 0.12rem;
-  border-radius: 999px;
-  background: rgba(216, 235, 246, 0.14);
-  transition:
-    width 280ms ease,
-    background-color 280ms ease,
-    opacity 280ms ease;
-  opacity: 0.7;
+.arrival-carousel-active-country-detail,
+.arrival-carousel-instruction {
+  color: rgba(168, 184, 201, 0.72);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
 }
 
-.arrival-carousel-marker.is-active {
-  width: 2.8rem;
-  background: rgba(232, 243, 251, 0.84);
-  opacity: 1;
+.arrival-carousel-instruction {
+  display: none;
+  text-transform: uppercase;
 }
 
 .arrival-carousel-track {
-  --arrival-carousel-card-width: clamp(18rem, 27vw, 22rem);
+  --arrival-carousel-card-width: clamp(22rem, 52vw, 44rem);
   --arrival-carousel-side-gutter: max(7vw, calc(50% - (var(--arrival-carousel-card-width) / 2)));
   display: flex;
   align-items: stretch;
-  gap: 0.78rem;
+  gap: 1rem;
   overflow-x: auto;
   padding-inline: var(--arrival-carousel-side-gutter);
   scrollbar-width: none;
@@ -492,10 +454,10 @@ a {
   position: relative;
   display: flex;
   flex: 0 0 var(--arrival-carousel-card-width);
-  min-height: 28rem;
+  min-height: clamp(29rem, 58vh, 35rem);
   overflow: hidden;
-  border: 1px solid rgba(214, 228, 241, 0.08);
-  border-radius: 1.8rem;
+  border: 1px solid color-mix(in srgb, var(--arrival-accent) 22%, rgba(214, 228, 241, 0.08));
+  border-radius: 1.25rem;
   background: rgba(7, 14, 22, 0.88);
   padding: 0;
   scroll-snap-align: center;
@@ -511,14 +473,14 @@ a {
 }
 
 .arrival-carousel-item:hover {
-  border-color: rgba(216, 235, 246, 0.16);
+  border-color: color-mix(in srgb, var(--arrival-accent) 42%, rgba(216, 235, 246, 0.16));
 }
 
 .arrival-carousel-item.is-active {
-  border-color: rgba(216, 235, 246, 0.18);
-  transform: translateY(-0.2rem) scale(1.015);
+  border-color: color-mix(in srgb, var(--arrival-accent) 58%, rgba(216, 235, 246, 0.18));
+  transform: scale(1.01);
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.24),
+    0 28px 70px color-mix(in srgb, var(--arrival-accent) 12%, rgba(0, 0, 0, 0.42)),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
@@ -529,22 +491,22 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  transform: scale(1.06);
-  filter: grayscale(1) brightness(0.56) contrast(1.02);
+  transform: scale(1.04);
+  filter: grayscale(0.42) brightness(0.68) contrast(1.02);
   transition: filter 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .arrival-carousel-item.is-active .arrival-carousel-item-media {
-  transform: scale(1.02);
-  filter: grayscale(0.18) brightness(0.82) contrast(1.02);
+  transform: scale(1.01);
+  filter: grayscale(0) brightness(0.9) contrast(1.03);
 }
 
 .arrival-carousel-item-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(3, 8, 14, 0.2) 0%, rgba(3, 8, 14, 0.44) 36%, rgba(3, 8, 14, 0.94) 100%),
-    linear-gradient(110deg, rgba(5, 11, 18, 0.84) 0%, rgba(5, 11, 18, 0.18) 48%, rgba(5, 11, 18, 0.76) 100%);
+    linear-gradient(180deg, rgba(3, 8, 14, 0.1) 0%, rgba(3, 8, 14, 0.38) 44%, rgba(3, 8, 14, 0.92) 100%),
+    linear-gradient(110deg, rgba(5, 11, 18, 0.58) 0%, transparent 58%, rgba(5, 11, 18, 0.38) 100%);
   opacity: 0.96;
   transition: opacity 320ms ease, background 320ms ease;
   z-index: 1;
@@ -552,8 +514,8 @@ a {
 
 .arrival-carousel-item.is-active .arrival-carousel-item-overlay {
   background:
-    linear-gradient(180deg, rgba(3, 8, 14, 0.08) 0%, rgba(3, 8, 14, 0.3) 32%, rgba(3, 8, 14, 0.9) 100%),
-    linear-gradient(112deg, rgba(5, 11, 18, 0.72) 0%, rgba(5, 11, 18, 0.12) 52%, rgba(5, 11, 18, 0.78) 100%);
+    linear-gradient(180deg, rgba(3, 8, 14, 0.02) 0%, rgba(3, 8, 14, 0.2) 42%, rgba(3, 8, 14, 0.88) 100%),
+    linear-gradient(112deg, rgba(5, 11, 18, 0.58) 0%, transparent 58%, rgba(5, 11, 18, 0.42) 100%);
 }
 
 .arrival-carousel-item-content {
@@ -582,15 +544,14 @@ a {
   align-items: center;
   justify-content: center;
   min-width: 2.4rem;
-  border: 1px solid rgba(216, 235, 246, 0.14);
-  border-radius: 999px;
-  padding: 0.32rem 0.52rem;
-  color: rgba(244, 248, 252, 0.92);
+  border: 0;
+  padding: 0;
+  color: color-mix(in srgb, var(--arrival-accent) 78%, white);
   font-size: 0.67rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  background: rgba(6, 14, 23, 0.46);
+  background: transparent;
 }
 
 .arrival-carousel-item-copy {
@@ -602,11 +563,10 @@ a {
 
 .arrival-carousel-item-title {
   display: block;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  transform: translateY(0.4rem);
   color: rgba(246, 250, 253, 0.9);
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.85rem;
   line-height: 0.92;
   letter-spacing: -0.03em;
   transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
@@ -625,18 +585,16 @@ a {
 }
 
 .arrival-carousel-item-hint {
-  color: rgba(232, 243, 251, 0.72);
+  color: rgba(232, 243, 251, 0.82);
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  transform: none;
 }
 
 .arrival-carousel-item.is-active .arrival-carousel-item-title {
-  writing-mode: horizontal-tb;
   transform: none;
-  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  font-size: clamp(3rem, 5.6vw, 5rem);
   line-height: 0.9;
 }
 
@@ -645,6 +603,10 @@ a {
   opacity: 1;
   max-height: 8rem;
   transform: translateY(0);
+}
+
+.arrival-carousel-item.is-active .arrival-carousel-item-cta {
+  overflow: visible;
 }
 
 .arrival-carousel-item.is-active .arrival-carousel-item-description {
@@ -662,10 +624,10 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(216, 235, 246, 0.16);
+  border: 1px solid color-mix(in srgb, var(--arrival-accent) 48%, rgba(216, 235, 246, 0.16));
   border-radius: 999px;
   padding: 0.8rem 1.1rem;
-  background: rgba(8, 16, 25, 0.66);
+  background: color-mix(in srgb, var(--arrival-accent) 16%, rgba(8, 16, 25, 0.76));
   color: var(--text-main);
   font-size: 0.8rem;
   font-weight: 600;
@@ -678,8 +640,8 @@ a {
 }
 
 .arrival-carousel-link:hover {
-  border-color: rgba(216, 235, 246, 0.28);
-  background: rgba(10, 20, 31, 0.82);
+  border-color: color-mix(in srgb, var(--arrival-accent) 68%, rgba(216, 235, 246, 0.28));
+  background: color-mix(in srgb, var(--arrival-accent) 26%, rgba(10, 20, 31, 0.82));
   transform: translateY(-1px);
 }
 
@@ -696,8 +658,8 @@ a {
   width: calc(100% - 0.6rem);
   max-width: 100%;
   overflow: hidden;
-  border: 1px solid rgba(194, 210, 228, 0.12);
-  border-radius: 1.8rem;
+  border: 1px solid color-mix(in srgb, var(--arrival-accent) 24%, rgba(194, 210, 228, 0.12));
+  border-radius: 1.25rem;
   background: rgba(8, 15, 24, 0.92);
   isolation: isolate;
   transform-origin: center center;
@@ -730,7 +692,7 @@ a {
 
 .arrival-mobile-card.is-active {
   opacity: 1;
-  border-color: rgba(216, 235, 246, 0.2);
+  border-color: color-mix(in srgb, var(--arrival-accent) 58%, rgba(216, 235, 246, 0.2));
   box-shadow:
     0 18px 40px rgba(0, 0, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -752,13 +714,13 @@ a {
   object-fit: cover;
   object-position: center 22%;
   transform: scale(1.03);
-  filter: grayscale(0.65) brightness(0.62) contrast(1.02);
+  filter: grayscale(0.16) brightness(0.84) contrast(1.02);
   transition: filter 320ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .arrival-mobile-card.is-active .arrival-mobile-card-media {
   transform: scale(1.01);
-  filter: grayscale(0.14) brightness(0.84) contrast(1.02);
+  filter: grayscale(0) brightness(0.94) contrast(1.03);
 }
 
 .arrival-mobile-card-overlay {
@@ -824,10 +786,10 @@ a {
   align-items: center;
   justify-content: center;
   align-self: flex-start;
-  border: 1px solid rgba(216, 235, 246, 0.14);
+  border: 1px solid color-mix(in srgb, var(--arrival-accent) 48%, rgba(216, 235, 246, 0.14));
   border-radius: 999px;
   padding: 0.72rem 1rem;
-  background: rgba(8, 16, 25, 0.62);
+  background: color-mix(in srgb, var(--arrival-accent) 16%, rgba(8, 16, 25, 0.72));
   color: rgba(232, 243, 251, 0.86);
   font-size: 0.75rem;
   font-weight: 600;
@@ -841,10 +803,47 @@ a {
 }
 
 .arrival-mobile-card.is-active .arrival-mobile-card-cta {
-  border-color: rgba(216, 235, 246, 0.22);
-  background: rgba(10, 20, 31, 0.8);
+  border-color: color-mix(in srgb, var(--arrival-accent) 64%, rgba(216, 235, 246, 0.22));
+  background: color-mix(in srgb, var(--arrival-accent) 24%, rgba(10, 20, 31, 0.8));
   color: var(--text-main);
   opacity: 1;
+}
+
+.arrival-mobile-card-index {
+  color: color-mix(in srgb, var(--arrival-accent) 72%, white);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+
+.arrival-mobile-carousel-instruction {
+  position: absolute;
+  right: 0.35rem;
+  bottom: -0.35rem;
+  z-index: 30;
+  margin: 0;
+  color: rgba(232, 243, 251, 0.72);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrival-carousel-item,
+  .arrival-carousel-item-media,
+  .arrival-carousel-item-overlay,
+  .arrival-carousel-item-title,
+  .arrival-carousel-item-description,
+  .arrival-carousel-item-cta,
+  .arrival-mobile-card,
+  .arrival-mobile-card-media,
+  .arrival-mobile-card-overlay,
+  .arrival-mobile-card-title,
+  .arrival-mobile-card-description,
+  .arrival-mobile-card-cta {
+    transition-duration: 0.01ms;
+  }
 }
 
 @media (max-width: 430px) {
@@ -869,6 +868,16 @@ a {
     min-height: 30.35rem;
     width: calc(100% - 0.35rem);
     border-radius: 1.95rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .arrival-carousel-stage-header {
+    display: none;
+  }
+
+  .arrival-mobile-carousel .arrival-mobile-card {
+    inset: 0 auto 2.35rem 0;
   }
 }
 

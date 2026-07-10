@@ -26,8 +26,23 @@ const MOBILE_SWIPE_THRESHOLD = 72;
 const MOBILE_TAP_THRESHOLD = 10;
 const DESKTOP_DRAG_THRESHOLD = 6;
 
+const countryAccents: Record<string, string> = {
+  sg: "#d9b66f",
+  th: "#e59662",
+  my: "#78baa5",
+  vn: "#df8d61",
+  hk: "#d46b67",
+  mo: "#ba9768",
+  kr: "#a28bd1",
+  in: "#d79754"
+};
+
 function formatIndex(value: number) {
   return String(value).padStart(2, "0");
+}
+
+function isInteractiveTarget(target: EventTarget | null) {
+  return target instanceof Element && target.closest("a, button") !== null;
 }
 
 export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselProps) {
@@ -216,6 +231,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
         setDesktopFocusIndex(closestItem.index);
       }
 
+      if (closestItem.index !== activeIndex) {
+        setActiveIndex(closestItem.index);
+      }
+
       desktopScrollSyncFrameRef.current = null;
     });
   }
@@ -226,6 +245,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     }
 
     if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    if (isInteractiveTarget(event.target)) {
       return;
     }
 
@@ -271,22 +294,12 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     event.currentTarget.releasePointerCapture(event.pointerId);
 
     if (!dragState.hasDragged) {
-      const target = document.elementFromPoint(event.clientX, event.clientY);
-
-      if (target instanceof Element) {
-        const card = target.closest<HTMLElement>("[data-country-route]");
-        const route = card?.dataset.countryRoute;
-
-        if (route) {
-          navigate(route);
-        }
-      }
-
       return;
     }
 
     const targetIndex = getClosestDesktopItem(event.currentTarget).index;
     setDesktopFocusIndex(targetIndex);
+    setActiveIndex(targetIndex);
     centerDesktopItem(targetIndex, "smooth");
   }
 
@@ -303,6 +316,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       event.preventDefault();
       const nextIndex = clampIndex(activeIndex + 1);
       setDesktopFocusIndex(nextIndex);
+      setActiveIndex(nextIndex);
       centerDesktopItem(nextIndex, "smooth");
     }
 
@@ -310,6 +324,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
       event.preventDefault();
       const nextIndex = clampIndex(activeIndex - 1);
       setDesktopFocusIndex(nextIndex);
+      setActiveIndex(nextIndex);
       centerDesktopItem(nextIndex, "smooth");
     }
   }
@@ -333,6 +348,10 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   function handleMobilePointerDown(event: PointerEvent<HTMLElement>) {
     if (!window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    if (isInteractiveTarget(event.target)) {
       return;
     }
 
@@ -372,7 +391,6 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
     setMobileDragOffset(0);
 
     if (Math.abs(deltaX) <= MOBILE_TAP_THRESHOLD) {
-      navigate(`/country/${currentCountry.countryCode}`);
       return;
     }
 
@@ -401,24 +419,19 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
 
   return (
     <section className="arrival-carousel-shell space-y-3 sm:space-y-5">
-      <div className="arrival-carousel-stage-header">
+      <div className="arrival-carousel-stage-header" aria-live="polite">
         <div className="arrival-carousel-progress">
           <span className="arrival-carousel-progress-current">{formatIndex(desktopFocusIndex + 1)}</span>
           <span className="arrival-carousel-progress-divider">/</span>
           <span className="arrival-carousel-progress-total">{formatIndex(countries.length)}</span>
         </div>
-        <div className="arrival-carousel-active-country" aria-live="polite">
-          <span className="arrival-carousel-active-country-label">In focus</span>
+        <div className="arrival-carousel-active-country">
           <span className="arrival-carousel-active-country-name">{desktopPreviewCountry.countryName}</span>
+          <span className="arrival-carousel-active-country-detail">
+            {desktopPreviewCountry.capitalOrMainCity} · {desktopPreviewCountry.primaryAirport}
+          </span>
         </div>
-        <div className="arrival-carousel-markers" aria-hidden="true">
-          {countries.map((country, index) => (
-            <span
-              key={country.countryCode}
-              className={index === desktopFocusIndex ? "arrival-carousel-marker is-active" : "arrival-carousel-marker"}
-            />
-          ))}
-        </div>
+        <span className="arrival-carousel-instruction">Drag or use arrow keys</span>
       </div>
 
       <div
@@ -449,13 +462,20 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                 }}
                 data-country-route={`/country/${country.countryCode}`}
                 className={isActive ? "arrival-carousel-item is-active" : "arrival-carousel-item"}
-                onClick={() => {
+                style={{ "--arrival-accent": countryAccents[country.countryCode] ?? "#9dc2d7" } as CSSProperties}
+                onClick={(event) => {
+                  if (isInteractiveTarget(event.target)) {
+                    return;
+                  }
+
                   if (desktopSuppressClickRef.current) {
                     desktopSuppressClickRef.current = false;
                     return;
                   }
 
-                  navigate(`/country/${country.countryCode}`);
+                  setDesktopFocusIndex(index);
+                  setActiveIndex(index);
+                  centerDesktopItem(index, "smooth");
                 }}
               >
                 {artwork?.kind === "image" ? (
@@ -486,7 +506,19 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                     </span>
                   </span>
                   <span className="arrival-carousel-item-cta">
-                    <span className="arrival-carousel-item-hint">{isActive ? "In focus" : "Choose"}</span>
+                    {isActive ? (
+                      <Link
+                        to={`/country/${country.countryCode}`}
+                        className="arrival-carousel-link"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        Open arrival brief
+                      </Link>
+                    ) : (
+                      <span className="arrival-carousel-item-hint">Select destination</span>
+                    )}
                   </span>
                 </span>
               </article>
@@ -509,11 +541,11 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
               data-stack-index={stackIndex}
               style={{
                 "--mobile-card-offset": `${dragOffset}px`,
-                "--mobile-card-stack-index": stackIndex
+                "--mobile-card-stack-index": stackIndex,
+                "--arrival-accent": countryAccents[country.countryCode] ?? "#9dc2d7"
               } as CSSProperties}
               tabIndex={isActive ? 0 : -1}
-              role={isActive ? "link" : undefined}
-              aria-label={isActive ? `Open ${country.countryName} brief` : undefined}
+              aria-label={isActive ? `${country.countryName} arrival brief. Swipe to browse destinations.` : undefined}
               onKeyDown={
                 isActive
                   ? (event) => {
@@ -569,19 +601,26 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
               <span className="arrival-mobile-card-content">
                 <span className="arrival-mobile-card-topline">
                   <span className="eyebrow text-slate-300/85">{country.capitalOrMainCity}</span>
-                  <span className="pill-chip rounded-full px-3 py-1 text-[0.68rem] font-medium">
-                    {country.countryCode.toUpperCase()}
-                  </span>
+                  <span className="arrival-mobile-card-index">{formatIndex(activeIndex + 1)} / {formatIndex(countries.length)}</span>
                 </span>
                 <span className="arrival-mobile-card-title">{country.countryName}</span>
                 <span className="arrival-mobile-card-description">
                   Arrival essentials, transport, money, and first-hour notes via {country.primaryAirport}.
                 </span>
-                <span className="arrival-mobile-card-cta">Open brief</span>
+                <Link
+                  to={`/country/${country.countryCode}`}
+                  className="arrival-mobile-card-cta"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
+                  Open arrival brief
+                </Link>
               </span>
             </article>
           );
         })}
+        <p className="arrival-mobile-carousel-instruction">Swipe through destinations</p>
       </div>
 
       <div className="destination-mode-choice" aria-label={`${currentCountry.countryName} destination modes`}>
