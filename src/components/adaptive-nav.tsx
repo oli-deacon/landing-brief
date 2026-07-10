@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { useAppStatus } from "../lib/app-status";
 
@@ -6,14 +6,24 @@ type AdaptiveNavProps = {
   variant?: "default" | "country";
 };
 
-const navItems = [
+const defaultNavItems = [
   { to: "/", label: "Home" },
   { to: "/saved", label: "Saved" }
 ];
 
 export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
   const { canInstall, installApp, installMethod, isInstalled, isOnline } = useAppStatus();
+  const location = useLocation();
   const isCountryVariant = variant === "country";
+  const countryCode = location.pathname.match(/^\/country\/([^/]+)/)?.[1];
+  const navItems = countryCode
+    ? [
+        { to: "/", label: "Home", end: true },
+        { to: `/country/${countryCode}/landing`, label: "Brief" },
+        { to: `/country/${countryCode}/explore`, label: "Explore" },
+        { to: "/saved", label: "Saved", end: true }
+      ]
+    : defaultNavItems;
 
   return (
     <header className="sticky top-0 z-30 px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8">
@@ -51,6 +61,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
               <NavLink
                 key={item.to}
                 to={item.to}
+                end={item.end}
                 className={({ isActive }) =>
                   [
                     "flex-1 rounded-full px-3 py-2 text-center text-sm font-medium transition sm:flex-none sm:px-4",

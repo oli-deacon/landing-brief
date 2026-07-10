@@ -105,18 +105,79 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const handyPhrasePreview = brief.handyPhrases.slice(0, 5);
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
-  const modeToggleLabel = isLandingMode ? "Open full brief" : "Switch to landing mode";
-  const modeToggleHref = isLandingMode ? `/country/${brief.countryCode}` : `/country/${brief.countryCode}/landing`;
   const safeOfficialLinks = brief.entryRequirements.officialLinks.flatMap((link) => {
     const safeUrl = getSafeExternalUrl(link.url);
 
     return safeUrl ? [{ ...link, safeUrl }] : [];
   });
-  const heroMetadata = [
-    brief.countryCode.toUpperCase(),
-    `Reviewed ${brief.lastReviewedDate}`,
-    `${brief.capitalOrMainCity} via ${brief.primaryAirport}`
-  ];
+
+  if (isLandingMode) {
+    return (
+      <div className="country-page space-y-8 sm:space-y-10">
+        <section className="country-hero country-arrival-hero hero-frame rounded-[2rem] border border-white/8">
+          {artwork?.kind === "image" ? <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" /> : null}
+          <div className="hero-content country-arrival-hero-content">
+            <p className="country-kicker">{brief.countryName}</p>
+            <h1 className="country-display-title mt-4 text-[3.2rem] leading-[0.84] text-white sm:text-[5.2rem]">Your first hour, sorted.</h1>
+            <p className="mt-5 max-w-xl text-base leading-8 text-[rgba(250,250,250,0.82)]">
+              The few decisions that get you from arrival to settled: entry, the best onward move, and what to keep close.
+            </p>
+            <div className="destination-mode-switch mt-7" aria-label="Destination modes">
+              <span className="destination-mode-link is-active">Arrival brief</span>
+              <Link to={`/country/${brief.countryCode}/explore`} className="destination-mode-link">Explore</Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="country-arrival-path" aria-label="Arrival path">
+          <div className="country-arrival-step">
+            <span>01</span>
+            <div>
+              <p className="country-kicker">Clear entry</p>
+              <h2>{takeFirstSentence(brief.entryRequirements.visaSummary)}</h2>
+              <p>{entryReminder}</p>
+            </div>
+          </div>
+          <div className="country-arrival-step">
+            <span>02</span>
+            <div>
+              <p className="country-kicker">Choose your move</p>
+              <h2>{bestArrivalOption.mode}</h2>
+              <p>{bestArrivalOption.typicalTime} · {bestArrivalOption.typicalCost}. {bestArrivalOption.bestFor}</p>
+            </div>
+          </div>
+          <div className="country-arrival-step">
+            <span>03</span>
+            <div>
+              <p className="country-kicker">Keep close</p>
+              <h2>{brief.moneyAndPayments.currency} and a data plan.</h2>
+              <p>{takeFirstSentence(brief.moneyAndPayments.cashNotes)} {takeFirstSentence(brief.communications.networkWhy)}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="country-arrival-more">
+          <div>
+            <p className="country-kicker">Need the detail?</p>
+            <h2>Transport options, useful words, payments, food and local tools.</h2>
+          </div>
+          <Link to={`/country/${brief.countryCode}`} className="button-primary country-button-primary inline-flex rounded-lg px-5 py-3 text-sm font-medium">Open full brief</Link>
+        </section>
+
+        {safeOfficialLinks.length > 0 ? (
+          <div className="country-official-links">
+            <p className="country-kicker">Before you leave</p>
+            <div>
+              {safeOfficialLinks.slice(0, 3).map((link) => (
+                <a key={link.safeUrl} href={link.safeUrl} target="_blank" rel="noopener noreferrer">{link.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   const renderPhraseCard = (phrase: (typeof brief.handyPhrases)[number]) => (
     <div key={`${phrase.english}-${phrase.local}`} className="country-side-card rounded-[1.2rem] p-4">
       <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -153,7 +214,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         </SectionShell>
       ) : null}
 
-      <section className="country-hero hero-frame rounded-[2rem] border border-white/8">
+      <section className="country-hero country-brief-hero hero-frame rounded-[2rem] border border-white/8">
         {artwork?.kind === "image" ? (
           <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
         ) : null}
@@ -171,72 +232,31 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           </div>
         ) : null}
 
-        <div className="hero-content grid min-h-[30rem] gap-8 px-5 pb-6 pt-8 sm:px-7 sm:pb-8 sm:pt-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(19rem,0.85fr)] lg:items-end">
+        <div className="hero-content country-brief-hero-content">
           <div className="max-w-3xl">
-            <div className="country-hero-badge">
-              <span className="country-hero-badge-dot" aria-hidden="true" />
-              <span>{isLandingMode ? "90-second arrival mode" : "Full progressive country brief"}</span>
-            </div>
-
-            <h1 className="country-display-title mt-5 max-w-3xl text-[3.1rem] leading-[0.84] text-white sm:text-[4.45rem] lg:text-[5.35rem]">
+            <p className="country-kicker">Practical destination brief</p>
+            <h1 className="country-display-title mt-4 max-w-3xl text-[3.1rem] leading-[0.84] text-white sm:text-[4.45rem] lg:text-[5.35rem]">
               {brief.countryName}
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(250,250,250,0.82)]">
-              Start with the fastest arrival path, then expand into the details that matter once
-              you’re moving.
+              The details that matter once you land: entry, transport, payments, data, and the practical texture of your first days.
             </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              {heroMetadata.map((item) => (
-                <span key={item} className="country-meta-pill">
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <Link
-                to={modeToggleHref}
-                className="button-primary country-button-primary inline-flex rounded-lg px-5 py-3 text-sm font-medium"
-              >
-                {modeToggleLabel}
-              </Link>
-              <button
-                type="button"
-                onClick={() => {
-                  toggleSavedCountry(summary);
-                }}
-                className="button-secondary country-button-secondary inline-flex rounded-lg px-5 py-3 text-sm font-medium"
-              >
-                {saved ? "Remove saved brief" : "Save for offline"}
-              </button>
-              <a href="#arrive" className="country-text-link text-sm font-medium">
-                Jump to arrival essentials
-              </a>
-            </div>
-          </div>
-
-          <div className="country-hero-sidebar space-y-4">
-            <div className="hero-snapshot country-hero-snapshot rounded-[1.3rem] px-4 py-4 sm:px-5">
-              <p className="country-kicker">Arrival snapshot</p>
-              <p className="mt-3 text-[1.25rem] font-semibold leading-6 text-text-main">
-                {bestArrivalOption.mode} to {brief.capitalOrMainCity}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm text-text-soft">
-                <span className="country-meta-pill">{bestArrivalOption.typicalTime}</span>
-                <span className="country-meta-pill">{bestArrivalOption.typicalCost}</span>
-              </div>
-              <p className="mt-4 text-sm leading-7 text-text-muted">{bestArrivalOption.bestFor}</p>
-              <p className="mt-3 text-sm leading-7 text-text-main">{entryReminder}</p>
-            </div>
-
-            <div className="country-side-card rounded-[1.3rem] p-5">
-              <p className="country-kicker">Primary arrival point</p>
-              <p className="mt-3 text-lg font-semibold text-text-main">{brief.primaryAirport}</p>
-              <p className="mt-2 text-sm leading-7 text-text-muted">{brief.disclaimer}</p>
+            <div className="destination-mode-switch mt-7" aria-label="Destination modes">
+              <Link to={`/country/${brief.countryCode}/landing`} className="destination-mode-link">Arrival brief</Link>
+              <Link to={`/country/${brief.countryCode}/explore`} className="destination-mode-link">Explore</Link>
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="country-brief-tools">
+        <div>
+          <p className="country-kicker">{brief.primaryAirport}</p>
+          <p>Reviewed {brief.lastReviewedDate} · {bestArrivalOption.mode}</p>
+        </div>
+        <button type="button" onClick={() => { toggleSavedCountry(summary); }} className="country-text-link text-sm font-medium">
+          {saved ? "Remove from offline" : "Save for offline"}
+        </button>
       </section>
 
       <details className="country-jump-nav rounded-[1.3rem] px-4 py-4 sm:px-5" open>

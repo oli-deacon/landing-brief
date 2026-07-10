@@ -433,7 +433,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
           className="arrival-carousel-track"
           tabIndex={0}
           role="region"
-          aria-label="Choose your arrival brief"
+          aria-label="Choose a destination"
           onKeyDown={handleKeyDown}
           onScroll={handleDesktopScroll}
         >
@@ -486,16 +486,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                     </span>
                   </span>
                   <span className="arrival-carousel-item-cta">
-                    {isActive ? (
-                      <Link
-                        to={`/country/${country.countryCode}`}
-                        className="arrival-carousel-link"
-                      >
-                        Open brief
-                      </Link>
-                    ) : (
-                      <span className="arrival-carousel-item-hint">Open brief</span>
-                    )}
+                    <span className="arrival-carousel-item-hint">{isActive ? "In focus" : "Choose"}</span>
                   </span>
                 </span>
               </article>
@@ -591,6 +582,17 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
             </article>
           );
         })}
+      </div>
+
+      <div className="destination-mode-choice" aria-label={`${currentCountry.countryName} destination modes`}>
+        <div>
+          <p className="eyebrow">{currentCountry.countryName}</p>
+          <p>Choose the pace that suits this trip.</p>
+        </div>
+        <div className="destination-mode-switch">
+          <Link to={`/country/${currentCountry.countryCode}/landing`} className="destination-mode-link is-active">Arrival brief</Link>
+          <Link to={`/country/${currentCountry.countryCode}/explore`} className="destination-mode-link">Explore</Link>
+        </div>
       </div>
     </section>
   );
