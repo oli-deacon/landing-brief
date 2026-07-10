@@ -879,6 +879,14 @@ a {
   .arrival-mobile-carousel .arrival-mobile-card {
     inset: 0 auto 2.35rem 0;
   }
+
+  .arrival-mobile-card-media,
+  .arrival-mobile-card.is-active .arrival-mobile-card-media,
+  .hero-media-poster {
+    object-fit: contain;
+    object-position: center top;
+    transform: none;
+  }
 }
 
 @media (max-width: 980px) {

@@ -49,10 +49,16 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
           </Link>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start">
+        <div
+          className={[
+            "flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start",
+            isCountryVariant ? "flex-wrap" : ""
+          ].join(" ")}
+        >
           <nav
             className={[
-              "flex min-w-0 flex-1 items-center gap-1 rounded-full p-1 sm:flex-initial",
+              "flex min-w-0 items-center gap-1 rounded-full p-1",
+              isCountryVariant ? "w-full flex-none sm:w-auto sm:flex-initial" : "flex-1 sm:flex-initial",
               isCountryVariant
                 ? "country-nav-tabs border border-white/8 bg-white/[0.03]"
                 : "border border-border-soft bg-white/3"
@@ -81,7 +87,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
             ))}
           </nav>
 
-          <details className="nav-utility-menu">
+          <details className={isCountryVariant ? "nav-utility-menu ml-auto sm:ml-0" : "nav-utility-menu"}>
             <summary className={isCountryVariant ? "nav-utility-trigger country-nav-utility-trigger" : "nav-utility-trigger"}>
               <span>More</span>
             </summary>
