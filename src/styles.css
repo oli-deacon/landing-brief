@@ -988,7 +988,7 @@ a {
 @keyframes run-copy-reveal { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: translateY(0); } }
 @keyframes run-line-draw { from { transform: scaleY(0); transform-origin: top; } to { transform: scaleY(1); transform-origin: top; } }
 @keyframes run-route-enter { from { opacity: 0; transform: translateY(3rem); } to { opacity: 1; transform: translateY(0); } }
-@media (max-width: 767px) { .run-hero { min-height: calc(100svh - 6rem); } .run-hero-art { object-position: 59% center; } .run-hero-wash { background: linear-gradient(0deg, rgba(3, 12, 10, 0.9), rgba(3, 12, 10, 0.18) 74%); } .run-route { grid-template-columns: 2.2rem minmax(0, 1fr); } .run-route-line { left: 2.6rem; } .run-track { grid-template-columns: 1fr; } }
+@media (max-width: 767px) { .run-hero { min-height: calc(100svh - 6rem); background: #07100e; } .run-hero-art { object-fit: contain; object-position: center top; animation: none; } .run-hero-wash { background: linear-gradient(0deg, rgba(3, 12, 10, 0.9), rgba(3, 12, 10, 0.18) 74%); } .run-route { grid-template-columns: 2.2rem minmax(0, 1fr); } .run-route-line { left: 2.6rem; } .run-track { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .run-page *, .run-page *::before, .run-page *::after { animation: none !important; transition: none !important; } }
 
 /* Shared destination language: calm utility surfaces, gold editorial accents. */
@@ -2164,7 +2164,9 @@ a {
   }
 
   .macau-explore-hero-art {
-    object-position: 59% center;
+    object-fit: contain;
+    object-position: center top;
+    animation: none;
   }
 
   .macau-explore-hero-wash {
