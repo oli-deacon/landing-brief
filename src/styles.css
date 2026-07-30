@@ -353,6 +353,7 @@ a {
   --shelf-wood: #111a21;
   --shelf-wood-light: #26333d;
   --shelf-edge: #050a0f;
+  --book-motion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .arrival-carousel-stage {
@@ -558,16 +559,16 @@ a {
     color-mix(in srgb, var(--arrival-accent) 32%, #0c1721);
   box-shadow:
     0.34rem 0 0 color-mix(in srgb, var(--arrival-accent) 18%, #070d12),
-    0 0.8rem 1.7rem rgba(0, 0, 0, 0.28),
+    0 0.16rem 0.3rem rgba(0, 0, 0, 0.22),
     inset 1px 0 0 rgba(255, 255, 255, 0.08);
   transform: rotateZ(var(--book-lean));
   transform-origin: 50% 100%;
   transition:
-    opacity 160ms ease,
-    transform 300ms cubic-bezier(0.2, 0.78, 0.18, 1),
-    filter 220ms ease,
-    box-shadow 260ms ease;
+    opacity 110ms ease-out,
+    transform 240ms var(--book-motion-ease),
+    border-color 180ms ease-out;
   filter: brightness(0.82) saturate(0.86);
+  will-change: transform, opacity;
   pointer-events: none;
 }
 
@@ -623,17 +624,13 @@ a {
 }
 
 .arrival-book-slot:not(.is-active) .arrival-book-select:hover .arrival-book-shelf-spine {
-  filter: brightness(1.06) saturate(1);
-  transform: translate3d(0, -0.42rem, 1rem) rotateZ(0deg);
-  box-shadow:
-    0.42rem 0 0 color-mix(in srgb, var(--arrival-accent) 22%, #070d12),
-    0 1.25rem 2.3rem rgba(0, 0, 0, 0.38),
-    inset 1px 0 0 rgba(255, 255, 255, 0.12);
+  border-color: color-mix(in srgb, var(--arrival-accent) 72%, rgba(236, 245, 250, 0.28));
+  transform: translate3d(0, -0.18rem, 0.55rem) rotateZ(var(--book-lean));
 }
 
 .arrival-book-slot.is-active .arrival-book-shelf-spine {
   opacity: 0;
-  transform: translate3d(0, -0.75rem, 2.5rem) scaleX(0.88);
+  transform: translate3d(0, -0.32rem, 1.2rem) scaleX(0.94) rotateZ(var(--book-lean));
 }
 
 .arrival-book {
@@ -643,35 +640,27 @@ a {
   left: 50%;
   width: 20rem;
   display: block;
-  transform: translateX(-50%) rotateY(-79deg) rotateZ(var(--book-lean));
+  transform: translate3d(-50%, 0, 0) rotateY(-79deg) rotateZ(var(--book-lean));
   transform-origin: 50% 100%;
   transform-style: preserve-3d;
   transition:
-    transform 560ms cubic-bezier(0.2, 0.78, 0.18, 1),
-    opacity 180ms ease,
-    filter 320ms ease;
+    transform 680ms var(--book-motion-ease),
+    opacity 120ms ease-out;
   opacity: 0;
-  filter: brightness(0.68) saturate(0.72);
-  will-change: transform;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
   pointer-events: none;
-}
-
-.arrival-book-slot:not(.is-active) .arrival-book-select:hover .arrival-book {
-  opacity: 0.34;
-  transform: translateX(-50%) translate3d(0.5rem, -0.36rem, 0.65rem) rotateY(-84deg) rotateZ(0deg);
-  filter: brightness(0.78) saturate(0.84);
 }
 
 .arrival-book-slot.is-active .arrival-book {
   opacity: 1;
-  transform: translateX(-50%) translate3d(0, -0.9rem, 7.5rem) rotateY(-7deg) rotateX(0.8deg) rotateZ(0deg);
-  filter: none;
-  transition-duration: 620ms;
+  transform: translate3d(-50%, -0.82rem, 6rem) rotateY(-6deg) rotateX(0.55deg) rotateZ(0deg);
+  transition-duration: 760ms, 100ms;
 }
 
 .arrival-carousel-track.is-dragging .arrival-book-slot.is-active .arrival-book {
-  transform: translateX(-50%) translate3d(0, -0.2rem, 2.5rem) rotateY(-16deg) rotateX(0.5deg);
-  transition-duration: 240ms;
+  transform: translate3d(-50%, -0.28rem, 3rem) rotateY(-13deg) rotateX(0.4deg);
+  transition-duration: 220ms, 100ms;
 }
 
 .arrival-book-pages,
@@ -698,8 +687,8 @@ a {
   border-radius: 0.28rem 0.8rem 0.8rem 0.28rem;
   background: #08121b;
   box-shadow:
-    0 2.8rem 5.5rem rgba(0, 0, 0, 0.52),
-    0 1rem 3rem color-mix(in srgb, var(--arrival-accent) 12%, transparent),
+    0 2rem 4rem rgba(0, 0, 0, 0.44),
+    0 0.8rem 2rem color-mix(in srgb, var(--arrival-accent) 9%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transform: translateZ(1.35rem);
   isolation: isolate;
@@ -752,7 +741,7 @@ a {
 .arrival-book-slot.is-active .arrival-book-cover-copy {
   opacity: 1;
   transform: none;
-  transition-delay: 260ms;
+  transition-delay: 380ms;
 }
 
 .arrival-book-cover-topline {
@@ -888,7 +877,7 @@ a {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, 0);
-  transition-delay: 320ms, 320ms, 0ms;
+  transition-delay: 440ms, 440ms, 0ms;
 }
 
 .arrival-book-link:hover,
