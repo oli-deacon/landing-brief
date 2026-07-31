@@ -694,6 +694,35 @@ a {
   isolation: isolate;
 }
 
+.arrival-book-slot.is-active .arrival-book-cover,
+.arrival-mobile-book-stage,
+.country-arrival-hero {
+  view-transition-name: arrival-brief-cover;
+}
+
+::view-transition-group(arrival-brief-cover) {
+  animation-duration: 720ms;
+  animation-timing-function: cubic-bezier(0.2, 0.78, 0.18, 1);
+}
+
+::view-transition-old(arrival-brief-cover) {
+  animation: 720ms cubic-bezier(0.2, 0.78, 0.18, 1) both arrival-brief-leave;
+}
+
+::view-transition-new(arrival-brief-cover) {
+  animation: 720ms cubic-bezier(0.2, 0.78, 0.18, 1) both arrival-brief-arrive;
+}
+
+@keyframes arrival-brief-leave {
+  from { opacity: 1; filter: brightness(1); }
+  to { opacity: 0; filter: brightness(0.78); }
+}
+
+@keyframes arrival-brief-arrive {
+  from { opacity: 0; filter: brightness(0.78); }
+  to { opacity: 1; filter: brightness(1); }
+}
+
 .arrival-book-cover::after {
   content: "";
   position: absolute;
@@ -881,10 +910,18 @@ a {
 }
 
 .arrival-book-link:hover,
-.arrival-mobile-book-link:hover {
+.arrival-mobile-book-link:hover,
+.arrival-book-link:focus-visible,
+.arrival-mobile-book-link:focus-visible {
   border-color: color-mix(in srgb, var(--arrival-accent) 68%, rgba(216, 235, 246, 0.28));
   background: color-mix(in srgb, var(--arrival-accent) 26%, rgba(10, 20, 31, 0.82));
   transform: translateY(-1px);
+}
+
+.arrival-book-link:focus-visible,
+.arrival-mobile-book-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--arrival-accent) 76%, white);
+  outline-offset: 3px;
 }
 
 .arrival-mobile-bookshelf {
@@ -913,6 +950,12 @@ a {
   .arrival-mobile-spine {
     transition-duration: 0.01ms;
     transition-delay: 0ms;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
   }
 }
 

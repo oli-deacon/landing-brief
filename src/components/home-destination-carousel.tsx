@@ -390,7 +390,7 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
             {hasSelection ? `${currentCountry.capitalOrMainCity} · ${currentCountry.primaryAirport}` : `${countries.length} destination briefs on the shelf`}
           </span>
         </div>
-        <span className="arrival-carousel-instruction">Drag, choose a volume, or use arrow keys</span>
+        <span className="arrival-carousel-instruction">Choose a spine. Take the book.</span>
       </div>
 
       <div className="arrival-carousel-stage">
@@ -471,12 +471,14 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
                   </span>
                 </button>
                 <Link
-                  to={`/country/${country.countryCode}`}
+                  to={`/country/${country.countryCode}/landing`}
                   className="arrival-book-link"
                   tabIndex={isActive ? 0 : -1}
                   aria-hidden={!isActive}
+                  aria-label={`Take ${country.countryName} from the shelf and open its arrival brief`}
+                  viewTransition
                 >
-                  Open arrival brief <span aria-hidden="true">↗</span>
+                  Take the brief <span aria-hidden="true">→</span>
                 </Link>
               </article>
             );
@@ -550,8 +552,13 @@ export function HomeDestinationCarousel({ countries }: HomeDestinationCarouselPr
             </div>
             <h2>{currentCountry.countryName}</h2>
             <p>Arrival essentials, transport, money, and first-hour notes via {currentCountry.primaryAirport}.</p>
-            <Link to={`/country/${currentCountry.countryCode}`} className="arrival-mobile-book-link">
-              Open arrival brief <span aria-hidden="true">↗</span>
+            <Link
+              to={`/country/${currentCountry.countryCode}/landing`}
+              className="arrival-mobile-book-link"
+              aria-label={`Take ${currentCountry.countryName} from the shelf and open its arrival brief`}
+              viewTransition
+            >
+              Take the brief <span aria-hidden="true">→</span>
             </Link>
           </div>
         </article>
