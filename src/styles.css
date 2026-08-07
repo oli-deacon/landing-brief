@@ -315,6 +315,7 @@ h3 {
   position: relative;
   display: block;
   aspect-ratio: 0.74;
+  cursor: none;
   overflow: hidden;
   background: #171612;
   touch-action: pan-y;
