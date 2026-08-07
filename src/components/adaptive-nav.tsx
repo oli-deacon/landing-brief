@@ -8,6 +8,7 @@ type AdaptiveNavProps = {
 
 const defaultNavItems = [
   { to: "/", label: "Home" },
+  { to: "/atlas", label: "Atlas" },
   { to: "/saved", label: "Saved" }
 ];
 

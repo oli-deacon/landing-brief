@@ -10,6 +10,7 @@ import { OfflinePage } from "./pages/offline-page";
 import { SavedBriefsPage } from "./pages/saved-briefs-page";
 import { SettingsPage } from "./pages/settings-page";
 import { CountryRunPage } from "./pages/country-run-page";
+import { CountryAtlasPage } from "./pages/country-atlas-page";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: "atlas",
+        element: <CountryAtlasPage />
       },
       {
         path: "country/:countryCode",
