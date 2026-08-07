@@ -144,9 +144,23 @@ h3 {
 .atlas-intro h1 {
   margin: 0.7rem 0 0;
   color: var(--text-main);
-  font-size: clamp(2.6rem, 6vw, 5.6rem);
-  line-height: 0.88;
-  max-width: 11ch;
+  font-size: 1.42rem;
+  line-height: 1.01;
+  max-width: none;
+}
+
+@media (min-width: 640px) {
+  .atlas-intro h1 {
+    font-size: 1.85rem;
+    line-height: 1.08;
+  }
+}
+
+@media (min-width: 1024px) {
+  .atlas-intro h1 {
+    font-size: 1.72rem;
+    white-space: nowrap;
+  }
 }
 
 .atlas-intro-copy > p:last-child {
@@ -515,7 +529,7 @@ h3 {
   }
 
   .atlas-intro h1 {
-    font-size: clamp(2.8rem, 14vw, 4.6rem);
+    font-size: 1.42rem;
   }
 
   .atlas-stamp {
