@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import { useRef, useState } from "react";
+import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
@@ -34,6 +35,139 @@ function getAtlasNote(country: CountrySummary) {
     note: "first impressions / useful detail",
     coordinates: "field notes · landingbrief"
   };
+}
+
+type LensPoint = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  size: number;
+};
+
+const MAGNIFIER_SCALE = 2.35;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+type AtlasArtworkCardProps = {
+  country: CountrySummary;
+  index: number;
+};
+
+function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
+  const artwork = getCountryArtwork(country.countryCode);
+  const note = getAtlasNote(country);
+  const accent = atlasAccents[country.countryCode] ?? "#c29a5a";
+  const photoRef = useRef<HTMLSpanElement | null>(null);
+  const [lensPoint, setLensPoint] = useState<LensPoint | null>(null);
+
+  function getLensSize(width: number) {
+    return Math.min(118, Math.max(82, width * 0.46));
+  }
+
+  function showLensAt(x: number, y: number) {
+    const photo = photoRef.current;
+
+    if (!photo || artwork?.kind !== "image") {
+      return;
+    }
+
+    const rect = photo.getBoundingClientRect();
+    const size = getLensSize(rect.width);
+    const radius = size / 2;
+
+    setLensPoint({
+      x: clamp(x, radius, rect.width - radius),
+      y: clamp(y, radius, rect.height - radius),
+      width: rect.width,
+      height: rect.height,
+      size
+    });
+  }
+
+  function handleArtworkPointerMove(event: ReactPointerEvent<HTMLSpanElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    showLensAt(event.clientX - rect.left, event.clientY - rect.top);
+  }
+
+  function handleArtworkFocus() {
+    const photo = photoRef.current;
+
+    if (!photo) {
+      return;
+    }
+
+    showLensAt(photo.clientWidth / 2, photo.clientHeight / 2);
+  }
+
+  const lensArtStyle = lensPoint
+    ? {
+        width: `${lensPoint.width * MAGNIFIER_SCALE}px`,
+        height: `${lensPoint.height * MAGNIFIER_SCALE}px`,
+        left: `${lensPoint.size / 2 - lensPoint.x * MAGNIFIER_SCALE}px`,
+        top: `${lensPoint.size / 2 - lensPoint.y * MAGNIFIER_SCALE}px`
+      }
+    : undefined;
+
+  return (
+    <Link
+      to={`/country/${country.countryCode}/landing`}
+      className="atlas-card"
+      style={{
+        "--atlas-accent": accent,
+        "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`
+      } as CSSProperties}
+      aria-label={`Open ${country.countryName} arrival brief`}
+      onFocus={handleArtworkFocus}
+      onBlur={() => setLensPoint(null)}
+      viewTransition
+    >
+      <span className="atlas-card-pin" aria-hidden="true" />
+      <span
+        ref={photoRef}
+        className="atlas-card-photo"
+        onPointerEnter={handleArtworkPointerMove}
+        onPointerMove={handleArtworkPointerMove}
+        onPointerLeave={() => setLensPoint(null)}
+      >
+        {artwork?.kind === "image" ? <img src={artwork.src} alt="" /> : null}
+        {artwork?.kind === "placeholder" ? <span className="atlas-card-placeholder">{artwork.title}</span> : null}
+        {lensPoint && artwork?.kind === "image" ? (
+          <span
+            className="atlas-magnifier"
+            style={{
+              "--atlas-lens-x": `${lensPoint.x}px`,
+              "--atlas-lens-y": `${lensPoint.y}px`,
+              "--atlas-lens-size": `${lensPoint.size}px`
+            } as CSSProperties}
+            aria-hidden="true"
+          >
+            <span className="atlas-magnifier-window">
+              <img src={artwork.src} alt="" className="atlas-magnifier-art" style={lensArtStyle} />
+              <span className="atlas-magnifier-glass" />
+            </span>
+            <span className="atlas-magnifier-rim" />
+            <span className="atlas-magnifier-handle" />
+          </span>
+        ) : null}
+      </span>
+      <span className="atlas-card-content">
+        <span className="atlas-card-topline">
+          <span>{note.label}</span>
+          <span>{country.countryCode.toUpperCase()}</span>
+        </span>
+        <strong>{country.countryName}</strong>
+        <span className="atlas-card-city">{country.capitalOrMainCity}</span>
+        <span className="atlas-card-note">{note.note}</span>
+      </span>
+      <span className="atlas-card-meta">
+        <span>{note.coordinates}</span>
+        <span aria-hidden="true">→</span>
+      </span>
+    </Link>
+  );
 }
 
 export function CountryAtlasPage() {
@@ -84,48 +218,13 @@ export function CountryAtlasPage() {
               <p className="atlas-board-kicker">The destination index</p>
               <h2 id="atlas-board-title">Choose by feeling.</h2>
             </div>
-            <p className="atlas-board-instruction">Open a card for the full brief <span aria-hidden="true">↗</span></p>
+            <p className="atlas-board-instruction">Move the lens across the linework · open for the full brief <span aria-hidden="true">↗</span></p>
           </div>
 
           <div className="atlas-card-grid">
-            {countryIndex.data.map((country, index) => {
-              const artwork = getCountryArtwork(country.countryCode);
-              const note = getAtlasNote(country);
-              const accent = atlasAccents[country.countryCode] ?? "#c29a5a";
-
-              return (
-                <Link
-                  key={country.countryCode}
-                  to={`/country/${country.countryCode}/landing`}
-                  className="atlas-card"
-                  style={{
-                    "--atlas-accent": accent,
-                    "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`
-                  } as CSSProperties}
-                  aria-label={`Open ${country.countryName} arrival brief`}
-                  viewTransition
-                >
-                  <span className="atlas-card-pin" aria-hidden="true" />
-                  <span className="atlas-card-photo">
-                    {artwork?.kind === "image" ? <img src={artwork.src} alt="" /> : null}
-                    {artwork?.kind === "placeholder" ? <span className="atlas-card-placeholder">{artwork.title}</span> : null}
-                  </span>
-                  <span className="atlas-card-content">
-                    <span className="atlas-card-topline">
-                      <span>{note.label}</span>
-                      <span>{country.countryCode.toUpperCase()}</span>
-                    </span>
-                    <strong>{country.countryName}</strong>
-                    <span className="atlas-card-city">{country.capitalOrMainCity}</span>
-                    <span className="atlas-card-note">{note.note}</span>
-                  </span>
-                  <span className="atlas-card-meta">
-                    <span>{note.coordinates}</span>
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </Link>
-              );
-            })}
+            {countryIndex.data.map((country, index) => (
+              <AtlasArtworkCard key={country.countryCode} country={country} index={index} />
+            ))}
           </div>
 
           <div className="atlas-board-footer">

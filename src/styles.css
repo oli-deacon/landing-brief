@@ -298,13 +298,15 @@ h3 {
 }
 
 .atlas-card-photo {
+  position: relative;
   display: block;
   aspect-ratio: 0.74;
   overflow: hidden;
   background: #171612;
+  touch-action: pan-y;
 }
 
-.atlas-card-photo img {
+.atlas-card-photo > img {
   display: block;
   width: 100%;
   height: 100%;
@@ -313,10 +315,90 @@ h3 {
   transition: transform 300ms ease, filter 300ms ease;
 }
 
-.atlas-card:hover .atlas-card-photo img,
-.atlas-card:focus-visible .atlas-card-photo img {
+.atlas-card:hover .atlas-card-photo > img,
+.atlas-card:focus-visible .atlas-card-photo > img {
   filter: saturate(1) contrast(1.05);
   transform: scale(1.045);
+}
+
+.atlas-magnifier {
+  position: absolute;
+  top: var(--atlas-lens-y);
+  left: var(--atlas-lens-x);
+  z-index: 4;
+  width: var(--atlas-lens-size);
+  height: var(--atlas-lens-size);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0.6rem 0.55rem rgba(25, 16, 8, 0.34));
+  animation: atlas-magnifier-arrive 180ms ease-out both;
+}
+
+.atlas-magnifier-window {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(239, 223, 183, 0.08);
+  box-shadow:
+    inset 0 0 0 0.22rem rgba(255, 249, 225, 0.24),
+    inset 0.45rem 0.5rem 0.75rem rgba(255, 255, 255, 0.18),
+    inset -0.55rem -0.6rem 0.9rem rgba(34, 19, 7, 0.26);
+}
+
+.atlas-magnifier-art {
+  position: absolute;
+  display: block;
+  max-width: none;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.08) brightness(1.04);
+}
+
+.atlas-magnifier-glass {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.46), transparent 14%),
+    linear-gradient(135deg, rgba(255, 250, 224, 0.2), transparent 42% 62%, rgba(114, 165, 183, 0.12));
+  mix-blend-mode: screen;
+}
+
+.atlas-magnifier-rim {
+  position: absolute;
+  inset: -0.13rem;
+  border: 0.38rem solid #b79761;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.1rem rgba(65, 43, 20, 0.85),
+    inset 0 0 0 0.08rem rgba(255, 247, 214, 0.7),
+    inset 0.22rem 0.24rem 0.28rem rgba(255, 255, 255, 0.24),
+    inset -0.26rem -0.3rem 0.32rem rgba(46, 27, 10, 0.34);
+}
+
+.atlas-magnifier-handle {
+  position: absolute;
+  right: -2.2rem;
+  bottom: -1.7rem;
+  width: 2.85rem;
+  height: 0.68rem;
+  border: 1px solid rgba(67, 43, 20, 0.82);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d6b77e, #92703d 58%, #5a3d1e);
+  box-shadow: inset 0 1px 0 rgba(255, 247, 214, 0.4), 0 0.22rem 0.28rem rgba(43, 27, 12, 0.3);
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+@keyframes atlas-magnifier-arrive {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .atlas-card-placeholder {
@@ -1379,6 +1461,10 @@ a {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation-duration: 0.01ms !important;
+  }
+
+  .atlas-magnifier {
+    animation-duration: 0.01ms;
   }
 }
 
