@@ -1,0 +1,13 @@
+# Atlas Diorama Artwork Prompt
+
+Replace `[DESTINATION]` with the country or city being illustrated.
+
+```text
+ChatGPT Image 2.0: Create a charming miniature 3D paper-craft travel illustration of [DESTINATION], designed like a delicate handmade travel postcard. Feature recognizable local landmarks and cultural elements as tiny handcrafted models, arranged on a narrow floating landscape strip. Include small details such as local transportation, trees, street lamps, water, birds, clouds, and subtle travel elements like an airplane with a dotted flight path.
+
+Use a soft white textured paper background, gentle natural lighting, pastel colors, subtle shadows, and a whimsical handcrafted aesthetic. The landmarks should look like they are made from paper, clay, wood, and miniature craft materials, with realistic tiny textures and charming imperfections.
+
+Keep the composition minimal, clean, airy, and centered, with plenty of negative space around the miniature scene. Add a small elegant handwritten-style title at the bottom reading “[DESTINATION]”.
+
+Style: miniature diorama, handcrafted paper art, travel postcard, whimsical 3D illustration, soft pastel palette, tactile textures, macro photography feel, delicate details, cozy artistic aesthetic, high resolution, vertical 9:16 composition.
+```

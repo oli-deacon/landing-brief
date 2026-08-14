@@ -3,7 +3,7 @@ import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
-import { getCountryArtwork } from "../lib/country-art";
+import { getAtlasCountryArtwork } from "../lib/country-art";
 import { useCountryIndex } from "../hooks/use-country-data";
 import type { CountrySummary } from "../types";
 
@@ -46,6 +46,7 @@ type LensPoint = {
 };
 
 const MAGNIFIER_SCALE = 2.35;
+const MAGNIFIER_SIZE_SCALE = 1.1;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -57,14 +58,14 @@ type AtlasArtworkCardProps = {
 };
 
 function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
-  const artwork = getCountryArtwork(country.countryCode);
+  const artwork = getAtlasCountryArtwork(country.countryCode);
   const note = getAtlasNote(country);
   const accent = atlasAccents[country.countryCode] ?? "#c29a5a";
   const photoRef = useRef<HTMLSpanElement | null>(null);
   const [lensPoint, setLensPoint] = useState<LensPoint | null>(null);
 
   function getLensSize(width: number) {
-    return Math.min(118, Math.max(82, width * 0.46));
+    return Math.min(118, Math.max(82, width * 0.46)) * MAGNIFIER_SIZE_SCALE;
   }
 
   function showLensAt(x: number, y: number) {

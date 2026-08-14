@@ -1,3 +1,11 @@
+import atlasBkk from "../images/Bangkok_Diorama.png";
+import atlasHk from "../images/HongKong_Diorama.png";
+import atlasInd from "../images/NewDelhi_Diorama.png";
+import atlasKl from "../images/KualaLumpur_Diorama.png";
+import atlasMc from "../images/Macau_Diorama.png";
+import atlasKr from "../images/Seoul_Diorama.png";
+import atlasSg from "../images/Singapore_Diorama.png";
+import atlasVn from "../images/Vietnam_Diorama.png";
 import imageBkk from "../images/image_bkk.png";
 import imageHk from "../images/image_hk.png";
 import imageInd from "../images/image_ind.png";
@@ -65,6 +73,55 @@ const countryArtwork: Record<string, CountryArtwork> = {
   }
 };
 
+const atlasArtwork: Record<string, CountryArtwork> = {
+  sg: {
+    kind: "image",
+    src: atlasSg,
+    alt: "Singapore diorama with Marina Bay Sands, the Merlion, Gardens by the Bay, public transit, and waterfront landmarks."
+  },
+  th: {
+    kind: "image",
+    src: atlasBkk,
+    alt: "Bangkok diorama with temples, tuk-tuks, river boats, transit, and a city skyline."
+  },
+  my: {
+    kind: "image",
+    src: atlasKl,
+    alt: "Kuala Lumpur diorama with the Petronas Towers, transit, historic buildings, and street food."
+  },
+  vn: {
+    kind: "image",
+    src: atlasVn,
+    alt: "Ho Chi Minh City diorama with Ben Thanh Market, scooters, landmarks, and the city skyline."
+  },
+  hk: {
+    kind: "image",
+    src: atlasHk,
+    alt: "Hong Kong diorama with trams, harbour ferries, the skyline, and landmark buildings."
+  },
+  mo: {
+    kind: "image",
+    src: atlasMc,
+    alt: "Macau diorama with the Ruins of Saint Paul's, the Macau skyline, and a waterfront ferry."
+  },
+  kr: {
+    kind: "image",
+    src: atlasKr,
+    alt: "Seoul diorama with traditional gates, palaces, buses, N Seoul Tower, and the modern skyline."
+  },
+  in: {
+    kind: "image",
+    src: atlasInd,
+    alt: "New Delhi diorama with India Gate, Qutub Minar, the Lotus Temple, buses, and an auto-rickshaw."
+  }
+};
+
 export function getCountryArtwork(countryCode: string): CountryArtwork | null {
   return countryArtwork[countryCode.trim().toLowerCase()] ?? null;
+}
+
+export function getAtlasCountryArtwork(countryCode: string): CountryArtwork | null {
+  const normalizedCode = countryCode.trim().toLowerCase();
+
+  return atlasArtwork[normalizedCode] ?? countryArtwork[normalizedCode] ?? null;
 }
