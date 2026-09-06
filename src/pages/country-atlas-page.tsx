@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { Card } from "../components/card";
 import { getAtlasCountryArtwork } from "../lib/country-art";
+import { atlasDetails, type AtlasLandmark } from "../lib/atlas-details";
 import { useCountryIndex } from "../hooks/use-country-data";
 import type { CountrySummary } from "../types";
 
@@ -64,8 +65,50 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
   const photoRef = useRef<HTMLSpanElement | null>(null);
   const [lensPoint, setLensPoint] = useState<LensPoint | null>(null);
   const [artworkReady, setArtworkReady] = useState(artwork?.kind !== "image");
+  const details = atlasDetails[country.countryCode];
+  const [discovery, setDiscovery] = useState<AtlasLandmark | null>(null);
+  const [inspectIndex, setInspectIndex] = useState<number | null>(null);
 
-  function handleCardPointerMove(event: ReactPointerEvent<HTMLAnchorElement>) {
+  useEffect(() => {
+    const photo = photoRef.current;
+    if (!photo || inspectIndex === null) return;
+    const observer = new ResizeObserver(() => inspectLandmark(inspectIndex));
+    observer.observe(photo);
+    return () => observer.disconnect();
+  }, [inspectIndex]);
+
+  function inspectLandmark(nextIndex: number) {
+    const landmark = details?.landmarks[nextIndex];
+    const photo = photoRef.current;
+    if (!landmark || !photo) return;
+    setInspectIndex(nextIndex);
+    setDiscovery(landmark);
+    const artworkHeight = photo.clientWidth * 1672 / 941;
+    showLensAt(landmark.x * photo.clientWidth, landmark.y * artworkHeight - (artworkHeight - photo.clientHeight) / 2);
+  }
+
+  function closeDiscovery() {
+    setInspectIndex(null);
+    setDiscovery(null);
+    setLensPoint(null);
+  }
+
+  function scene(onLoad?: () => void) {
+    if (artwork?.kind !== "image") return null;
+    return (
+      <span className="atlas-scene">
+        <img src={artwork.src} alt="" onLoad={onLoad} onError={onLoad} />
+        {details?.lamps.map(([x, y], lampIndex) => (
+          <span key={lampIndex} className="atlas-lamp-glow" aria-hidden="true" style={{
+            left: `${x * 100}%`, top: `${y * 100}%`,
+            "--lamp-delay": `${-index * 0.63 - lampIndex * 0.85}s`
+          } as CSSProperties} />
+        ))}
+      </span>
+    );
+  }
+
+  function handleCardPointerMove(event: ReactPointerEvent<HTMLElement>) {
     if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
@@ -80,7 +123,7 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
     card.style.setProperty("--atlas-shadow-x", `${-x * 5}px`);
   }
 
-  function resetCardTilt(event: ReactPointerEvent<HTMLAnchorElement>) {
+  function resetCardTilt(event: ReactPointerEvent<HTMLElement>) {
     for (const property of ["--atlas-pointer-x", "--atlas-pointer-y", "--atlas-shadow-x"]) {
       event.currentTarget.style.removeProperty(property);
     }
@@ -111,11 +154,22 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
   }
 
   function handleArtworkPointerMove(event: ReactPointerEvent<HTMLSpanElement>) {
+    if (event.pointerType !== "mouse" || inspectIndex !== null) return;
     const rect = event.currentTarget.getBoundingClientRect();
     showLensAt(event.clientX - rect.left, event.clientY - rect.top);
+    const x = (event.clientX - rect.left) / rect.width;
+    const artworkHeight = rect.width * 1672 / 941;
+    const y = (event.clientY - rect.top + (artworkHeight - rect.height) / 2) / artworkHeight;
+    const nearest = details?.landmarks.reduce<AtlasLandmark | null>((best, landmark) => {
+      const distance = Math.hypot(x - landmark.x, (y - landmark.y) * 1672 / 941);
+      const bestDistance = best ? Math.hypot(x - best.x, (y - best.y) * 1672 / 941) : Infinity;
+      return distance < 0.20 && distance < bestDistance ? landmark : best;
+    }, null);
+    setDiscovery(nearest ?? null);
   }
 
   function handleArtworkFocus() {
+    if (inspectIndex !== null) return;
     const photo = photoRef.current;
 
     if (!photo) {
@@ -135,32 +189,31 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
     : undefined;
 
   return (
-    <Link
-      to={`/country/${country.countryCode}/landing`}
+    <article
       className={`atlas-card${artworkReady ? " is-artwork-ready" : ""}`}
       style={{
         "--atlas-accent": accent,
         "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`,
         "--atlas-arrival-delay": `${180 + index * 110}ms`
       } as CSSProperties}
-      aria-label={`Open ${country.countryName} arrival brief`}
-      onFocus={handleArtworkFocus}
-      onBlur={() => setLensPoint(null)}
       onPointerMove={handleCardPointerMove}
       onPointerLeave={resetCardTilt}
       onPointerCancel={resetCardTilt}
-      viewTransition
+      onKeyDown={(event) => { if (event.key === "Escape") closeDiscovery(); }}
     >
+      <Link className="atlas-card-open" to={`/country/${country.countryCode}/landing`}
+        aria-label={`Open ${country.countryName} arrival brief`}
+        onFocus={handleArtworkFocus} onBlur={() => { if (inspectIndex === null) closeDiscovery(); }} viewTransition>
       <span className="atlas-card-pin" aria-hidden="true" />
       <span
         ref={photoRef}
         className="atlas-card-photo"
         onPointerEnter={handleArtworkPointerMove}
         onPointerMove={handleArtworkPointerMove}
-        onPointerLeave={() => setLensPoint(null)}
+        onPointerLeave={() => { if (inspectIndex === null) closeDiscovery(); }}
       >
         {artwork?.kind === "image" ? (
-          <img src={artwork.src} alt="" onLoad={() => setArtworkReady(true)} onError={() => setArtworkReady(true)} />
+          scene(() => setArtworkReady(true))
         ) : null}
         {artwork?.kind === "placeholder" ? <span className="atlas-card-placeholder">{artwork.title}</span> : null}
         {lensPoint && artwork?.kind === "image" ? (
@@ -174,13 +227,14 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
             aria-hidden="true"
           >
             <span className="atlas-magnifier-window">
-              <img src={artwork.src} alt="" className="atlas-magnifier-art" style={lensArtStyle} />
+              <span className="atlas-magnifier-art" style={lensArtStyle}>{scene()}</span>
               <span className="atlas-magnifier-glass" />
             </span>
             <span className="atlas-magnifier-rim" />
             <span className="atlas-magnifier-handle" />
           </span>
         ) : null}
+        {discovery ? <span className="atlas-discovery-label">{discovery.name}</span> : null}
       </span>
       <span className="atlas-card-content">
         <span className="atlas-card-topline">
@@ -195,15 +249,27 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
         <span>{note.coordinates}</span>
         <span aria-hidden="true">→</span>
       </span>
-    </Link>
+      </Link>
+      {details ? (
+        <div className="atlas-discovery-controls">
+          <button type="button" onClick={() => inspectLandmark(inspectIndex === null ? 0 : (inspectIndex + 1) % details.landmarks.length)}
+            aria-label={`${inspectIndex === null ? "Discover landmarks in" : "Next landmark in"} ${country.countryName}`}>
+            {inspectIndex === null ? "Discover landmarks" : `Next · ${inspectIndex + 1}/${details.landmarks.length}`} <span aria-hidden="true">↗</span>
+          </button>
+          {inspectIndex !== null ? <button type="button" onClick={closeDiscovery} aria-label={`Close ${country.countryName} discoveries`}>×</button> : null}
+          <span className="sr-only" role="status">{inspectIndex !== null ? discovery?.name : ""}</span>
+        </div>
+      ) : null}
+    </article>
   );
 }
 
 export function CountryAtlasPage() {
   const countryIndex = useCountryIndex();
+  const [effectsPaused, setEffectsPaused] = useState(false);
 
   return (
-    <div className="atlas-page">
+    <div className={`atlas-page${effectsPaused ? " is-effects-paused" : ""}`}>
       <section className="atlas-intro">
         <div className="atlas-intro-copy">
           <p className="atlas-kicker">LandingBrief / visual index</p>
@@ -247,7 +313,12 @@ export function CountryAtlasPage() {
               <p className="atlas-board-kicker">The destination index</p>
               <h2 id="atlas-board-title">Choose by feeling.</h2>
             </div>
-            <p className="atlas-board-instruction">Move the lens across the linework · open for the full brief <span aria-hidden="true">↗</span></p>
+            <div className="atlas-board-actions">
+              <p className="atlas-board-instruction">Find landmarks with the lens · watch the lamps glow</p>
+              <button type="button" className="atlas-effects-toggle" aria-pressed={effectsPaused} onClick={() => setEffectsPaused(!effectsPaused)}>
+                {effectsPaused ? "Resume scene effects" : "Pause scene effects"}
+              </button>
+            </div>
           </div>
 
           <div className="atlas-card-grid">

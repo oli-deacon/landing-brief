@@ -282,12 +282,12 @@ h3 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .atlas-card:not(.is-artwork-ready):not(:focus-visible) {
+  .atlas-card:not(.is-artwork-ready):not(:focus-within) {
     opacity: 0;
   }
 }
 
-.atlas-card:focus-visible {
+.atlas-card:has(:focus-visible) {
   animation: none;
 }
 
@@ -323,13 +323,13 @@ h3 {
 }
 
 .atlas-card:hover,
-.atlas-card:focus-visible {
+.atlas-card:focus-within {
   z-index: 2;
   box-shadow: 0.5rem 0.7rem 0 rgba(85, 70, 44, 0.14), 0 1.35rem 2.3rem rgba(64, 52, 34, 0.26);
   transform: translateY(-0.35rem) rotate(0deg);
 }
 
-.atlas-card:focus-visible {
+.atlas-card:focus-within {
   outline: 3px solid color-mix(in srgb, var(--atlas-accent) 68%, #27231c);
   outline-offset: 4px;
 }
@@ -366,19 +366,113 @@ h3 {
   touch-action: pan-y;
 }
 
-.atlas-card-photo > img {
+/* The scene and lens share the same native-aspect plane, so lamps and landmarks
+   stay aligned through the card's centred artwork crop. */
+.atlas-card-open {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.atlas-scene {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 941 / 1672;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.atlas-scene > img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: saturate(0.88) contrast(1.03);
-  transition: transform 300ms ease, filter 300ms ease;
+  max-width: none;
 }
 
-.atlas-card:hover .atlas-card-photo > img,
-.atlas-card:focus-visible .atlas-card-photo > img {
-  filter: saturate(1) contrast(1.05);
-  transform: scale(1.045);
+.atlas-lamp-glow {
+  position: absolute;
+  width: 9%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff8ce 0%, #ffe3a0b3 12%, #ffc25b55 34%, #ffb34700 70%);
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  animation: atlas-lamplight 6s ease-in-out var(--lamp-delay) infinite;
+  animation-play-state: paused;
+}
+
+.is-artwork-ready .atlas-lamp-glow { animation-play-state: running; }
+.is-effects-paused .atlas-lamp-glow { animation-play-state: paused; }
+
+@keyframes atlas-lamplight {
+  0%, 100% { opacity: 0.18; scale: 0.85; }
+  50% { opacity: 0.95; scale: 1.25; }
+}
+
+.atlas-discovery-label {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  z-index: 5;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid #b79b69;
+  background: #fbf3df;
+  color: #3e3020;
+  box-shadow: 0 3px 8px #49331f26;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  text-align: center;
+  pointer-events: none;
+}
+
+.atlas-discovery-controls {
+  display: flex;
+  border-top: 1px solid #49331f26;
+  margin: 0 0.8rem;
+}
+
+.atlas-discovery-controls button,
+.atlas-effects-toggle {
+  min-height: 44px;
+  padding: 0.45rem 0;
+  background: transparent;
+  color: #654c2b;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.atlas-discovery-controls button:first-child {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: left;
+}
+
+.atlas-discovery-controls button + button { min-width: 44px; font-size: 1.2rem; }
+.atlas-discovery-controls button:hover,
+.atlas-effects-toggle:hover { color: #20170d; text-decoration: underline; }
+.atlas-discovery-controls button:focus-visible,
+.atlas-effects-toggle:focus-visible { outline: 2px solid #785621; outline-offset: 2px; }
+.atlas-board-actions { text-align: right; }
+.atlas-effects-toggle { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 767px) {
+  .atlas-board-actions { text-align: left; }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-lamp-glow { animation: none; opacity: 0.3; }
+  .atlas-effects-toggle { display: none; }
 }
 
 .atlas-magnifier {
@@ -621,7 +715,7 @@ h3 {
   }
 
   .atlas-card:hover,
-  .atlas-card:focus-visible {
+  .atlas-card:focus-within {
     transform: translateY(-0.2rem) rotate(0deg);
   }
 
@@ -1527,15 +1621,10 @@ a {
     animation-duration: 0.01ms;
   }
 
-  .atlas-card.is-artwork-ready,
-  .atlas-card-photo > img {
+  .atlas-card,
+  .atlas-card.is-artwork-ready {
     animation: none;
     transition: none;
-  }
-
-  .atlas-card:hover .atlas-card-photo > img,
-  .atlas-card:focus-visible .atlas-card-photo > img {
-    transform: none;
   }
 }
 
@@ -3052,5 +3141,12 @@ a {
   .macau-explore *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (hover: none) {
+  .atlas-card:hover,
+  .atlas-card:focus-within {
+    transform: rotate(var(--atlas-tilt));
   }
 }
