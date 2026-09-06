@@ -275,6 +275,20 @@ h3 {
   box-shadow: 0.35rem 0.5rem 0 rgba(85, 70, 44, 0.12), 0 1rem 1.75rem rgba(64, 52, 34, 0.18);
   transform: rotate(var(--atlas-tilt));
   transition: transform 180ms ease, box-shadow 180ms ease;
+  animation: atlas-card-settle 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
+}
+
+@keyframes atlas-card-settle {
+  from {
+    opacity: 0;
+    translate: 0 -12px;
+    rotate: calc(var(--atlas-tilt) * -1.5);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    rotate: 0deg;
+  }
 }
 
 .atlas-card:nth-child(3n + 2) {
@@ -295,6 +309,14 @@ h3 {
 .atlas-card:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--atlas-accent) 68%, #27231c);
   outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .atlas-card:hover {
+    transform: perspective(1000px) translateY(-0.35rem) rotateX(var(--atlas-pointer-y, 0deg)) rotateY(var(--atlas-pointer-x, 0deg));
+    box-shadow: calc(0.5rem + var(--atlas-shadow-x, 0px)) 0.7rem 0 rgba(85, 70, 44, 0.14),
+      calc(0.25rem + var(--atlas-shadow-x, 0px)) 1.35rem 2.3rem rgba(64, 52, 34, 0.26);
+  }
 }
 
 .atlas-card-pin {
@@ -1480,6 +1502,17 @@ a {
 
   .atlas-magnifier {
     animation-duration: 0.01ms;
+  }
+
+  .atlas-card,
+  .atlas-card-photo > img {
+    animation: none;
+    transition: none;
+  }
+
+  .atlas-card:hover .atlas-card-photo > img,
+  .atlas-card:focus-visible .atlas-card-photo > img {
+    transform: none;
   }
 }
 

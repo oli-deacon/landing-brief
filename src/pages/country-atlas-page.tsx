@@ -64,6 +64,27 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
   const photoRef = useRef<HTMLSpanElement | null>(null);
   const [lensPoint, setLensPoint] = useState<LensPoint | null>(null);
 
+  function handleCardPointerMove(event: ReactPointerEvent<HTMLAnchorElement>) {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = clamp((event.clientX - rect.left) / rect.width, 0, 1) * 2 - 1;
+    const y = clamp((event.clientY - rect.top) / rect.height, 0, 1) * 2 - 1;
+
+    card.style.setProperty("--atlas-pointer-x", `${x * 1.8}deg`);
+    card.style.setProperty("--atlas-pointer-y", `${-y * 1.8}deg`);
+    card.style.setProperty("--atlas-shadow-x", `${-x * 5}px`);
+  }
+
+  function resetCardTilt(event: ReactPointerEvent<HTMLAnchorElement>) {
+    for (const property of ["--atlas-pointer-x", "--atlas-pointer-y", "--atlas-shadow-x"]) {
+      event.currentTarget.style.removeProperty(property);
+    }
+  }
+
   function getLensSize(width: number) {
     return Math.min(118, Math.max(82, width * 0.46)) * MAGNIFIER_SIZE_SCALE;
   }
@@ -118,11 +139,15 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
       className="atlas-card"
       style={{
         "--atlas-accent": accent,
-        "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`
+        "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`,
+        "--atlas-arrival-delay": `${index * 55}ms`
       } as CSSProperties}
       aria-label={`Open ${country.countryName} arrival brief`}
       onFocus={handleArtworkFocus}
       onBlur={() => setLensPoint(null)}
+      onPointerMove={handleCardPointerMove}
+      onPointerLeave={resetCardTilt}
+      onPointerCancel={resetCardTilt}
       viewTransition
     >
       <span className="atlas-card-pin" aria-hidden="true" />
