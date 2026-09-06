@@ -63,6 +63,7 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
   const accent = atlasAccents[country.countryCode] ?? "#c29a5a";
   const photoRef = useRef<HTMLSpanElement | null>(null);
   const [lensPoint, setLensPoint] = useState<LensPoint | null>(null);
+  const [artworkReady, setArtworkReady] = useState(artwork?.kind !== "image");
 
   function handleCardPointerMove(event: ReactPointerEvent<HTMLAnchorElement>) {
     if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -136,11 +137,11 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
   return (
     <Link
       to={`/country/${country.countryCode}/landing`}
-      className="atlas-card"
+      className={`atlas-card${artworkReady ? " is-artwork-ready" : ""}`}
       style={{
         "--atlas-accent": accent,
         "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`,
-        "--atlas-arrival-delay": `${index * 55}ms`
+        "--atlas-arrival-delay": `${180 + index * 110}ms`
       } as CSSProperties}
       aria-label={`Open ${country.countryName} arrival brief`}
       onFocus={handleArtworkFocus}
@@ -158,7 +159,9 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
         onPointerMove={handleArtworkPointerMove}
         onPointerLeave={() => setLensPoint(null)}
       >
-        {artwork?.kind === "image" ? <img src={artwork.src} alt="" /> : null}
+        {artwork?.kind === "image" ? (
+          <img src={artwork.src} alt="" onLoad={() => setArtworkReady(true)} onError={() => setArtworkReady(true)} />
+        ) : null}
         {artwork?.kind === "placeholder" ? <span className="atlas-card-placeholder">{artwork.title}</span> : null}
         {lensPoint && artwork?.kind === "image" ? (
           <span

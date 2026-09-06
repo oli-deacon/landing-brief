@@ -275,19 +275,42 @@ h3 {
   box-shadow: 0.35rem 0.5rem 0 rgba(85, 70, 44, 0.12), 0 1rem 1.75rem rgba(64, 52, 34, 0.18);
   transform: rotate(var(--atlas-tilt));
   transition: transform 180ms ease, box-shadow 180ms ease;
-  animation: atlas-card-settle 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
+}
+
+.atlas-card.is-artwork-ready {
+  animation: atlas-card-settle 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atlas-card:not(.is-artwork-ready):not(:focus-visible) {
+    opacity: 0;
+  }
+}
+
+.atlas-card:focus-visible {
+  animation: none;
 }
 
 @keyframes atlas-card-settle {
   from {
     opacity: 0;
-    translate: 0 -12px;
-    rotate: calc(var(--atlas-tilt) * -1.5);
+    translate: 0 -44px;
+    rotate: calc(var(--atlas-tilt) * -6);
+    scale: 1.035;
+  }
+  35% {
+    opacity: 1;
+  }
+  70% {
+    translate: 0 4px;
+    rotate: calc(var(--atlas-tilt) * 0.7);
+    scale: 0.995;
   }
   to {
     opacity: 1;
     translate: 0 0;
     rotate: 0deg;
+    scale: 1;
   }
 }
 
@@ -1504,7 +1527,7 @@ a {
     animation-duration: 0.01ms;
   }
 
-  .atlas-card,
+  .atlas-card.is-artwork-ready,
   .atlas-card-photo > img {
     animation: none;
     transition: none;
