@@ -10,9 +10,14 @@ export function HomePage() {
   return (
     <>
       <section className="home-hero space-y-1 px-0 sm:space-y-2 sm:px-1">
-        <p className="eyebrow">Portable country intelligence</p>
+        <div className="home-hero-topline">
+          <p className="eyebrow">Portable country intelligence</p>
+          <Link to="/atlas" className="home-atlas-link" viewTransition>
+            Open the atlas <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
         <h1 className="max-w-none text-[1.42rem] leading-[1.01] text-text-main sm:text-[1.85rem] sm:leading-[1.08] lg:text-[1.72rem] lg:whitespace-nowrap">
-          Choose your arrival brief. <span className="text-text-muted">The fastest way to get your bearings before touchdown.</span>
+          Choose a destination. <span className="text-text-muted">Get your bearings—or follow the city somewhere more interesting.</span>
         </h1>
       </section>
 

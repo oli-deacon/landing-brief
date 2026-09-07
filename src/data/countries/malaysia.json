@@ -170,5 +170,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "CelcomDigi",
+    "networkWhy": "Best overall traveller pick for balancing city performance with wide intercity coverage across Peninsular Malaysia.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "simple prepaid local plans",
+        "notes": "A reliable first option when you want to install once and avoid airport kiosk friction."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "medium stays and tethering",
+        "notes": "Often a good fit for longer city stays or working on the move with a laptop."
+      },
+      {
+        "name": "Holafly",
+        "bestFor": "high-data travellers",
+        "notes": "Makes sense if you stream, hotspot heavily, or just want fewer data-limit worries."
+      }
+    ]
+  }
 }

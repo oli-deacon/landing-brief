@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { useAppStatus } from "../lib/app-status";
 
@@ -6,14 +6,26 @@ type AdaptiveNavProps = {
   variant?: "default" | "country";
 };
 
-const navItems = [
+const defaultNavItems = [
   { to: "/", label: "Home" },
+  { to: "/atlas", label: "Atlas" },
   { to: "/saved", label: "Saved" }
 ];
 
 export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
   const { canInstall, installApp, installMethod, isInstalled, isOnline } = useAppStatus();
+  const location = useLocation();
   const isCountryVariant = variant === "country";
+  const countryCode = location.pathname.match(/^\/country\/([^/]+)/)?.[1];
+  const navItems = countryCode
+    ? [
+        { to: "/", label: "Home", end: true },
+        { to: `/country/${countryCode}/landing`, label: "Brief" },
+        { to: `/country/${countryCode}/explore`, label: "Explore" },
+        { to: `/country/${countryCode}/run`, label: "Run" },
+        { to: "/saved", label: "Saved", end: true }
+      ]
+    : defaultNavItems;
 
   return (
     <header className="sticky top-0 z-30 px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8">
@@ -38,10 +50,16 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
           </Link>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start">
+        <div
+          className={[
+            "flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start",
+            isCountryVariant ? "flex-wrap" : ""
+          ].join(" ")}
+        >
           <nav
             className={[
-              "flex min-w-0 flex-1 items-center gap-1 rounded-full p-1 sm:flex-initial",
+              "flex min-w-0 items-center gap-1 rounded-full p-1",
+              isCountryVariant ? "w-full flex-none sm:w-auto sm:flex-initial" : "flex-1 sm:flex-initial",
               isCountryVariant
                 ? "country-nav-tabs border border-white/8 bg-white/[0.03]"
                 : "border border-border-soft bg-white/3"
@@ -51,6 +69,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
               <NavLink
                 key={item.to}
                 to={item.to}
+                end={item.end}
                 className={({ isActive }) =>
                   [
                     "flex-1 rounded-full px-3 py-2 text-center text-sm font-medium transition sm:flex-none sm:px-4",
@@ -69,7 +88,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
             ))}
           </nav>
 
-          <details className="nav-utility-menu">
+          <details className={isCountryVariant ? "nav-utility-menu ml-auto sm:ml-0" : "nav-utility-menu"}>
             <summary className={isCountryVariant ? "nav-utility-trigger country-nav-utility-trigger" : "nav-utility-trigger"}>
               <span>More</span>
             </summary>

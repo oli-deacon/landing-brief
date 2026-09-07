@@ -83,6 +83,11 @@ function normalizeCountryBrief(brief: CountryBrief): CountryBrief {
       tipping: brief.moneyAndPayments?.tipping ?? "",
       roughCostExamples: ensureArray(brief.moneyAndPayments?.roughCostExamples)
     },
+    communications: {
+      bestMobileNetwork: brief.communications?.bestMobileNetwork ?? "",
+      networkWhy: brief.communications?.networkWhy ?? "",
+      esimOptions: ensureArray(brief.communications?.esimOptions)
+    },
     localTransportApps: ensureArray(brief.localTransportApps),
     emergencyNumbers: {
       label: brief.emergencyNumbers?.label ?? "Emergency",

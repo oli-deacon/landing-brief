@@ -62,13 +62,5 @@
     "primaryAirport": "Indira Gandhi International Airport",
     "lastReviewedDate": "May 2026",
     "file": "/data/countries/in.json"
-  },
-  {
-    "countryCode": "sf",
-    "countryName": "San Francisco",
-    "capitalOrMainCity": "San Francisco",
-    "primaryAirport": "San Francisco International Airport",
-    "lastReviewedDate": "May 2026",
-    "file": "/data/countries/sf.json"
   }
 ]

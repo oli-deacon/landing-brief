@@ -170,5 +170,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "Viettel",
+    "networkWhy": "Usually the strongest nationwide choice for travellers because it tends to hold up best outside the biggest city centres.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "arrival-day convenience",
+        "notes": "A strong default if you want a quick Vietnam plan live before you leave the airport."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "longer stays with moderate-to-heavy data use",
+        "notes": "Useful when you want flexible plan sizes and easy in-app management."
+      },
+      {
+        "name": "Holafly",
+        "bestFor": "unlimited-data style usage",
+        "notes": "Best suited to travellers who expect long navigation, social, or video days."
+      }
+    ]
+  }
 }

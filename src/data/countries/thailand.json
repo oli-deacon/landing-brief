@@ -176,5 +176,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "AIS",
+    "networkWhy": "Usually the safest traveller default for broad coverage across Bangkok, resort areas, and more remote intercity routes.",
+    "esimOptions": [
+      {
+        "name": "Saily",
+        "bestFor": "value-focused short trips",
+        "notes": "Good starter pricing and straightforward activation make it an easy first look for Thailand."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "hotspot use and flexible top-ups",
+        "notes": "A dependable option if you need tethering for maps, work, or a second device."
+      },
+      {
+        "name": "Holafly",
+        "bestFor": "heavy daily usage",
+        "notes": "Best when you care more about large or unlimited data than finding the cheapest plan."
+      }
+    ]
+  }
 }

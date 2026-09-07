@@ -162,5 +162,26 @@
     ]
   },
   "lastReviewedDate": "2026-05-09",
-  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel."
+  "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
+  "communications": {
+    "bestMobileNetwork": "Jio",
+    "networkWhy": "Best overall traveller bet for major-city 5G coverage and broad everyday data performance, with Airtel as the closest alternative.",
+    "esimOptions": [
+      {
+        "name": "Airalo",
+        "bestFor": "getting online immediately on arrival",
+        "notes": "Useful if you want data without dealing with local SIM paperwork right after landing."
+      },
+      {
+        "name": "Nomad",
+        "bestFor": "medium stays and backup hotspot use",
+        "notes": "A practical choice if you want a clean app experience and flexible bundle sizes."
+      },
+      {
+        "name": "Holafly",
+        "bestFor": "high daily usage",
+        "notes": "Best for travellers who expect long navigation days or frequent tethering, but local SIMs can still be better for OTP-heavy workflows."
+      }
+    ]
+  }
 }
