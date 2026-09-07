@@ -366,8 +366,8 @@ h3 {
   touch-action: pan-y;
 }
 
-/* The scene and lens share the same native-aspect plane, so lamps and landmarks
-   stay aligned through the card's centred artwork crop. */
+/* The scene and lens share the same native-aspect plane, so the lamplight stays aligned
+   through the card's centred artwork crop. */
 .atlas-card-open {
   display: flex;
   flex: 1;
@@ -414,31 +414,6 @@ h3 {
   50% { opacity: 0.95; scale: 1.25; }
 }
 
-.atlas-discovery-label {
-  position: absolute;
-  bottom: 0.65rem;
-  left: 0.5rem;
-  right: 0.5rem;
-  z-index: 5;
-  padding: 0.45rem 0.55rem;
-  border: 1px solid #b79b69;
-  background: #fbf3df;
-  color: #3e3020;
-  box-shadow: 0 3px 8px #49331f26;
-  font-family: Georgia, serif;
-  font-size: 0.85rem;
-  line-height: 1.25;
-  text-align: center;
-  pointer-events: none;
-}
-
-.atlas-discovery-controls {
-  display: flex;
-  border-top: 1px solid #49331f26;
-  margin: 0 0.8rem;
-}
-
-.atlas-discovery-controls button,
 .atlas-effects-toggle {
   min-height: 44px;
   padding: 0.45rem 0;
@@ -448,19 +423,7 @@ h3 {
   cursor: pointer;
 }
 
-.atlas-discovery-controls button:first-child {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.4rem;
-  text-align: left;
-}
-
-.atlas-discovery-controls button + button { min-width: 44px; font-size: 1.2rem; }
-.atlas-discovery-controls button:hover,
 .atlas-effects-toggle:hover { color: #20170d; text-decoration: underline; }
-.atlas-discovery-controls button:focus-visible,
 .atlas-effects-toggle:focus-visible { outline: 2px solid #785621; outline-offset: 2px; }
 .atlas-board-actions { text-align: right; }
 .atlas-effects-toggle { text-decoration: underline; text-underline-offset: 3px; }
