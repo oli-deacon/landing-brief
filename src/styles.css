@@ -281,6 +281,44 @@ h3 {
   animation: atlas-card-settle 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
 }
 
+/* Give the selected postcard its own snapshot above the fading board. */
+.atlas-page:has(.atlas-card.is-opening) .atlas-board {
+  view-transition-name: atlas-departing-board;
+}
+
+.atlas-card.is-opening,
+.atlas-card.is-opening:focus-within {
+  view-transition-name: atlas-opening-postcard;
+  animation: none;
+  outline: none;
+}
+
+.atlas-card.is-opening .atlas-magnifier {
+  visibility: hidden;
+}
+
+::view-transition-group(atlas-departing-board) { z-index: 1; }
+::view-transition-group(atlas-opening-postcard) { z-index: 2; }
+
+::view-transition-old(atlas-departing-board) {
+  animation: atlas-board-depart 320ms ease-out both;
+}
+
+::view-transition-old(atlas-opening-postcard) {
+  animation: atlas-postcard-depart 680ms cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  transform-origin: 50% 60%;
+}
+
+@keyframes atlas-board-depart {
+  to { opacity: 0; }
+}
+
+@keyframes atlas-postcard-depart {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  48% { opacity: 1; transform: translateY(-24px) scale(1.10); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.16); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .atlas-card:not(.is-artwork-ready):not(:focus-within) {
     opacity: 0;

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useViewTransitionState } from "react-router-dom";
 
 import { Card } from "../components/card";
 import { getAtlasCountryArtwork } from "../lib/country-art";
@@ -59,6 +59,8 @@ type AtlasArtworkCardProps = {
 };
 
 function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
+  const destination = `/country/${country.countryCode}/landing`;
+  const isOpening = useViewTransitionState(destination);
   const artwork = getAtlasCountryArtwork(country.countryCode);
   const note = getAtlasNote(country);
   const accent = atlasAccents[country.countryCode] ?? "#c29a5a";
@@ -154,7 +156,7 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
 
   return (
     <article
-      className={`atlas-card${artworkReady ? " is-artwork-ready" : ""}`}
+      className={`atlas-card${artworkReady ? " is-artwork-ready" : ""}${isOpening ? " is-opening" : ""}`}
       style={{
         "--atlas-accent": accent,
         "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`,
@@ -165,7 +167,7 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
       onPointerCancel={resetCardTilt}
       onKeyDown={(event) => { if (event.key === "Escape") setLensPoint(null); }}
     >
-      <Link className="atlas-card-open" to={`/country/${country.countryCode}/landing`}
+      <Link className="atlas-card-open" to={destination}
         aria-label={`Open ${country.countryName} arrival brief`}
         onFocus={handleArtworkFocus} onBlur={() => { setLensPoint(null); }} viewTransition>
       <span className="atlas-card-pin" aria-hidden="true" />
