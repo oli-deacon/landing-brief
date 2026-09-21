@@ -160,7 +160,7 @@ function AtlasArtworkCard({ country, index }: AtlasArtworkCardProps) {
       style={{
         "--atlas-accent": accent,
         "--atlas-tilt": `${index % 2 === 0 ? -1 : 1.1}deg`,
-        "--atlas-arrival-delay": `${180 + index * 110}ms`
+        "--atlas-arrival-delay": `${index * 60}ms`
       } as CSSProperties}
       onPointerMove={handleCardPointerMove}
       onPointerLeave={resetCardTilt}

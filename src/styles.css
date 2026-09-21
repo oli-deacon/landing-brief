@@ -278,7 +278,8 @@ h3 {
 }
 
 .atlas-card.is-artwork-ready {
-  animation: atlas-card-settle 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
+  animation: atlas-card-bounce 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--atlas-arrival-delay) backwards;
+  transform-origin: 50% 65%;
 }
 
 /* Give the selected postcard its own snapshot above the fading board. */
@@ -329,19 +330,23 @@ h3 {
   animation: none;
 }
 
-@keyframes atlas-card-settle {
+@keyframes atlas-card-bounce {
   from {
     opacity: 0;
-    translate: 0 -44px;
-    rotate: calc(var(--atlas-tilt) * -6);
-    scale: 1.035;
+    translate: 0 var(--atlas-entry-lift, 24px);
+    rotate: calc(var(--atlas-tilt) * -3);
+    scale: var(--atlas-entry-scale, 0.86);
   }
-  35% {
+  55% {
     opacity: 1;
+    translate: 0 var(--atlas-entry-overshoot, -7px);
+    rotate: calc(var(--atlas-tilt) * 0.6);
+    scale: var(--atlas-entry-peak, 1.035);
   }
-  70% {
-    translate: 0 4px;
-    rotate: calc(var(--atlas-tilt) * 0.7);
+  78% {
+    opacity: 1;
+    translate: 0 2px;
+    rotate: 0deg;
     scale: 0.995;
   }
   to {
@@ -349,6 +354,15 @@ h3 {
     translate: 0 0;
     rotate: 0deg;
     scale: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .atlas-card {
+    --atlas-entry-lift: 12px;
+    --atlas-entry-scale: 0.94;
+    --atlas-entry-overshoot: -3px;
+    --atlas-entry-peak: 1.015;
   }
 }
 
