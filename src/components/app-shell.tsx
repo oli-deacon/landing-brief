@@ -14,13 +14,13 @@ export function AppShell() {
   const isImmersiveRoute = /^\/country\/[^/]+\/(explore|run)$/.test(location.pathname);
 
   return (
-    <div className="min-h-screen bg-app-bg text-text-main">
+    <div className={isHomeRoute ? "departure-shell min-h-screen text-text-main" : "min-h-screen bg-app-bg text-text-main"}>
       {isHomeRoute ? null : <AdaptiveNav variant={isCountryRoute ? "country" : "default"} />}
       <div
         className={[
           "mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-12 sm:px-6 lg:px-8 lg:pb-14",
           isHomeRoute
-            ? "pt-[max(env(safe-area-inset-top),0.4rem)] sm:pt-5"
+            ? "departure-shell-inner pt-[max(env(safe-area-inset-top),0.4rem)] sm:pt-5"
             : isImmersiveRoute
               ? "max-w-none px-0 pb-0 pt-0"
               : "pt-5"
