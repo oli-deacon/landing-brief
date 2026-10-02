@@ -78,7 +78,31 @@ export type Communications = {
   esimOptions: EsimOption[];
 };
 
+export type ArrivalGuide = {
+  scope: string;
+  steps: string[];
+  lateArrival: {
+    serviceWindow: string;
+    fallback: string;
+    costNote: string;
+  };
+  reviewedDate: string;
+  sources: OfficialLink[];
+};
+
+export type QuickFacts = {
+  timeZone: string;
+  plugs: string;
+  power: string;
+  seasonalWeather: string;
+  reviewedDate: string;
+  sources: OfficialLink[];
+};
+
 export type CountryBrief = {
+  // Optional so previously saved offline briefs remain readable.
+  arrivalGuide?: ArrivalGuide;
+  quickFacts?: QuickFacts;
   countryCode: string;
   countryName: string;
   capitalOrMainCity: string;

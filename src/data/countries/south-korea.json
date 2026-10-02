@@ -181,5 +181,46 @@
         "notes": "Worth considering if fast mobile data is a priority and you prefer a polished app flow."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Incheon Airport (ICN) · Terminals 1 and 2",
+    "steps": [
+      "Follow Airport Railroad / AREX signs towards your terminal’s Transportation Center. Choose the Express or All-Stop service before buying a ticket.",
+      "For an airport bus, check the destination at the ticket counter or machine and use the boarding stop printed on your ticket. Stops differ between terminals.",
+      "For a taxi, follow the terminal’s Taxi signs and confirm the vehicle category and destination with the attendant before boarding."
+    ],
+    "lateArrival": {
+      "serviceWindow": "AREX is not an overnight service. Final departures depend on the terminal, train type and destination; confirm the last usable connection before buying.",
+      "fallback": "Check the airport’s terminal-specific late-night bus list for Seoul. If the route or departure does not suit, use a taxi or a prearranged hotel transfer.",
+      "costNote": "Taxi category, late-night rates and tolls affect the total. Ask for an estimate to your hotel before setting off."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Incheon public transportation",
+        "url": "https://www.airport.kr/ap_en/1499/subview.do"
+      },
+      {
+        "label": "Incheon bus routes and late-night services",
+        "url": "https://www.airport.kr/ap_en/1504/subview.do"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Seoul",
+    "plugs": "Types C and F · two round pins",
+    "power": "220 V · 60 Hz",
+    "seasonalWeather": "Seoul has cold winters and hot, humid summers. Late June–July often brings seasonal rain; spring and autumn are generally milder.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Korean electrical supply",
+        "url": "https://nmsc.kma.go.kr/resources/enhome/resources/conference/AOMSUC-13_Announcement_230726.pdf"
+      },
+      {
+        "label": "Korea seasonal climate",
+        "url": "https://english.visitkorea.or.kr/svc/contents/infoBscView.do?vcontsId=140636"
+      }
+    ]
   }
 }

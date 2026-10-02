@@ -12,6 +12,7 @@ import {
 import { getCountryArtwork } from "../lib/country-art";
 import { getSafeExternalUrl } from "../lib/safe-url";
 import { InfoList } from "./info-list";
+import { ArrivalDetails, PracticalFacts } from "./arrival-details";
 import { SectionShell } from "./section-shell";
 
 type CountryExperienceProps = {
@@ -157,6 +158,9 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           </div>
         </section>
 
+        <ArrivalDetails guide={brief.arrivalGuide} compact />
+        <PracticalFacts facts={brief.quickFacts} />
+
         <section className="country-arrival-more">
           <div>
             <p className="country-kicker">Need the detail?</p>
@@ -273,6 +277,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           <a href="#move" className="nav-context-pill country-nav-context-pill">
             Move
           </a>
+          <a href="#airport-exit" className="nav-context-pill country-nav-context-pill">Airport exit & late arrivals</a>
+          <a href="#quick-facts" className="nav-context-pill country-nav-context-pill">Quick facts</a>
           <a href="#settle" className="nav-context-pill country-nav-context-pill">
             Settle
           </a>
@@ -366,6 +372,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         </div>
       </SectionShell>
 
+      <ArrivalDetails guide={brief.arrivalGuide} />
+
       <SectionShell id="move" title="Move" eyebrow="Choose transport and local tools" variant="country">
         <div className="space-y-8">
           <div className="country-section-intro">
@@ -448,6 +456,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           </details>
         </div>
       </SectionShell>
+
+      <PracticalFacts facts={brief.quickFacts} />
 
       <SectionShell
         id="settle"

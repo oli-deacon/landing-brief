@@ -191,5 +191,50 @@
         "notes": "Makes sense if you stream, hotspot heavily, or just want fewer data-limit worries."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Kuala Lumpur International Airport (KUL) · check T1 or T2",
+    "steps": [
+      "Check your arrival terminal before choosing a pickup. In Terminal 1, follow KLIA Ekspres signs to Level 1; in Terminal 2, follow the rail signs through gateway@klia2.",
+      "Buy a rail ticket at the station or through the operator. Check whether the departure is Ekspres or Transit and where it stops.",
+      "For a taxi, use the official airport counter. Terminal 1 counters include the Level 3 arrivals area. For e-hailing, follow the terminal and pickup bay in your booking."
+    ],
+    "lateArrival": {
+      "serviceWindow": "Late-night rail arrangements vary: the operator advertises extended stopping services, while some published tables show earlier final departures. Check the dated timetable for your terminal.",
+      "fallback": "If rail has finished, arrange an airport taxi at the official counter or book a car to your hotel. Confirm the total fare and pickup point before heading outside.",
+      "costNote": "KLIA T1 metered taxis publish a 50% midnight surcharge from 00:00–06:00. Coupon and app bookings have their own quoted fares."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "KLIA train timetable",
+        "url": "https://www.kliaekspres.com/schedule"
+      },
+      {
+        "label": "KLIA rail service notices",
+        "url": "https://www.kliaekspres.com/products-fares/klia-ekspres"
+      },
+      {
+        "label": "KLIA T1 taxi counters and charges",
+        "url": "https://airports.malaysiaairports.com.my/en/klia1/air-travel/public-transport"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Kuala_Lumpur",
+    "plugs": "Type G · three rectangular pins",
+    "power": "230 V · 50 Hz",
+    "seasonalWeather": "Kuala Lumpur stays warm and humid throughout the year. Pack for rain and leave some flexibility for outdoor plans.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Plug types and electrical supply",
+        "url": "https://www.electricalsafetyfirst.org.uk/safety-advice/travel-advice/malaysia/"
+      },
+      {
+        "label": "Kuala Lumpur practical information",
+        "url": "https://ebrochures.malaysia.travel/en/kuala-lumpur/56-67-useful-information/"
+      }
+    ]
   }
 }

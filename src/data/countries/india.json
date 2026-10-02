@@ -191,5 +191,42 @@
         "notes": "Use an authorised operator outlet and check identity-document requirements and activation time. Ask your accommodation about nearby options."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Goa International Airport, Dabolim (GOI) · not Mopa (GOX)",
+    "steps": [
+      "After collecting baggage and clearing customs, look for the prepaid taxi counter in the arrivals area. Give the exact hotel and locality before paying.",
+      "Keep the booking receipt and confirm the assigned car and pickup point at the counter. Goa’s beach areas are spread out, so check the destination carefully.",
+      "For a hotel transfer, confirm that the driver is meeting you at Dabolim (GOI), and use the meeting point supplied by the hotel."
+    ],
+    "lateArrival": {
+      "serviceWindow": "A verified last airport-bus departure is not included in this brief. For an evening or delayed flight, arrange a car rather than relying on a bus connection.",
+      "fallback": "Prebook a hotel transfer with your flight number and a delay contact. If plans change, ask the arrivals prepaid taxi counter for an available car and confirmed fare.",
+      "costNote": "Confirm any late-night charge, waiting time and the full fare to your beach or town when booking."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "AAI Dabolim taxi and arrivals counters",
+        "url": "https://www.aai.aero/en/airports/transport-details/goa/Taxi"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Kolkata",
+    "plugs": "Types C, D and M · round pins; D/M have three pins",
+    "power": "230 V · 50 Hz",
+    "seasonalWeather": "Goa is tropical and warm. The June–September monsoon brings heavy rain; allow extra transfer time and check local beach conditions.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Plug types and electrical supply",
+        "url": "https://www.electricalsafetyfirst.org.uk/safety-advice/travel-advice/india/"
+      },
+      {
+        "label": "Goa seasonal weather",
+        "url": "https://goatourism.gov.in/weather/"
+      }
+    ]
   }
 }

@@ -197,5 +197,42 @@
         "notes": "Best when you care more about large or unlimited data than finding the cheapest plan."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Suvarnabhumi Airport (BKK) · main terminal",
+    "steps": [
+      "After customs, follow Airport Rail Link signs down to Level B1. Use the station ticket machines or counter before entering the gates.",
+      "For public taxis, go to Level 1, between Gates 4 and 7 on the inner curb. Get a queue ticket and go to the assigned taxi bay.",
+      "Grab pickup is at Level 1, Gate 4 on the outer curb. Confirm the current bay in the app before leaving the terminal."
+    ],
+    "lateArrival": {
+      "serviceWindow": "Airport Rail Link publishes operating hours of 05:30–24:00. Check the final departure at the station and allow for your onward connection.",
+      "fallback": "Public taxis operate 24 hours from Level 1. Use the queue-ticket system if trains have finished.",
+      "costNote": "The public taxi fare includes the meter plus a THB 50 airport surcharge; allow extra for tolls and any applicable baggage fees."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "AOT transport locations and hours",
+        "url": "https://suvarnabhumi.airportthai.co.th/?lang=en"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Bangkok",
+    "plugs": "Types A, B, C and O · flat or round pins",
+    "power": "230 V · 50 Hz",
+    "seasonalWeather": "Bangkok is hot year-round. Rain is more likely during the monsoon months, roughly May–October; allow extra transfer time in heavy showers.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Plug types and electrical supply",
+        "url": "https://www.electricalsafetyfirst.org.uk/safety-advice/travel-advice/thailand/"
+      },
+      {
+        "label": "Thailand seasonal weather",
+        "url": "https://www.tourismthailand.org/Plan-Your-Trip/Weather?province=219"
+      }
+    ]
   }
 }

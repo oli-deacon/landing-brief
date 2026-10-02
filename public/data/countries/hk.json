@@ -198,5 +198,50 @@
         "notes": "Worth checking if you want a polished app and may continue on to other Asian stops."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Hong Kong International Airport (HKG)",
+    "steps": [
+      "After customs, follow Airport Express signs to the airport station. Buy a ticket from the operator or at the station before boarding.",
+      "For taxis, follow Taxi signs to the designated rank. Tell the attendant your destination so you join the correct queue: red urban, green New Territories or blue Lantau.",
+      "For buses, follow Ground Transportation Centre signs and check the route and stop list before paying."
+    ],
+    "lateArrival": {
+      "serviceWindow": "Airport Express does not run all night. Check the airport/operator link for the final departure and your onward MTR connection.",
+      "fallback": "After rail closes, use the official taxi rank or check the airport night-bus routes for a stop near your hotel. Confirm the route before choosing a cheaper bus transfer.",
+      "costNote": "Taxi fares depend on destination and taxi category; luggage and applicable tolls can add to the meter."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Airport Express departures",
+        "url": "https://www.hongkongairport.com/en/transport/to-from-airport/airport-express.page"
+      },
+      {
+        "label": "Airport taxi categories",
+        "url": "https://www.hongkongairport.com/en/transport/to-from-airport/taxis.page"
+      },
+      {
+        "label": "Airport buses and overnight services",
+        "url": "https://www.hongkongairport.com/en/transport/to-from-airport/public-buses.page"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Hong_Kong",
+    "plugs": "Type G · three rectangular pins",
+    "power": "220 V · 50 Hz",
+    "seasonalWeather": "Expect humid summers and cooler winters. Typhoons are most common May–November and can disrupt airport and ferry transfers.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Plug types and electrical supply",
+        "url": "https://www.electricalsafetyfirst.org.uk/safety-advice/travel-advice/hong-kong/"
+      },
+      {
+        "label": "Hong Kong travel guide",
+        "url": "https://www.discoverhongkong.com/eng/travel-guide.html"
+      }
+    ]
   }
 }

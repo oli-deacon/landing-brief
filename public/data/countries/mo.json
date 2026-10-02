@@ -182,5 +182,46 @@
         "notes": "A reasonable pick if you want to avoid watching your remaining data too closely."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Macau · ferry terminals and HZMB Macao Port",
+    "steps": [
+      "Confirm whether your ticket arrives at Outer Harbour, Taipa Ferry Terminal or HZMB Macao Port before arranging your onward ride.",
+      "At HZMB Macao Port, clear immigration and follow signs to the west-side ground-floor pickup area for buses and taxis.",
+      "At a ferry terminal, follow the Taxi or Bus signs after immigration. Confirm hotel shuttle hours with your hotel before relying on a shuttle."
+    ],
+    "lateArrival": {
+      "serviceWindow": "Ferry and hotel-shuttle timetables vary. The HZMB Hong Kong–Macao shuttle normally operates 24 hours, with less frequent overnight departures.",
+      "fallback": "If ferries have finished, consider the HZMB shuttle from Hong Kong Port, then a local taxi in Macau. This requires eligibility to enter Hong Kong and Macau; check before leaving any airport transit area.",
+      "costNote": "The bridge ticket does not cover transfers at either end. Taxis from HZMB Macao Port and Taipa Ferry Terminal add a MOP 8 boarding surcharge; luggage may cost extra."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "HZMB passenger guide",
+        "url": "https://www.hzmb.gov.hk/en/info/Passenger%20Guide_EN.pdf"
+      },
+      {
+        "label": "Macao Port pickup areas",
+        "url": "https://www.dsat.gov.mo/hzmb/mac_area_info.aspx"
+      },
+      {
+        "label": "Macau local transport and taxi charges",
+        "url": "https://www.macaotourism.gov.mo/en/travelessential/before-you-travel/local-transportation?tab=taxis"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Macau",
+    "plugs": "Three-pin square or round sockets · confirm with your hotel",
+    "power": "230 V · 50 Hz",
+    "seasonalWeather": "May–September is hot and rainy; October–November is usually milder and drier. Typhoon season can extend into November and disrupt crossings.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Macau climate and electricity",
+        "url": "https://www.macaotourism.gov.mo/en/travelessential/before-you-travel/practical-info?tab=climate-and-clothing"
+      }
+    ]
   }
 }

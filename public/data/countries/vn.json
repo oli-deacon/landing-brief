@@ -193,5 +193,42 @@
         "notes": "Best suited to travellers who expect long navigation, social, or video days."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Tan Son Nhat Airport (SGN) · Terminal 2 international arrivals",
+    "steps": [
+      "After immigration, baggage and customs, enter the public arrivals hall. Follow the signed taxi pickup area or ask the airport information desk to direct you.",
+      "For Grab, select Terminal 2 / International Arrivals. The operator lists the international parking area for pickup; follow the live in-app walking directions.",
+      "Match the registration plate and driver to your booking before boarding. Domestic-terminal pickup instructions are different."
+    ],
+    "lateArrival": {
+      "serviceWindow": "Do not plan a late arrival around a city bus without confirming its final departure locally. A verified overnight bus timetable is not included in this brief.",
+      "fallback": "Arrange a hotel pickup ahead of time, or request an app-booked car after clearing customs. If you cannot connect, ask the information desk for the official taxi queue.",
+      "costNote": "Confirm the fare and any airport access or parking charge before boarding; app prices and availability vary."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Grab international arrivals pickup",
+        "url": "https://www.grab.com/global/airport-rides/tan-son-nhat-international-airport/"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Ho_Chi_Minh",
+    "plugs": "Types A, B and C · flat or round pins",
+    "power": "220 V · 50 Hz",
+    "seasonalWeather": "Ho Chi Minh City stays warm year-round. May–November is the wetter season; April and May can be especially hot.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Plug types and electrical supply",
+        "url": "https://www.electricalsafetyfirst.org.uk/safety-advice/travel-advice/vietnam/"
+      },
+      {
+        "label": "Ho Chi Minh City weather",
+        "url": "https://vietnam.travel/vi/places-to-go/southern-vietnam/ho-chi-minh-city"
+      }
+    ]
   }
 }

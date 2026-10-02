@@ -191,5 +191,38 @@
         "notes": "Worth a look if you want built-in ad blocking and an easy path into wider Asia plans."
       }
     ]
+  },
+  "arrivalGuide": {
+    "scope": "Changi Airport (SIN) · Terminals 1–4",
+    "steps": [
+      "For the MRT, follow Train to City signs towards the station at Terminals 2 and 3. From another terminal, follow the airport transfer signs first.",
+      "For a taxi, follow Taxi signs to the arrivals rank in your terminal. Join the queue for a metered car.",
+      "For an app-booked car, choose your terminal and follow the pickup door shown in the app. Pay for the MRT with an accepted contactless card or travel card."
+    ],
+    "lateArrival": {
+      "serviceWindow": "The last airport train connecting towards Tuas Link leaves at 23:18. The later 00:06 connection is towards Pasir Ris; do not assume it will get you into the city.",
+      "fallback": "After the city-bound connection ends, use the arrivals taxi rank or book a private-hire car to your accommodation.",
+      "costNote": "Taxis add an airport surcharge. From 00:00–05:59, a further 50% of the metered fare applies."
+    },
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Changi transport and last trains",
+        "url": "https://www.changiairport.com/en/at-changi/transport-and-directions/leaving-the-airport.html"
+      }
+    ]
+  },
+  "quickFacts": {
+    "timeZone": "Asia/Singapore",
+    "plugs": "Type G · three rectangular pins",
+    "power": "230 V · 50 Hz",
+    "seasonalWeather": "Hot and humid throughout the year, with sudden downpours. Keep an umbrella and a light layer for air-conditioned interiors handy.",
+    "reviewedDate": "2026-10-02",
+    "sources": [
+      {
+        "label": "Singapore visitor essentials",
+        "url": "https://www.visitsingapore.com/travel-tips/essential-travel-information/"
+      }
+    ]
   }
 }

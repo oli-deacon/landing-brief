@@ -3305,3 +3305,32 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .board-flap-front, .board-flap-back { animation: none; }
 }
+
+/* Arrival reference details share the destination brief's existing type and surfaces. */
+.arrival-instructions { list-style: none; padding: 0; margin: 0; }
+.arrival-instructions li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.75rem; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.arrival-instructions li > span { font-size: 0.75rem; color: var(--text-muted); padding-top: 0.2rem; }
+.arrival-instructions p, .arrival-late dd, .practical-facts-grid p { margin: 0; font-size: 0.9rem; line-height: 1.75; color: var(--text-soft); }
+.arrival-late { margin-top: 1.5rem; }
+.arrival-late summary { cursor: pointer; color: var(--text-main); font-size: 1.05rem; }
+.arrival-late summary > span { display: block; margin: 0.4rem 0 0 1rem; color: var(--text-muted); font-size: 0.8rem; }
+.arrival-late dl { margin: 1.2rem 0 0; display: grid; gap: 1rem; }
+.arrival-late dt, .practical-facts-grid h3 { color: var(--text-main); font-size: 0.85rem; font-weight: 600; margin: 0 0 0.4rem; }
+.arrival-late .arrival-timing-note, .practical-facts-grid .practical-fact-note { color: var(--text-muted); font-size: 0.75rem; line-height: 1.65; margin-top: 0.75rem; }
+.arrival-sources { margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted); }
+.arrival-sources summary { cursor: pointer; }
+.arrival-sources ul { list-style: none; padding: 0; margin: 0.75rem 0 0; display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
+.arrival-sources a { color: var(--text-soft); text-decoration: underline; text-underline-offset: 0.2em; }
+.arrival-late summary:focus-visible, .arrival-sources summary:focus-visible, .arrival-sources a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 2px; }
+.practical-facts-grid { display: grid; gap: 1.5rem; }
+.practical-facts-grid > div { min-width: 0; }
+.practical-facts-grid .practical-clock { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.75rem; }
+.practical-clock time { font-size: 1.8rem; font-variant-numeric: tabular-nums; color: var(--text-main); }
+.practical-clock span { font-size: 0.8rem; }
+.practical-facts-grid .practical-power { margin-top: 0.4rem; color: var(--text-main); }
+@media (min-width: 768px) {
+  .practical-facts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .practical-facts-grid > div + div { border-left: 1px solid rgba(255,255,255,0.1); padding-left: 1.5rem; }
+  .arrival-late dl > div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1rem; }
+  .arrival-late summary > span { display: inline; margin-left: 0.75rem; }
+}
