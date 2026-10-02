@@ -1,0 +1,13 @@
+# Goa artwork
+
+Generated with the built-in image generation tool. Original outputs are retained in the generated-images directory; project copies are in `src/images`.
+
+## Hero — `src/images/image_goa.jpg`
+
+Converted the generated PNG to JPEG at quality 90 for the app’s offline-cache budget.
+
+Use case: stylized-concept. Create a new portrait 2:3 travel poster hero artwork for Goa, India. Fine intricate antique-gold etched linework exclusively on a deep solid black background, elegant thin gold rectangular border, matching a premium travel poster collection. Large beautifully spaced title GOA at top, small subtitle COAST • COURTYARDS • SALT AIR beneath. Illustrate Goa recognisably: Our Lady of the Immaculate Conception Church in Panaji with its zigzag steps, tiled-roof Portuguese-influenced Fontainhas houses, coconut palms, a curving Arabian Sea beach, small fishing boats, a modest waterfront road with a scooter and taxi, tiny strolling people and cafe details. Dense crafted engraving, refined architectural accuracy and deep perspective, warm subdued metallic gold not bright yellow. Bottom footer reads DABOLIM • GOI. All scene details gold contours on black, no photographic color or solid white, no Delhi landmarks, no watermark. Main scene occupies central 70 percent of poster, typography and border fully inside frame.
+
+## Atlas — `src/images/Goa_Diorama.png`
+
+Use case: stylized-concept. Asset: Goa Atlas travel postcard, portrait 9:16. Create a charming miniature 3D paper-craft travel illustration of Goa, India. Delicate handcrafted models of the white Our Lady of the Immaculate Conception Church in Panaji with zigzag steps, pastel Fontainhas houses with terracotta tiled roofs, a small laterite coastal fort and lighthouse, coconut palms, tiny fishing boat, scooter, and curling turquoise sea against a sandy beach. Arrange together on a narrow floating layered-paper landscape strip in the lower middle of the canvas, scene from 35% to 79% of canvas height, width 94%, with lots of airy warm white textured paper above. Two tiny black antique streetlamps at left and right edges, their glowing lantern centers around 65% canvas height. Soft natural light, pastel colors, gentle shadows, realistic paper clay and wood textures, whimsical handcrafted aesthetic. Small folded paper airplane with dotted flight path in the upper right, paper clouds and delicate birds above the scene. Small elegant handwritten title Goa beneath at 87% canvas height. Minimal clean centered collectible postcard composition, macro photography feel, all artwork within frame. No Delhi landmarks, no India Gate, no Taj Mahal, no watermark, no additional text.

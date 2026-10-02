@@ -71,11 +71,11 @@ const stories: Record<string, RunStory> = {
     track: { name: "Son Keechung Sports Park", body: "Seoul’s runner-focused Son Keechung Sports Park includes a running track and running centre.", access: "Check the park’s current programme or local notices before a workout session.", source: "Seoul Metropolitan Government", url: "https://english.seoul.go.kr/son-keechung-sports-park-recreated-as-a-shrine-for-runners-connecting-to-namsan-mountain-with-pedestrian-walkway/" }
   },
   in: {
-    name: "New Delhi",
-    intro: "New Delhi is best approached by pocket: run a garden or a broad ceremonial avenue early, then retreat before heat and traffic take over the streets.",
+    name: "Goa",
+    intro: "Goa suits a short run at first light: sea air, palm shade and an easy turnaround before the humidity builds. Choose a route near your base instead of spending the morning driving across the state.",
     routes: [
-      { label: "Garden miles", title: "Lodhi Garden", distance: "Easy repeatable loops", description: "Use the garden paths for a shaded, lower-stress run framed by tombs, trees and a morning crowd that knows the routine.", note: "Stay aware of your surroundings and start as early as you can.", map: map("Lodhi Garden New Delhi") },
-      { label: "Open Delhi", title: "India Gate precinct", distance: "Flexible broad avenues", description: "A spacious option when you want the capital’s scale around you rather than a park loop underfoot.", note: "Traffic and access arrangements can vary—make this a daylight, route-finding run.", map: map("India Gate New Delhi") }
+      { label: "Panaji sea air", title: "Miramar waterfront", distance: "Short, flexible out and back", description: "Start near Miramar Beach and use the accessible waterfront paths for an easy shake-out. Keep the first outing short, turning back wherever the pedestrian route becomes awkward.", note: "Expect shared paths and road crossings. Go in daylight, bring water and avoid forcing a continuous route through traffic.", map: map("Miramar Beach Panaji Goa") },
+      { label: "South Goa sand", title: "Colva beach", distance: "Make it your distance", description: "From Colva’s main beach access, choose a clear stretch of firm sand for a gentle out-and-back beside the Arabian Sea. Let the tide and the surface decide your turnaround.", note: "Check tides and local beach notices. Avoid rough surf, fishing activity and monsoon storms; soft or sloping sand changes the effort.", map: map("Colva Beach Goa") }
     ], track: null
   }
 };

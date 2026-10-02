@@ -27,7 +27,7 @@ const atlasNotes: Record<string, { label: string; note: string; coordinates: str
   hk: { label: "harbour city", note: "vertical streets / salt air", coordinates: "22.3193° N · 114.1694° E" },
   mo: { label: "crossings", note: "old stones / bright rooms", coordinates: "22.1987° N · 113.5439° E" },
   kr: { label: "city at speed", note: "mountain edges / neon", coordinates: "37.5665° N · 126.9780° E" },
-  in: { label: "capital rhythms", note: "monuments / markets / heat", coordinates: "28.6139° N · 77.2090° E" }
+  in: { label: "coastal rhythms", note: "palm shade / tiled roofs / salt air", coordinates: "15.3804° N · 73.8333° E" }
 };
 
 function getAtlasNote(country: CountrySummary) {

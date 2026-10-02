@@ -1,4 +1,5 @@
 import type { CountryBrief, CountrySummary } from "../types";
+import countryIndex from "../../public/data/countries/index.json";
 
 const STORAGE_EVENT = "landingbrief-storage-changed";
 const SAVED_COUNTRIES_KEY = "landingbrief.saved-countries";
@@ -75,12 +76,19 @@ export function createCountrySummary(brief: CountryBrief): CountrySummary {
   };
 }
 
+function refreshCountrySummary<T extends CountrySummary>(country: T): T {
+  const current = countryIndex.find((entry) => entry.countryCode === country.countryCode.toLowerCase());
+  if (!current) return country;
+  const { file: _file, ...summary } = current;
+  return { ...country, ...summary };
+}
+
 export function getSavedCountries() {
-  return readJsonFromStorage<SavedCountry[]>(SAVED_COUNTRIES_KEY, []);
+  return readJsonFromStorage<SavedCountry[]>(SAVED_COUNTRIES_KEY, []).map(refreshCountrySummary);
 }
 
 export function getRecentCountries() {
-  return readJsonFromStorage<RecentCountry[]>(RECENT_COUNTRIES_KEY, []);
+  return readJsonFromStorage<RecentCountry[]>(RECENT_COUNTRIES_KEY, []).map(refreshCountrySummary);
 }
 
 export function getCountryNotes() {

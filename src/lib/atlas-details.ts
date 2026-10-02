@@ -1,4 +1,4 @@
-// Positions are fractions of the original 941 × 1672 artwork, before its centred crop.
+// Positions are fractions of each original artwork, before its centred crop.
 type AtlasDetails = { lamps: [number, number][] };
 
 export const atlasDetails: Record<string, AtlasDetails> = {
@@ -24,6 +24,6 @@ export const atlasDetails: Record<string, AtlasDetails> = {
     lamps: [[0.055, 0.638], [0.957, 0.64]]
   },
   in: {
-    lamps: [[0.046, 0.651], [0.961, 0.651]]
+    lamps: [[0.048, 0.586], [0.966, 0.589]]
   }
 };

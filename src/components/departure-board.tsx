@@ -46,7 +46,7 @@ export function DepartureNavigation() {
   );
 }
 
-const airportCodes: Record<string, string> = { sg: "SIN", th: "BKK", my: "KUL", vn: "SGN", hk: "HKG", mo: "MFM", kr: "ICN", in: "DEL" };
+const airportCodes: Record<string, string> = { sg: "SIN", th: "BKK", my: "KUL", vn: "SGN", hk: "HKG", mo: "MFM", kr: "ICN", in: "GOI" };
 
 export function DepartureBoard({ countries }: { countries: CountrySummary[] }) {
   const [selectedCode, setSelectedCode] = useState(countries[0]?.countryCode);

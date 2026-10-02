@@ -1,6 +1,6 @@
 import atlasBkk from "../images/Bangkok_Diorama.png";
 import atlasHk from "../images/HongKong_Diorama.png";
-import atlasInd from "../images/NewDelhi_Diorama.png";
+import atlasInd from "../images/Goa_Diorama.png";
 import atlasKl from "../images/KualaLumpur_Diorama.png";
 import atlasMc from "../images/Macau_Diorama.png";
 import atlasKr from "../images/Seoul_Diorama.png";
@@ -8,7 +8,7 @@ import atlasSg from "../images/Singapore_Diorama.png";
 import atlasVn from "../images/Vietnam_Diorama.png";
 import imageBkk from "../images/image_bkk.png";
 import imageHk from "../images/image_hk.png";
-import imageInd from "../images/image_ind.png";
+import imageInd from "../images/image_goa.jpg";
 import imageKl from "../images/image_kl.png";
 import imageMc from "../images/image_mc.png";
 import imageKr from "../images/image_kr.png";
@@ -69,7 +69,7 @@ const countryArtwork: Record<string, CountryArtwork> = {
   in: {
     kind: "image",
     src: imageInd,
-    alt: "New Delhi travel poster with gold line art of India Gate, buses, metro signs, and city streets."
+    alt: "Goa travel poster in gold and black with Panaji’s church, Fontainhas houses, coconut palms, fishing boats, and the Arabian Sea."
   }
 };
 
@@ -112,7 +112,7 @@ const atlasArtwork: Record<string, CountryArtwork> = {
   in: {
     kind: "image",
     src: atlasInd,
-    alt: "New Delhi diorama with India Gate, Qutub Minar, the Lotus Temple, buses, and an auto-rickshaw."
+    alt: "Goa paper-craft diorama with Panaji’s church, colourful Fontainhas houses, a coastal fort, palms, and a fishing boat."
   }
 };
 

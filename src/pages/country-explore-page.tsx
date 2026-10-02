@@ -106,15 +106,15 @@ const stories: Record<string, ExploreStory> = {
     ]
   },
   in: {
-    name: "New Delhi",
-    eyebrow: "A capital of contrasts",
-    title: "New Delhi, vast and close at once.",
-    intro: "Grand avenues, old markets and the scent of spice make the capital feel less like one city than a constellation of worlds.",
-    prologue: "Delhi takes time to come into focus. Let each neighbourhood be its own scene: a monument in the morning, a market at midday, a long meal when the heat begins to soften.",
+    name: "Goa",
+    eyebrow: "Courtyards, coast and coconut palms",
+    title: "Goa, at the water’s pace.",
+    intro: "Colourful lanes, whitewashed churches and the Arabian Sea give Goa a rhythm that stretches well beyond the beach.",
+    prologue: "Give Goa room in the day. Start with Panaji’s old quarters, linger over lunch, then find a stretch of coast for the last light. Choose one area at a time; the villages and beaches are more spread out than they look on a map.",
     chapters: [
-      { label: "The old city", title: "Step into the older current.", body: "Around Old Delhi, history is close enough to touch — narrow lanes, Jama Masjid’s scale, street traders and an energy that makes the city feel permanently in the making.", note: "Go with a light plan and a little patience. The density is part of the experience.", className: "macau-chapter--old" },
-      { label: "The evening", title: "Follow the city into the blue hour.", body: "As the day cools, Delhi’s gardens, monuments and market streets take on a softer edge. There is always another courtyard or café behind the next turn.", note: "Build a pause into the day; the city gives more back when you do.", className: "macau-chapter--night" },
-      { label: "The table", title: "Eat where the aromas lead.", body: "Chaat, kebabs, rich curries and sweet chai make eating in Delhi an essential part of seeing it — vibrant, varied and best approached with curiosity.", note: "Begin with busy, well-reviewed spots and let your confidence grow.", className: "macau-chapter--taste" }
+      { label: "The old quarter", title: "Follow the colour through Fontainhas.", body: "Panaji’s Fontainhas lanes bring tiled roofs, painted houses and small cafés into close focus. Make time for the white façade and zigzag steps of the Church of Our Lady of the Immaculate Conception nearby.", note: "These streets are a neighbourhood: respect doorways, residents and requests about photography.", className: "macau-chapter--old" },
+      { label: "The evening", title: "Leave the last hour for the sea.", body: "Stay near Panaji for Miramar, or settle into a South Goa beach such as Colva. Watch fishing boats and palm silhouettes as the light drops over the Arabian Sea.", note: "Arrange the ride back before you settle in, and follow lifeguard flags and seasonal beach advice.", className: "macau-chapter--night" },
+      { label: "The table", title: "Make lunch a Goan affair.", body: "Fish curry and rice, fragrant chicken cafreal and a slice of layered bebinca offer a first taste of Goa’s kitchens. Coconut, spice and tangy sauces give each plate its own character.", note: "Ask about the day’s catch, spice level and ingredients; seafood and coconut appear throughout the menu.", className: "macau-chapter--taste" }
     ]
   }
 };

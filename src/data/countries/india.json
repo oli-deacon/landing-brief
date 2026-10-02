@@ -1,48 +1,62 @@
 {
   "countryCode": "in",
   "countryName": "India",
-  "capitalOrMainCity": "New Delhi",
-  "primaryAirport": "Indira Gandhi International Airport (DEL)",
+  "capitalOrMainCity": "Goa",
+  "primaryAirport": "Goa International Airport, Dabolim (GOI)",
   "arrivalEssentials": [
-    "Make sure your visa or eVisa is approved before departure because a valid visa is generally required to enter India.",
-    "Complete the online e-Arrival Card within 72 hours of arrival if it applies to your route and citizenship.",
-    "Arrange airport pickup, a taxi app, or enough INR and data for your first transfer out of the airport.",
-    "Use sealed bottled water or other trusted drinking water options when you first land."
+    "Check that your flight and pickup both say Dabolim (GOI). Goa also has Manohar International Airport at Mopa (GOX), a different airport.",
+    "Have your approved Indian visa or eVisa ready before departure; complete the e-Arrival Card within 72 hours before arrival if applicable.",
+    "Book your transfer to the exact hotel and village. Panaji, North Goa and South Goa need different journeys from GOI.",
+    "Keep INR, a working data connection and your hotel address handy; use sealed bottled or trusted filtered drinking water."
   ],
   "airportToCity": {
-    "airportName": "Indira Gandhi International Airport (DEL)",
+    "airportName": "Goa International Airport, Dabolim (GOI)",
     "options": [
       {
-        "mode": "Delhi Airport Metro Express",
-        "typicalTime": "About 20 to 25 minutes to New Delhi station",
-        "typicalCost": "About INR 60",
-        "bestFor": "Fast, predictable entry into central Delhi",
-        "notes": "A strong option if your hotel is easy to reach from the metro or a short onward ride."
+        "mode": "Prepaid airport taxi",
+        "typicalTime": "Allow roughly 45–60 minutes to Panaji; beach transfers vary",
+        "typicalCost": "Destination-based fare; confirm at the airport counter",
+        "bestFor": "A direct transfer from GOI with luggage",
+        "notes": "Use the prepaid counter and confirm the full fare and hotel location. Allow extra time for traffic and rain."
       },
       {
-        "mode": "Prepaid taxi or app ride",
-        "typicalTime": "35 to 70 minutes",
-        "typicalCost": "About INR 500 to 1,200",
-        "bestFor": "Door-to-door arrival with luggage or late-night landings",
-        "notes": "Traffic swings heavily by time of day, so build in buffer time for meetings."
+        "mode": "GoaMiles taxi app",
+        "typicalTime": "Pickup wait plus your road journey",
+        "typicalCost": "Check the live quote for your destination",
+        "bestFor": "Booking a local taxi with a fare shown before travel",
+        "notes": "Select Dabolim (GOI), confirm the designated pickup point and check driver availability before relying on a booking."
       },
       {
         "mode": "Hotel transfer",
-        "typicalTime": "35 to 70 minutes",
-        "typicalCost": "Varies by hotel and vehicle type",
-        "bestFor": "Low-friction arrival when you want a named pickup and simpler navigation",
-        "notes": "Often worth arranging in advance if this is your first time in Delhi."
+        "typicalTime": "Depends on your hotel’s village and traffic",
+        "typicalCost": "Ask the hotel for an all-in quote",
+        "bestFor": "Late arrivals, resort stays or a named driver",
+        "notes": "Send the flight number and GOI airport code. Ask the hotel to confirm the journey time and meeting point in writing."
       }
     ]
   },
   "entryRequirements": {
     "passportValidity": "Your passport should have at least 6 months validity remaining and enough blank pages for entry stamps.",
     "visaSummary": "Australian travellers generally need a valid visa or eVisa before arrival unless they hold another status such as OCI; confirm the right category for tourism, business, or conference travel.",
-    "arrivalCardOrDeclaration": "India currently uses an online e-Arrival Card that can be submitted within 72 hours before arrival; depending on the route, you may also be asked for a paper arrival card.",
+    "arrivalCardOrDeclaration": "Foreign nationals and OCI card holders can submit India’s e-Arrival Card online within 72 hours before arrival. It is separate from a visa; check the official portal for current requirements.",
     "officialSourceNote": "Check the official Indian Visa Online portal and current Australian Smartraveller advice for India shortly before travel.",
     "importantNotes": [
       "Use only the official government visa portal and avoid third-party sites that add high service fees.",
       "Processing times and eligible visa categories vary, so do not leave applications to the last minute."
+    ],
+    "officialLinks": [
+      {
+        "label": "Indian Visa Online and e-Arrival Card",
+        "url": "https://indianvisaonline.gov.in/"
+      },
+      {
+        "label": "Smartraveller: India",
+        "url": "https://www.smartraveller.gov.au/destinations/asia/india"
+      },
+      {
+        "label": "AAI: Goa Dabolim Airport",
+        "url": "https://www.aai.aero/en/airports/goa"
+      }
     ]
   },
   "handyPhrases": [
@@ -50,105 +64,106 @@
       "english": "Hello",
       "local": "Namaste",
       "pronunciation": "nah-mah-stay",
-      "context": "A polite greeting that is widely recognised, though many regions use other local languages too."
+      "context": "Hindi greeting. Konkani is Goa’s official language; English is also useful in hotels and visitor-facing businesses."
     },
     {
       "english": "Please",
       "local": "Kripya",
       "pronunciation": "kri-pya",
-      "context": "A polite formal please that works well in everyday travel situations."
+      "context": "Hindi: A polite formal please that works well in everyday travel situations."
     },
     {
       "english": "Thank you",
       "local": "Dhanyavaad",
       "pronunciation": "dhan-yuh-vaad",
-      "context": "Useful in formal or respectful situations; English is also widely used."
+      "context": "Hindi: Useful in formal or respectful situations; English is also widely used."
     },
     {
       "english": "Excuse me",
       "local": "Maaf kijiye",
       "pronunciation": "maaf kee-jee-yeh",
-      "context": "Useful when getting attention politely or apologising lightly."
+      "context": "Hindi: Useful when getting attention politely or apologising lightly."
     },
     {
       "english": "The bill, please",
       "local": "Bill dijiye, kripya",
       "pronunciation": "bil dee-jee-yeh, kri-pya",
-      "context": "Useful in restaurants and cafes."
+      "context": "Hindi: Useful in restaurants and cafes."
     },
     {
       "english": "Where is the bathroom?",
       "local": "Bathroom kahan hai?",
       "pronunciation": "bath-room kah-haan hay",
-      "context": "Useful in airports, stations, and restaurants."
+      "context": "Hindi: Useful in airports, stations, and restaurants."
     },
     {
       "english": "How much is this?",
       "local": "Yeh kitne ka hai?",
       "pronunciation": "yeh kit-nay ka hay",
-      "context": "Helpful in markets or smaller shops where prices are not obvious."
+      "context": "Hindi: Helpful in markets or smaller shops where prices are not obvious."
     },
     {
       "english": "Can I pay by card?",
       "local": "Card chalta hai?",
       "pronunciation": "card chal-tah hay",
-      "context": "Useful in shops, cabs, and restaurants."
+      "context": "Hindi: Useful in shops, cabs, and restaurants."
     },
     {
       "english": "I need a taxi",
       "local": "Mujhe taxi chahiye",
       "pronunciation": "moo-jhay tak-see chaa-hee-yeh",
-      "context": "Useful at airports, stations, and hotels."
+      "context": "Hindi: Useful at airports, stations, and hotels."
     },
     {
       "english": "Not too spicy, please",
       "local": "Zyada spicy mat, kripya",
       "pronunciation": "zyaa-dah spy-see muht, kri-pya",
-      "context": "Helpful when ordering food and easing into local spice levels."
+      "context": "Hindi: Helpful when ordering food and easing into local spice levels."
     }
   ],
   "businessEtiquette": {
-    "summary": "Business in India often moves fastest when you pair professionalism with patience, flexibility, and relationship-building.",
+    "summary": "For meetings in Goa, confirm the venue and village, allow for road travel, and keep the same professional courtesy you would bring elsewhere in India.",
     "tips": [
-      "Build in buffer time because traffic and timing can be less predictable than the calendar suggests.",
-      "Start meetings courteously before moving straight into negotiation or hard asks.",
-      "Confirm decisions and next steps clearly in writing after meetings."
+      "Confirm whether the meeting is in Panaji, a North Goa venue or a South Goa resort before planning transfers.",
+      "Allow extra travel time for traffic and heavy rain; avoid scheduling a tight meeting immediately after landing at GOI.",
+      "Dress for the meeting rather than the beach, and begin with a courteous introduction.",
+      "Confirm decisions and next steps clearly in writing after meetings.",
+      "Build time for conversation and rapport rather than treating every meeting as purely transactional."
     ]
   },
   "foodAndPracticalities": {
     "tapWater": "Use bottled, filtered, or otherwise trusted water rather than drinking tap water as a visitor.",
     "tipping": "Tipping is common in hotels and many restaurants, especially when a service charge is not already included.",
-    "dietaryNotes": "Vegetarian food is widely available, but spice, dairy, and ghee levels can vary a lot by region and venue.",
-    "commonFoodTips": "Choose busy, well-reviewed food spots, and go gently on street food at first if your stomach is not used to it.",
+    "dietaryNotes": "Goan menus often feature seafood and coconut. Ask about fish, shellfish, meat and dairy even when a dish looks vegetable-based; vegetarian choices are available.",
+    "commonFoodTips": "Try fish curry and rice, chicken cafreal or bebinca. Choose busy kitchens, ask about spice levels and confirm ingredients if you have allergies.",
     "usefulPhrases": [
+      "English is useful in tourist areas; these are Hindi alternatives.",
       "Paani bottle? (Bottled water?)",
-      "Zyada spicy mat. (Not too spicy.)",
       "Card chalta hai? (Do you take card?)"
     ]
   },
   "moneyAndPayments": {
     "currency": "Indian rupee (INR)",
-    "conversion": "Check live rates before travel; AUD 1 often lands around INR 54 to 56.",
-    "cardAcceptance": "Cards and digital payments are common in hotels, malls, and many urban restaurants, but cash still matters in smaller settings.",
+    "conversion": "Check the live AUD/INR rate before travel and compare your card’s foreign-exchange fees.",
+    "cardAcceptance": "Cards are useful at hotels and established restaurants. Carry INR for smaller cafés, beach vendors and transport; confirm payment methods before ordering or travelling.",
     "cashNotes": "Keep small notes for tips, local shops, markets, and backup transport.",
     "tipping": "Often expected in service settings unless a clear service charge is already included.",
     "roughCostExamples": [
-      "Coffee: about INR 120 to 300 (AUD 2 to 6)",
-      "Beer at a casual venue: about INR 250 to 500 (AUD 5 to 9)",
-      "Simple meal: about INR 200 to 500 (AUD 4 to 9)",
-      "Airport Metro Express: about INR 60 (around AUD 1)"
+      "Airport taxi: destination-based quote from the GOI prepaid counter or GoaMiles app",
+      "Hotel transfer: confirm the full fare, waiting charges and vehicle before booking",
+      "Beach cafés and restaurants: check the menu and taxes; resort prices can differ substantially from local eateries"
     ]
   },
   "localTransportApps": [
     {
-      "name": "Uber",
-      "useCase": "Ride-hailing in major cities",
-      "notes": "Useful for airport pickups and everyday movement where it is well covered."
+      "name": "GoaMiles",
+      "useCase": "Local taxi bookings and airport transfers in Goa",
+      "notes": "Check the live fare and pickup availability. For arrivals choose Dabolim (GOI), and keep a hotel or prepaid taxi as backup."
     },
     {
-      "name": "Ola",
-      "useCase": "Ride-hailing and local transport backup",
-      "notes": "A common local alternative worth keeping installed in case availability differs."
+      "name": "Google Maps",
+      "useCase": "Hotel pins, walking directions and transfer planning",
+      "notes": "Download the Goa area before travel and confirm the exact village with your host. A map estimate is not a guaranteed transfer time."
     }
   ],
   "emergencyNumbers": {
@@ -159,26 +174,21 @@
       "You may also see 100 for police, 101 for fire, and 102 for medical emergencies."
     ]
   },
-  "lastReviewedDate": "2026-05-09",
+  "lastReviewedDate": "2026-10-02",
   "disclaimer": "Sample briefing only. Entry rules, health requirements, and transport conditions can change; always confirm current details with official sources before you travel.",
   "communications": {
-    "bestMobileNetwork": "Jio",
-    "networkWhy": "Best overall traveller bet for major-city 5G coverage and broad everyday data performance, with Airtel as the closest alternative.",
+    "bestMobileNetwork": "Jio or Airtel",
+    "networkWhy": "Ask your hotel which network works best at your exact Goa location, especially for beach stays or inland villages. Download maps and pickup details before landing.",
     "esimOptions": [
       {
-        "name": "Airalo",
-        "bestFor": "getting online immediately on arrival",
-        "notes": "Useful if you want data without dealing with local SIM paperwork right after landing."
+        "name": "Travel eSIM",
+        "bestFor": "Data on arrival at GOI",
+        "notes": "Before buying, confirm India coverage, device compatibility, activation rules and hotspot limits. Check whether calls and SMS are included; many plans are data-only."
       },
       {
-        "name": "Nomad",
-        "bestFor": "medium stays and backup hotspot use",
-        "notes": "A practical choice if you want a clean app experience and flexible bundle sizes."
-      },
-      {
-        "name": "Holafly",
-        "bestFor": "high daily usage",
-        "notes": "Best for travellers who expect long navigation days or frequent tethering, but local SIMs can still be better for OTP-heavy workflows."
+        "name": "Local SIM",
+        "bestFor": "A local number for a longer Goa stay",
+        "notes": "Use an authorised operator outlet and check identity-document requirements and activation time. Ask your accommodation about nearby options."
       }
     ]
   }

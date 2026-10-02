@@ -58,9 +58,9 @@
   {
     "countryCode": "in",
     "countryName": "India",
-    "capitalOrMainCity": "New Delhi",
-    "primaryAirport": "Indira Gandhi International Airport",
-    "lastReviewedDate": "May 2026",
+    "capitalOrMainCity": "Goa",
+    "primaryAirport": "Goa International Airport, Dabolim (GOI)",
+    "lastReviewedDate": "Oct 2026",
     "file": "/data/countries/in.json"
   }
 ]
