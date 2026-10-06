@@ -1,7 +1,9 @@
 import type { CountryBrief, CountrySummary } from "../types";
 import countryIndex from "../../public/data/countries/index.json";
 
-const STORAGE_EVENT = "landingbrief-storage-changed";
+import { getArrivalCards, LIBRARY_CHANGE_EVENT, type ArrivalCard } from "./arrival-card-storage";
+
+const STORAGE_EVENT = LIBRARY_CHANGE_EVENT;
 const SAVED_COUNTRIES_KEY = "landingbrief.saved-countries";
 const RECENT_COUNTRIES_KEY = "landingbrief.recent-countries";
 const COUNTRY_NOTES_KEY = "landingbrief.country-notes";
@@ -27,6 +29,7 @@ export type OfflineLibrarySnapshot = {
   savedCountries: SavedCountry[];
   recentCountries: RecentCountry[];
   notes: CountryNoteMap;
+  arrivalCards: Record<string, ArrivalCard>;
 };
 
 // localStorage is only for low-sensitivity convenience data that is safe to expose on-device.
@@ -168,7 +171,8 @@ export function getOfflineLibrarySnapshot(): OfflineLibrarySnapshot {
   return {
     savedCountries: getSavedCountries(),
     recentCountries: getRecentCountries(),
-    notes: getCountryNotes()
+    notes: getCountryNotes(),
+    arrivalCards: getArrivalCards()
   };
 }
 

@@ -14,6 +14,7 @@ import { getSafeExternalUrl } from "../lib/safe-url";
 import { InfoList } from "./info-list";
 import { ArrivalDetails, PracticalFacts } from "./arrival-details";
 import { SectionShell } from "./section-shell";
+import { createArrivalCard, getArrivalCards, saveArrivalCard, type ArrivalCard } from "../lib/arrival-card-storage";
 import { BriefContents } from "./brief-contents";
 
 type CountryExperienceProps = {
@@ -30,11 +31,13 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const { countryCode = "" } = useParams();
   const countryState = useCountryBrief(countryCode);
   const library = useOfflineLibrary();
+  useEffect(() => { if (!window.location.hash) window.scrollTo({ top: 0, behavior: "instant" }); }, [countryCode, mode]);
+  const [arrivalStatus, setArrivalStatus] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
   const [noteStatus, setNoteStatus] = useState("");
   const [saveStatus, setSaveStatus] = useState("");
 
-  useEffect(() => { setCopyStatus(""); setNoteStatus(""); setSaveStatus(""); }, [countryCode]);
+  useEffect(() => { setArrivalStatus(""); setCopyStatus(""); setNoteStatus(""); setSaveStatus(""); }, [countryCode]);
 
   useEffect(() => {
     if (countryState.status !== "ready") {
@@ -93,6 +96,17 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
 
   const brief = countryState.data;
   const summary = createCountrySummary(brief);
+  const arrivalCard = library.arrivalCards[brief.countryCode.toLowerCase()];
+  const updateArrival = (change: (card: ArrivalCard) => ArrivalCard, message: string) => {
+    try {
+      const current = getArrivalCards()[brief.countryCode.toLowerCase()] ?? createArrivalCard(brief);
+      saveArrivalCard(change(current));
+      setArrivalStatus(message);
+    } catch { setArrivalStatus("Could not save your arrival card. Check browser storage and try again."); }
+  };
+  const arrivalLink = <Link className="arrival-brief-link" to={`/country/${brief.countryCode}/arrival-card`}>
+    <span><strong>{arrivalCard ? "My arrival card" : "Make your arrival card"}</strong><small>{arrivalCard ? (arrivalCard.hotelName || arrivalCard.transport?.mode || "Your personal arrival plan") : "Your transfer, hotel address and useful phrases — together offline."}</small></span><span aria-hidden="true">↗</span>
+  </Link>;
   const saved = library.savedCountries.some(
     (country) => country.countryCode.toLowerCase() === brief.countryCode.toLowerCase()
   );
@@ -137,6 +151,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </div>
           </div>
         </section>
+
+        {arrivalLink}
 
         <section className="country-arrival-path" aria-label="Arrival path">
           <div className="country-arrival-step">
@@ -200,10 +216,15 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         <p className="text-sm text-text-muted">{phrase.pronunciation}</p>
         <details className="brief-inline-detail"><summary>When to use it</summary><p>{phrase.context}</p></details>
       </div>
-      <button type="button" className="brief-small-button" aria-label={`Copy ${phrase.english}`} onClick={async () => {
+      <div className="brief-phrase-actions"><button type="button" className="brief-small-button" aria-label={`Copy ${phrase.english}`} onClick={async () => {
         try { await navigator.clipboard.writeText(phrase.local); setCopyStatus(`Copied “${phrase.english}”.`); }
         catch { setCopyStatus("Could not copy. Select the phrase to copy it manually."); }
       }}>{copyStatus === `Copied “${phrase.english}”.` ? "Copied" : "Copy"}</button>
+      <button type="button" className="brief-small-button" aria-pressed={arrivalCard?.phrases.some(p => p.english === phrase.english) ?? false}
+        disabled={!arrivalCard?.phrases.some(p => p.english === phrase.english) && (arrivalCard?.phrases.length ?? 0) >= 3}
+        onClick={() => updateArrival(card => ({ ...card, phrases: card.phrases.some(p => p.english === phrase.english) ? card.phrases.filter(p => p.english !== phrase.english) : [...card.phrases, phrase] }), "Arrival card phrases updated.")}>
+        {arrivalCard?.phrases.some(p => p.english === phrase.english) ? "Remove from card" : "Add to arrival card"}
+      </button></div>
     </div>
   );
 
@@ -231,6 +252,8 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         </div>
       </div>
 
+      {arrivalLink}
+      <p role="status" className="arrival-selection-feedback">{arrivalStatus}</p>
       <BriefContents />
 
       <SectionShell id="arrive" title="Entry & arrival" eyebrow={brief.primaryAirport} variant="country">
@@ -268,6 +291,11 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             </dl>
             {brief.countryCode.toLowerCase() === "kr" && index === 0 ? <p className="brief-lead">{option.notes}</p> :
               <details className="brief-inline-detail"><summary>Route & pickup details</summary><p>{option.notes}</p></details>}
+            <button type="button" className="brief-small-button mt-3" aria-pressed={arrivalCard?.transport?.mode === option.mode}
+              onClick={() => updateArrival(card => ({ ...card, transport: option }), `${option.mode} saved to your arrival card.`)}>
+              {arrivalCard?.transport?.mode === option.mode ? "Selected for my arrival" : "Use for my arrival"}
+            </button>
+            {arrivalCard?.transport?.mode === option.mode ? <Link className="arrival-selection-link" to={`/country/${brief.countryCode}/arrival-card`}>Open my arrival card →</Link> : null}
           </article>)}
         </div>
         <ArrivalDetails guide={brief.arrivalGuide} compact />
@@ -315,6 +343,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       </SectionShell>
 
       <SectionShell id="phrases" title="Useful phrases" eyebrow="Words to keep handy" variant="country">
+        <p className="text-sm text-text-muted">Keep up to three phrases on your arrival card · {arrivalCard?.phrases.length ?? 0}/3 selected</p>
         <div>{brief.handyPhrases.slice(0, 3).map(renderPhrase)}</div>
         {brief.handyPhrases.length > 3 ? <details className="brief-inline-detail mt-4"><summary>View all {brief.handyPhrases.length} phrases</summary>
           <div>{brief.handyPhrases.slice(3).map(renderPhrase)}</div>

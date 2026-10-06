@@ -88,3 +88,25 @@ The Vercel config also applies response headers for CSP, anti-framing, referrer 
 
 - Country briefing data is static for now; there is no backend yet.
 - Entry guidance is sample content only and should always be verified against official travel and immigration sources before use.
+
+## Personal arrival cards
+
+Create one arrival card per destination from the full brief or its Arrival view.
+“Use for my arrival” saves a transfer, and up to three phrases can be added from
+its brief. The card keeps accommodation details, an optional local-language
+address, a reminder, and a snapshot of the arrival guidance on the current device.
+Cards appear in Saved and at `/country/:countryCode/arrival-card`.
+
+Pull the perforated ticket stub, press Enter/Space on it, or choose “Show driver”
+to open the large address view. Closing it restores the stub; tearing never
+removes the card. The address is displayed exactly as supplied. “Clear after my
+trip” removes only that card, keeping saved briefs and ordinary notes.
+
+The [React Bits Tear Ticket](https://reactbits.dev/micro/tear-ticket) component
+by David Haz is included under its MIT + Commons Clause license in
+`src/components/tear-ticket/LICENSE.md`. Motion is loaded with the arrival-card
+route. Reduced-motion preferences are respected. Once the app has cached its
+assets, cards and their driver view can be reopened without the server.
+
+Run the arrival-card storage regression tests with `npm test` (Node 22.6+), and
+validate the production bundle with `npm run build`.

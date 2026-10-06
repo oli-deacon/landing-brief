@@ -25,6 +25,7 @@ export function SettingsPage() {
           <StatusRow label="Connectivity" detail={isOnline ? "Online and ready to refresh country data." : "Offline mode is active."} value={isOnline ? "Online" : "Offline"} />
           <StatusRow label="Saved briefs" detail="Pinned destinations available from this device." value={String(library.savedCountries.length)} />
           <StatusRow label="Recent countries" detail="Most recently opened destination briefs." value={String(library.recentCountries.length)} />
+          <StatusRow label="Arrival cards" detail="Personal arrival plans stored on this device." value={String(Object.keys(library.arrivalCards).length)} />
           <StatusRow label="Saved notes" detail="Personal reminders stored locally." value={String(Object.keys(library.notes).length)} />
         </dl>
       </section>

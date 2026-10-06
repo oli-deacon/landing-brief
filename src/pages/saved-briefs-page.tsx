@@ -12,6 +12,16 @@ export function SavedBriefsPage() {
       <SectionHeading title="Saved Briefs" description="Your offline library, recent places, and personal reminders." />
 
       <section className="utility-section">
+        <div className="utility-section-heading"><p className="eyebrow">Your personal plans</p><h2>My arrival cards</h2></div>
+        {Object.values(library.arrivalCards).length === 0 ? <p className="utility-empty">Choose a transfer or create an arrival card from any destination brief. Your hotel address, reminder and phrases will be kept here.</p> : <div className="saved-arrival-cards">
+          {Object.values(library.arrivalCards).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).map(card => <Link key={card.countryCode} className="saved-arrival-ticket" to={`/country/${card.countryCode}/arrival-card`}>
+            <div><span className="saved-arrival-eyebrow">My arrival · {card.countryCode.toUpperCase()}</span><h3>{card.destination}</h3><p>{card.hotelName || "Add your accommodation"}</p><small>{card.transport?.mode || "Choose your transfer"}</small></div>
+            <span className="saved-arrival-stub">Open<br /><span aria-hidden="true">↗</span></span>
+          </Link>)}
+        </div>}
+      </section>
+
+      <section className="utility-section">
         <div className="utility-section-heading"><p className="eyebrow">Pinned briefs</p><h2>Saved for offline access</h2></div>
         {library.savedCountries.length === 0 ? <p className="utility-empty">No saved briefs yet. Save a destination from its brief to keep it close while travelling.</p> : (
           <div className="utility-destination-list">

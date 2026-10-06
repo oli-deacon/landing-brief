@@ -22,6 +22,8 @@ export function BriefContents() {
     if (header) resize.observe(header);
     if (nav.current) resize.observe(nav.current);
     measure();
+    const hashTarget = document.getElementById(window.location.hash.slice(1));
+    const anchorFrame = requestAnimationFrame(() => hashTarget?.scrollIntoView({ behavior: "instant", block: "start" }));
     let frame = 0;
     const update = () => {
       cancelAnimationFrame(frame);
@@ -39,6 +41,7 @@ export function BriefContents() {
     update();
     return () => {
       resize.disconnect();
+      cancelAnimationFrame(anchorFrame);
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
       document.documentElement.style.removeProperty("--brief-header-height");

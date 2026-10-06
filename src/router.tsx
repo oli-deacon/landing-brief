@@ -1,7 +1,9 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import { AppShell } from "./components/app-shell";
 import { AppErrorPage } from "./pages/app-error-page";
+const ArrivalCardPage = lazy(() => import("./pages/arrival-card-page").then(module => ({ default: module.ArrivalCardPage })));
 import { CountryBriefPage } from "./pages/country-brief-page";
 import { CountryExplorePage } from "./pages/country-explore-page";
 import { CountryLandingPage } from "./pages/country-landing-page";
@@ -30,6 +32,7 @@ export const router = createBrowserRouter([
         path: "country/:countryCode",
         element: <CountryBriefPage />
       },
+      { path: "country/:countryCode/arrival-card", element: <Suspense fallback={<p className="p-6 text-sm" role="status">Opening arrival card…</p>}><ArrivalCardPage /></Suspense> },
       {
         path: "country/:countryCode/landing",
         element: <CountryLandingPage />
