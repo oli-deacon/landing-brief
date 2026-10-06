@@ -481,6 +481,23 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                 <p className="mt-4 text-sm leading-6 text-text-muted">
                   {brief.moneyAndPayments.currency} · {brief.moneyAndPayments.conversion}
                 </p>
+                {brief.moneyAndPayments.roughCostExamples.length > 0 ? (
+                  <div className="mt-5">
+                    <h3 className="text-sm font-semibold text-text-main">Rough cost examples</h3>
+                    <ul className="editorial-list mt-3">
+                      {brief.moneyAndPayments.roughCostExamples.map((example) => (
+                        <li key={example} className="editorial-list-item text-sm text-text-main">
+                          {example}
+                        </li>
+                      ))}
+                    </ul>
+                    {brief.lastReviewedDate ? (
+                      <p className="mt-3 text-xs leading-5 text-text-muted">
+                        Brief reviewed {brief.lastReviewedDate}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
               <div className="country-side-card rounded-[1.3rem] p-5">
                 <p className="country-kicker">Food and water</p>
