@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { useCountryBrief } from "../hooks/use-country-data";
@@ -14,6 +14,7 @@ import { getSafeExternalUrl } from "../lib/safe-url";
 import { InfoList } from "./info-list";
 import { ArrivalDetails, PracticalFacts } from "./arrival-details";
 import { SectionShell } from "./section-shell";
+import { BriefContents } from "./brief-contents";
 
 type CountryExperienceProps = {
   mode: "landing" | "full";
@@ -29,6 +30,11 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const { countryCode = "" } = useParams();
   const countryState = useCountryBrief(countryCode);
   const library = useOfflineLibrary();
+  const [copyStatus, setCopyStatus] = useState("");
+  const [noteStatus, setNoteStatus] = useState("");
+  const [saveStatus, setSaveStatus] = useState("");
+
+  useEffect(() => { setCopyStatus(""); setNoteStatus(""); setSaveStatus(""); }, [countryCode]);
 
   useEffect(() => {
     if (countryState.status !== "ready") {
@@ -98,17 +104,13 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     bestFor: "First arrival decision",
     notes: "Transport details are temporarily unavailable in this cached copy."
   };
-  const topArrivalEssentials = mode === "landing" ? brief.arrivalEssentials.slice(0, 4) : brief.arrivalEssentials;
   const entryReminder = takeFirstSentence(brief.entryRequirements.arrivalCardOrDeclaration);
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
-  const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
-  const primaryEsimOption = brief.communications.esimOptions[0];
   const costContext = brief.moneyAndPayments.roughCostContext;
   const costSources = (costContext?.sources ?? []).flatMap((source) => {
     const safeUrl = getSafeExternalUrl(source.url);
     return safeUrl ? [{ ...source, safeUrl }] : [];
   });
-  const handyPhrasePreview = brief.handyPhrases.slice(0, 5);
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
   const safeOfficialLinks = brief.entryRequirements.officialLinks.flatMap((link) => {
@@ -188,454 +190,154 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     );
   }
 
-  const renderPhraseCard = (phrase: (typeof brief.handyPhrases)[number]) => (
-    <div key={`${phrase.english}-${phrase.local}`} className="country-side-card rounded-[1.2rem] p-4">
-      <div className="grid gap-3 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <div>
-          <p className="country-kicker">English</p>
-          <p className="mt-1 text-sm font-semibold text-text-main">{phrase.english}</p>
-        </div>
-        <div>
-          <p className="country-kicker">Local</p>
-          <p className="mt-1 text-sm font-semibold text-text-main">{phrase.local}</p>
-        </div>
+  const destinationName = brief.countryCode.toLowerCase() === "in" ? "Goa, India" : brief.countryName;
+  const isMacau = brief.countryCode.toLowerCase() === "mo";
+  const renderPhrase = (phrase: (typeof brief.handyPhrases)[number]) => (
+    <div key={phrase.english} className="brief-phrase">
+      <div>
+        <h3>{phrase.english}</h3>
+        <p className="brief-phrase-local">{phrase.local}</p>
+        <p className="text-sm text-text-muted">{phrase.pronunciation}</p>
+        <details className="brief-inline-detail"><summary>When to use it</summary><p>{phrase.context}</p></details>
       </div>
-      <p className="mt-3 text-sm text-text-muted">Pronunciation: {phrase.pronunciation}</p>
-      <p className="mt-2 text-sm leading-6 text-text-muted">{phrase.context}</p>
+      <button type="button" className="brief-small-button" aria-label={`Copy ${phrase.english}`} onClick={async () => {
+        try { await navigator.clipboard.writeText(phrase.local); setCopyStatus(`Copied “${phrase.english}”.`); }
+        catch { setCopyStatus("Could not copy. Select the phrase to copy it manually."); }
+      }}>{copyStatus === `Copied “${phrase.english}”.` ? "Copied" : "Copy"}</button>
     </div>
   );
 
   return (
-    <div className="country-page space-y-6 sm:space-y-8">
-      <div className="country-page-orb country-page-orb-top" aria-hidden="true" />
-      <div className="country-page-orb country-page-orb-bottom" aria-hidden="true" />
-
-      {countryState.source === "cache" ? (
-        <SectionShell
-          id="cached"
-          title="Offline copy"
-          eyebrow="Cached brief"
-          emphasis="strong"
-          variant="country"
-        >
-          <p className="text-sm leading-7 text-text-muted">
-            You are viewing a cached copy. Notes and saved items still work offline.
-          </p>
-        </SectionShell>
-      ) : null}
-
+    <div className="country-page full-brief space-y-6 sm:space-y-8">
+      {countryState.source === "cache" ? <p className="brief-status">Offline copy · Notes and saved items work on this device.</p> : null}
       <section className="country-hero country-brief-hero hero-frame rounded-[2rem] border border-white/8">
-        {artwork?.kind === "image" ? (
-          <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" />
-        ) : null}
-        {artwork?.kind === "placeholder" ? (
-          <div className="hero-media hero-media-placeholder">
-            <div className="hero-placeholder-card">
-              <p className="country-kicker text-text-soft">{artwork.label}</p>
-              <h2 className="mt-3 text-[1.9rem] leading-[0.92] text-white sm:text-[2.5rem]">
-                {artwork.title}
-              </h2>
-              <p className="mt-3 max-w-lg text-sm leading-7 text-slate-200">
-                {artwork.description}
-              </p>
-            </div>
-          </div>
-        ) : null}
-
+        {artwork?.kind === "image" ? <img src={artwork.src} alt={artwork.alt} className="hero-media hero-media-poster" /> : null}
         <div className="hero-content country-brief-hero-content">
-          <div className="max-w-3xl">
-            <p className="country-kicker">Practical destination brief</p>
-            <h1 className="country-display-title mt-4 max-w-3xl text-[3.1rem] leading-[0.84] text-white sm:text-[4.45rem] lg:text-[5.35rem]">
-              {brief.countryName}
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-[rgba(250,250,250,0.82)]">
-              The details that matter once you land: entry, transport, payments, data, and the practical texture of your first days.
-            </p>
-            <div className="destination-mode-switch mt-7" aria-label="Destination modes">
-              <Link to={`/country/${brief.countryCode}/landing`} className="destination-mode-link">Arrival brief</Link>
-              <Link to={`/country/${brief.countryCode}/explore`} className="destination-mode-link">Explore</Link>
-              <Link to={`/country/${brief.countryCode}/run`} className="destination-mode-link">Run</Link>
-            </div>
-          </div>
+          <p className="country-kicker">Full destination brief</p>
+          <h1 className="country-display-title text-white">{destinationName}</h1>
+          <p className="brief-hero-scope">{brief.capitalOrMainCity !== brief.countryName && !destinationName.includes(brief.capitalOrMainCity) ? `${brief.capitalOrMainCity} · ` : ""}{brief.primaryAirport}</p>
+          <p className="brief-hero-description">Your practical guide to arriving, getting around and settling in.</p>
         </div>
       </section>
 
-      <section className="country-brief-tools">
-        <div>
-          <p className="country-kicker">{brief.primaryAirport}</p>
-          <p>Reviewed {brief.lastReviewedDate} · {bestArrivalOption.mode}</p>
+      <div className="country-brief-tools">
+        <p>Brief reviewed {brief.lastReviewedDate}</p>
+        <div className="brief-save-actions">
+          <button type="button" aria-pressed={saved} className="brief-small-button" onClick={() => {
+            try { const next = toggleSavedCountry(summary); setSaveStatus(next ? "Saved for offline use on this device." : "Removed from your saved briefs."); }
+            catch { setSaveStatus("Could not update saved briefs. Check that browser storage is available."); }
+          }}>{saved ? "Saved offline · Remove" : "Save for offline"}</button>
+          <span role="status">{saveStatus}</span>
         </div>
-        <button type="button" onClick={() => { toggleSavedCountry(summary); }} className="country-text-link text-sm font-medium">
-          {saved ? "Remove from offline" : "Save for offline"}
-        </button>
-      </section>
+      </div>
 
-      <details className="country-jump-nav rounded-[1.3rem] px-4 py-4 sm:px-5" open>
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium text-text-main">
-          <span className="country-kicker !text-[0.68rem]">Jump to</span>
-          <span className="text-text-muted">Arrive / Move / Settle</span>
-        </summary>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <a href="#arrive" className="nav-context-pill country-nav-context-pill">
-            Arrive
-          </a>
-          <a href="#move" className="nav-context-pill country-nav-context-pill">
-            Move
-          </a>
-          <a href="#airport-exit" className="nav-context-pill country-nav-context-pill">Airport exit & late arrivals</a>
-          <a href="#quick-facts" className="nav-context-pill country-nav-context-pill">Quick facts</a>
-          <a href="#settle" className="nav-context-pill country-nav-context-pill">
-            Settle
-          </a>
-        </div>
-      </details>
+      <BriefContents />
 
-      <SectionShell
-        id="arrive"
-        title="Arrive"
-        eyebrow="The first decisions after arrival"
-        action={<span className="pill-chip country-pill-chip rounded-full px-3 py-1 text-xs font-medium">Start here</span>}
-        variant="country"
-      >
-        <div className="space-y-8">
-          <div className="country-section-intro">
-            <p className="max-w-2xl text-sm leading-7 text-text-muted">
-              This section should answer the first few questions before you leave the terminal or border hall:
-              what to clear, what to keep handy, and what decision gets you moving fastest.
-            </p>
+      <SectionShell id="arrive" title="Entry & arrival" eyebrow={brief.primaryAirport} variant="country">
+        <div className="brief-entry-grid">
+          <div>
+            <h3 className="section-subtitle">Before you leave arrivals</h3>
+            <ul className="editorial-list editorial-list-strong mt-4">{brief.arrivalEssentials.map(item => <li key={item} className="editorial-list-item text-sm text-text-main">{item}</li>)}</ul>
           </div>
-
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(19rem,0.9fr)]">
-            <div className="country-side-card rounded-[1.3rem] p-5 sm:p-6">
-              <h3 className="section-subtitle">Arrival essentials</h3>
-              <ul className="editorial-list editorial-list-strong mt-5">
-                {topArrivalEssentials.map((item) => (
-                  <li key={item} className="editorial-list-item text-sm text-text-main">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {isLandingMode && brief.arrivalEssentials.length > topArrivalEssentials.length ? (
-                <p className="mt-4 text-sm leading-7 text-text-muted">
-                  Open the full brief to reveal the remaining arrival checks.
-                </p>
-              ) : null}
-            </div>
-
-            <aside className="space-y-4">
-              <div className="country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Important notes</p>
-                <ul className="editorial-list mt-4">
-                  {brief.entryRequirements.importantNotes.map((note) => (
-                    <li key={note} className="editorial-list-item text-sm text-text-main">
-                      {note}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Official links</p>
-                <p className="mt-3 text-sm leading-7 text-text-muted">
-                  {brief.entryRequirements.officialSourceNote}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {safeOfficialLinks.map((link) => (
-                    <a
-                      key={link.safeUrl}
-                      href={link.safeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="pill-chip country-pill-chip inline-flex rounded-full px-3 py-2 text-xs font-medium"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-                {safeOfficialLinks.length === 0 ? (
-                  <p className="mt-4 text-sm leading-7 text-text-muted">
-                    Official links are temporarily unavailable in this copy of the brief.
-                  </p>
-                ) : null}
-              </div>
-            </aside>
-          </div>
-
-          <div className="country-side-card rounded-[1.3rem] p-5 sm:p-6">
+          <div>
             <h3 className="section-subtitle">Entry requirements</h3>
-            <div className="mt-4">
-              <InfoList
-                variant="country"
-                items={[
-                  { label: "Passport validity", value: brief.entryRequirements.passportValidity },
-                  { label: "Visa summary", value: brief.entryRequirements.visaSummary },
-                  { label: "Arrival card", value: brief.entryRequirements.arrivalCardOrDeclaration }
-                ]}
-              />
-            </div>
+            <div className="mt-4"><InfoList variant="country" items={[
+              { label: "Passport validity", value: brief.entryRequirements.passportValidity },
+              { label: "Visa", value: brief.entryRequirements.visaSummary },
+              { label: "Arrival card", value: brief.entryRequirements.arrivalCardOrDeclaration }
+            ]} /></div>
           </div>
+        </div>
+        <details className="brief-inline-detail mt-5"><summary>Important notes & official guidance</summary>
+          <ul className="editorial-list mt-4">{brief.entryRequirements.importantNotes.map(note => <li className="editorial-list-item" key={note}>{note}</li>)}</ul>
+          <p>{brief.entryRequirements.officialSourceNote}</p>
+          <div className="brief-source-links">{safeOfficialLinks.map(link => <a key={link.safeUrl} href={link.safeUrl} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>
+          {!safeOfficialLinks.length ? <p>Official links are unavailable in this copy.</p> : null}
+        </details>
+      </SectionShell>
+
+      <SectionShell id="move" title={isMacau ? "Getting to & around Macau" : "Transport"} eyebrow={brief.arrivalGuide?.scope ?? brief.airportToCity.airportName} variant="country">
+        <div className="brief-transport-options">
+          {brief.airportToCity.options.map((option, index) => <article key={option.mode} className="brief-transport-option">
+            {isMacau ? <p className="country-kicker">{["Bridge from Hong Kong", "Ferry from Hong Kong", "Already in Macau"][index] ?? "Local transfer"}</p> : null}
+            <h3 className="section-subtitle">{option.mode}</h3>
+            <dl className="brief-transport-facts">
+              <div><dt>Journey time</dt><dd>{option.typicalTime}</dd></div>
+              <div><dt>Typical cost</dt><dd>{option.typicalCost}</dd></div>
+              <div><dt>Best for</dt><dd>{option.bestFor}</dd></div>
+            </dl>
+            {brief.countryCode.toLowerCase() === "kr" && index === 0 ? <p className="brief-lead">{option.notes}</p> :
+              <details className="brief-inline-detail"><summary>Route & pickup details</summary><p>{option.notes}</p></details>}
+          </article>)}
+        </div>
+        <ArrivalDetails guide={brief.arrivalGuide} compact />
+        <div className="brief-apps" id="transport-apps">
+          <h3 className="section-subtitle">Local transport & navigation apps</h3>
+          <div className="brief-two-columns mt-4">{brief.localTransportApps.map(app => <div key={app.name}>
+            <h4 className="font-semibold">{app.name}</h4><p className="mt-2 text-sm text-text-soft">{app.useCase}</p>
+            <details className="brief-inline-detail"><summary>Using {app.name}</summary><p>{app.notes}</p></details>
+          </div>)}</div>
         </div>
       </SectionShell>
 
-      <ArrivalDetails guide={brief.arrivalGuide} />
+      <SectionShell id="settle" title="Money & payments" eyebrow={brief.moneyAndPayments.currency} variant="country">
+        <p className="brief-lead">{paymentNote}</p>
+        <p className="mt-3 text-sm text-text-muted">{brief.moneyAndPayments.conversion}</p>
+        {brief.moneyAndPayments.roughCostExamples.length ? <div className="mt-5"><h3 className="section-subtitle">Everyday costs</h3>
+          <ul className="brief-cost-list">{brief.moneyAndPayments.roughCostExamples.map(example => <li key={example}>{example}</li>)}</ul>
+        </div> : null}
+        <details className="brief-inline-detail"><summary>Cost context & sources · {costContext?.reviewedDate ?? brief.lastReviewedDate}</summary>
+          <p>{costContext?.note ?? "Approximate costs from this brief; actual prices and exchange rates vary."}</p>
+          <div className="brief-source-links">{costSources.map(source => <a key={source.safeUrl} href={source.safeUrl} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>)}</div>
+        </details>
+      </SectionShell>
 
-      <SectionShell id="move" title="Move" eyebrow="Choose transport and local tools" variant="country">
-        <div className="space-y-8">
-          <div className="country-section-intro">
-            <p className="max-w-2xl text-sm leading-7 text-text-muted">
-              Once you are through formalities, the goal is speed and confidence: pick the right
-              arrival transfer, keep one or two trusted local tools handy, and defer the rest.
-            </p>
-          </div>
+      <SectionShell id="connectivity" title="Connectivity" eyebrow="Mobile data & SIMs" variant="country">
+        <h3 className="section-subtitle">{brief.communications.bestMobileNetwork}</h3>
+        <p className="brief-lead mt-3">{brief.communications.networkWhy}</p>
+        <details className="brief-inline-detail mt-4"><summary>Compare {brief.communications.esimOptions.length} SIM & eSIM options</summary>
+          <div className="brief-two-columns mt-4">{brief.communications.esimOptions.map(option => <div key={option.name}>
+            <h4 className="font-semibold">{option.name}</h4><p>{option.bestFor}</p><p>{option.notes}</p>
+          </div>)}</div>
+        </details>
+      </SectionShell>
 
-          <div>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <h3 className="section-subtitle">Arrival route options</h3>
-                <p className="mt-1 text-sm leading-6 text-text-muted">{brief.airportToCity.airportName}</p>
-              </div>
-            </div>
+      <SectionShell id="food" title="Food & everyday practicalities" variant="country">
+        <InfoList variant="country" items={[
+          {label: "Drinking water", value: brief.foodAndPracticalities.tapWater},
+          {label: "Eating locally", value: brief.foodAndPracticalities.commonFoodTips},
+          {label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes},
+          {label: "Tipping", value: brief.foodAndPracticalities.tipping}
+        ]} />
+        <details className="brief-inline-detail mt-5" id="business-etiquette"><summary>Business etiquette</summary>
+          <p>{brief.businessEtiquette.summary}</p><ul className="editorial-list mt-3">{brief.businessEtiquette.tips.map(tip => <li key={tip} className="editorial-list-item">{tip}</li>)}</ul>
+        </details>
+      </SectionShell>
 
-            <div className="mt-5 grid gap-4">
-              {brief.airportToCity.options.map((option, index) => (
-                <div key={option.mode} className="decision-card country-decision-card rounded-[1.3rem] px-5 py-5 sm:px-6">
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="max-w-2xl">
-                      <p className="country-kicker">{index === 0 ? "Recommended first look" : `Option ${index + 1}`}</p>
-                      <h4 className="mt-2 text-[1.22rem] font-semibold text-text-main">{option.mode}</h4>
-                      <p className="mt-3 text-sm leading-7 text-text-soft">{option.bestFor}</p>
-                    </div>
-                    <div className="decision-card-meta">
-                      <span>{option.typicalTime}</span>
-                      <span>{option.typicalCost}</span>
-                    </div>
-                  </div>
-                  <p className="mt-4 max-w-3xl text-sm leading-7 text-text-muted">{option.notes}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <details className="group disclosure-block country-disclosure-block" open={!isLandingMode}>
-            <summary className="liquid-summary country-liquid-summary">
-              <span>Transport apps and city navigation</span>
-              <span className="text-text-muted transition group-open:rotate-45">+</span>
-            </summary>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {brief.localTransportApps.map((app) => (
-                <div key={app.name} className="country-side-card rounded-[1.2rem] p-4">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <h4 className="text-base font-semibold text-text-main">{app.name}</h4>
-                    <span className="country-kicker">App</span>
-                  </div>
-                  <p className="mt-2 text-sm font-medium text-text-main">{app.useCase}</p>
-                  <p className="mt-2 text-sm leading-6 text-text-muted">{app.notes}</p>
-                </div>
-              ))}
-            </div>
-          </details>
-
-          {isLandingMode ? (
-            <div className="country-side-card rounded-[1.3rem] p-5 sm:p-6">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="country-kicker">Local language quick card</p>
-                  <h3 className="section-subtitle mt-2">Handy words and phrases</h3>
-                </div>
-                <span className="country-meta-pill">{handyPhrasePreview.length} phrases</span>
-              </div>
-              <div className="mt-5 grid gap-3">
-                {handyPhrasePreview.map(renderPhraseCard)}
-              </div>
-            </div>
-          ) : null}
-
-          <details className="group disclosure-block country-disclosure-block" open={!isLandingMode}>
-            <summary className="liquid-summary country-liquid-summary">
-              <span>Handy phrases</span>
-              <span className="text-text-muted transition group-open:rotate-45">+</span>
-            </summary>
-            <div className="mt-5 grid gap-3">
-              {brief.handyPhrases.map(renderPhraseCard)}
-            </div>
-          </details>
-        </div>
+      <SectionShell id="phrases" title="Useful phrases" eyebrow="Words to keep handy" variant="country">
+        <div>{brief.handyPhrases.slice(0, 3).map(renderPhrase)}</div>
+        {brief.handyPhrases.length > 3 ? <details className="brief-inline-detail mt-4"><summary>View all {brief.handyPhrases.length} phrases</summary>
+          <div>{brief.handyPhrases.slice(3).map(renderPhrase)}</div>
+        </details> : null}
+        <p role="status" className="brief-feedback">{copyStatus}</p>
       </SectionShell>
 
       <PracticalFacts facts={brief.quickFacts} />
 
-      <SectionShell
-        id="settle"
-        title="Settle"
-        eyebrow="Money, food, notes, and backup details"
-        variant="country"
-      >
-        <div className="space-y-8">
-          <div className="country-section-intro">
-            <p className="max-w-2xl text-sm leading-7 text-text-muted">
-              This is the calm-down layer: how to pay, what to remember once signal drops, and the
-              practical reference details worth keeping for later in the day.
-            </p>
+      <SectionShell id="emergency" title="Help & offline notes" variant="country">
+        <div className="brief-two-columns brief-help-grid">
+          <div><h3 className="section-subtitle">{brief.emergencyNumbers.label}</h3>
+            <p className="brief-emergency-number">{brief.emergencyNumbers.number}</p>
+            <ul className="editorial-list mt-3">{brief.emergencyNumbers.notes.map(note => <li key={note} className="editorial-list-item text-sm">{note}</li>)}</ul>
           </div>
-
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(19rem,0.95fr)]">
-            <div className="space-y-4">
-              <div className="country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Money and payments</p>
-                <p className="mt-3 text-base leading-7 text-text-main">{paymentNote}</p>
-                <p className="mt-4 text-sm leading-6 text-text-muted">
-                  {brief.moneyAndPayments.currency} · {brief.moneyAndPayments.conversion}
-                </p>
-                {brief.moneyAndPayments.roughCostExamples.length > 0 ? (
-                  <div className="mt-5">
-                    <h3 className="text-sm font-semibold text-text-main">Rough cost examples</h3>
-                    <ul className="editorial-list mt-3">
-                      {brief.moneyAndPayments.roughCostExamples.map((example) => (
-                        <li key={example} className="editorial-list-item text-sm text-text-main">
-                          {example}
-                        </li>
-                      ))}
-                    </ul>
-                    {costContext ? (
-                      <div className="mt-3 space-y-2 text-xs leading-5 text-text-muted">
-                        <p>{costContext.note}</p>
-                        <p>Cost sources checked {costContext.reviewedDate}</p>
-                        {costSources.length > 0 ? (
-                          <div className="flex flex-wrap gap-x-4 gap-y-2">
-                            {costSources.map((source) => (
-                              <a key={source.safeUrl} href={source.safeUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">
-                                {source.label}
-                              </a>
-                            ))}
-                          </div>
-                        ) : null}
-                      </div>
-                    ) : brief.lastReviewedDate ? (
-                      <p className="mt-3 text-xs leading-5 text-text-muted">
-                        Brief reviewed {brief.lastReviewedDate}
-                      </p>
-                    ) : null}
-                  </div>
-                ) : null}
-              </div>
-              <div className="country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Food and water</p>
-                <p className="mt-3 text-base leading-7 text-text-main">{foodAndWaterNote}</p>
-              </div>
-              <div className="country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Communications</p>
-                <p className="mt-3 text-base leading-7 text-text-main">{brief.communications.bestMobileNetwork}</p>
-                <p className="mt-3 text-sm leading-6 text-text-muted">{brief.communications.networkWhy}</p>
-                {primaryEsimOption ? (
-                  <p className="mt-4 text-sm leading-6 text-text-soft">
-                    Best first eSIM look: {primaryEsimOption.name} for {primaryEsimOption.bestFor.toLowerCase()}.
-                  </p>
-                ) : null}
-              </div>
-            </div>
-
-            <div className="country-side-card rounded-[1.3rem] p-5">
-              <p className="country-kicker">{brief.emergencyNumbers.label}</p>
-              <p className="mt-3 text-[2rem] font-semibold tracking-tight text-text-main sm:text-[2.35rem]">
-                {brief.emergencyNumbers.number}
-              </p>
-              <ul className="editorial-list mt-4">
-                {brief.emergencyNumbers.notes.map((note) => (
-                  <li key={note} className="editorial-list-item text-sm text-text-main">
-                    {note}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <label className="country-notes-panel block rounded-[1.4rem] px-5 py-5 sm:px-6">
-            <span className="section-subtitle">Your offline notes</span>
-            <span className="mt-2 block max-w-xl text-sm leading-6 text-text-muted">
-              Keep the one or two reminders you really need after signal drops.
-            </span>
-            <textarea
-              value={noteValue}
-              onChange={(event) => {
-                saveCountryNote(brief.countryCode, event.target.value);
-              }}
-              rows={5}
-              placeholder="Hotel transfer reminder, address in local language, SIM pickup note..."
-              className="country-notes-input mt-4 w-full rounded-[1rem] px-4 py-4 text-sm leading-6 text-text-main outline-none"
-            />
+          <label className="block"><span className="section-subtitle">Your offline notes</span>
+            <span className="mt-2 block text-sm text-text-muted">Keep your hotel address, pickup details or a reminder here.</span>
+            <textarea value={noteValue} onChange={event => {
+              try { saveCountryNote(brief.countryCode, event.target.value); setNoteStatus(event.target.value.trim() ? "Saved on this device" : "Note cleared"); }
+              catch { setNoteStatus("Could not save. Browser storage may be full or unavailable."); }
+            }} rows={4} placeholder="Hotel address, transfer reminder…" className="country-notes-input mt-4 w-full rounded-xl p-4 text-sm" />
+            <span role="status" className="brief-feedback">{noteStatus || (noteValue ? "Saved on this device" : "Notes save automatically on this device")}</span>
           </label>
-
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.9fr)]">
-            <details className="group disclosure-block country-disclosure-block" open={!isLandingMode}>
-              <summary className="liquid-summary country-liquid-summary">
-                <span>Practical details and etiquette</span>
-                <span className="text-text-muted transition group-open:rotate-45">+</span>
-              </summary>
-              <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                <div className="country-side-card rounded-[1.3rem] p-5">
-                  <h3 className="section-subtitle">Food and practicalities</h3>
-                  <div className="mt-4">
-                    <InfoList
-                      variant="country"
-                      items={[
-                        { label: "Tap water", value: brief.foodAndPracticalities.tapWater },
-                        { label: "Tipping", value: brief.foodAndPracticalities.tipping },
-                        { label: "Dietary notes", value: brief.foodAndPracticalities.dietaryNotes },
-                        { label: "Common food tips", value: brief.foodAndPracticalities.commonFoodTips }
-                      ]}
-                    />
-                  </div>
-                </div>
-
-                <div className="country-side-card rounded-[1.3rem] p-5">
-                  <p className="country-kicker">Signal setup</p>
-                  <h3 className="mt-3 text-[1.5rem] text-text-main">Communications</h3>
-                  <p className="mt-3 text-sm leading-7 text-text-muted">
-                    Best mobile network: <span className="font-semibold text-text-main">{brief.communications.bestMobileNetwork}</span>
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-text-muted">{brief.communications.networkWhy}</p>
-
-                  <div className="mt-5 space-y-3">
-                    {brief.communications.esimOptions.map((option, index) => (
-                      <div key={option.name} className="rounded-[1rem] border border-white/8 bg-white/[0.03] px-4 py-4">
-                        <div className="flex flex-wrap items-start justify-between gap-3">
-                          <div>
-                            <p className="text-sm font-semibold text-text-main">{option.name}</p>
-                            <p className="mt-1 text-sm text-text-soft">{option.bestFor}</p>
-                          </div>
-                          <span className="country-kicker">{index === 0 ? "Top pick" : `Option ${index + 1}`}</span>
-                        </div>
-                        <p className="mt-3 text-sm leading-6 text-text-muted">{option.notes}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </details>
-
-            <details
-              className="group disclosure-block country-disclosure-block"
-              id="business-etiquette"
-            >
-              <summary className="liquid-summary country-liquid-summary">
-                <span>Expand: Work-travel reference</span>
-                <span className="text-text-main">Business etiquette</span>
-                <span className="text-text-muted transition group-open:rotate-45">+</span>
-              </summary>
-              <div className="mt-5 country-side-card rounded-[1.3rem] p-5">
-                <p className="country-kicker">Work-travel reference</p>
-                <h3 className="mt-3 text-[1.5rem] text-text-main">Business etiquette</h3>
-                <p className="mt-3 text-sm leading-7 text-text-muted">{brief.businessEtiquette.summary}</p>
-                <ul className="editorial-list mt-4">
-                  {brief.businessEtiquette.tips.map((tip) => (
-                    <li key={tip} className="editorial-list-item text-sm text-text-main">
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </details>
-          </div>
         </div>
       </SectionShell>
     </div>

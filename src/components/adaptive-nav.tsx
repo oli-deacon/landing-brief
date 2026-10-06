@@ -20,7 +20,8 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
   const navItems = countryCode
     ? [
         { to: "/", label: "Home", end: true },
-        { to: `/country/${countryCode}/landing`, label: "Brief" },
+        { to: `/country/${countryCode}/landing`, label: "Arrival" },
+        { to: `/country/${countryCode}`, label: "Full brief", end: true },
         { to: `/country/${countryCode}/explore`, label: "Explore" },
         { to: `/country/${countryCode}/run`, label: "Run" },
         { to: "/saved", label: "Saved", end: true }
@@ -28,7 +29,7 @@ export function AdaptiveNav({ variant = "default" }: AdaptiveNavProps) {
     : defaultNavItems;
 
   return (
-    <header className="sticky top-0 z-30 px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8">
+    <header className={`sticky top-0 z-30 px-4 pt-[max(env(safe-area-inset-top),1rem)] sm:px-6 lg:px-8 ${isCountryVariant ? "country-compact-header" : ""}`}>
       <div
         className={[
           "mx-auto flex w-full max-w-6xl flex-col gap-3 rounded-[1.4rem] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5",

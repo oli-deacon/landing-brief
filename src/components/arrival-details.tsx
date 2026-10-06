@@ -58,7 +58,7 @@ function DestinationClock({ timeZone }: { timeZone: string }) {
 
 export function PracticalFacts({ facts }: { facts?: QuickFacts }) {
   if (!facts) {
-    return <p className="text-sm leading-7 text-text-muted">Quick practical facts are not in this saved copy. Reconnect and reopen the brief to check for an update.</p>;
+    return <SectionShell id="quick-facts" title="Quick practical facts" variant="country"><p className="text-sm leading-7 text-text-muted">Quick practical facts are not in this saved copy. Reconnect and reopen the brief to check for an update.</p></SectionShell>;
   }
   return (
     <SectionShell id="quick-facts" title="Quick practical facts" eyebrow="Time, power and what to pack" variant="country">
