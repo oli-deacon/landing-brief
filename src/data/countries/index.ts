@@ -81,7 +81,8 @@ function normalizeCountryBrief(brief: CountryBrief): CountryBrief {
       cardAcceptance: brief.moneyAndPayments?.cardAcceptance ?? "",
       cashNotes: brief.moneyAndPayments?.cashNotes ?? "",
       tipping: brief.moneyAndPayments?.tipping ?? "",
-      roughCostExamples: ensureArray(brief.moneyAndPayments?.roughCostExamples)
+      roughCostExamples: ensureArray(brief.moneyAndPayments?.roughCostExamples),
+      roughCostContext: brief.moneyAndPayments?.roughCostContext
     },
     communications: {
       bestMobileNetwork: brief.communications?.bestMobileNetwork ?? "",

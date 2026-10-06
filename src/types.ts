@@ -58,6 +58,11 @@ export type MoneyAndPayments = {
   cashNotes: string;
   tipping: string;
   roughCostExamples: string[];
+  roughCostContext?: {
+    reviewedDate: string;
+    note: string;
+    sources: OfficialLink[];
+  };
 };
 
 export type TransportApp = {

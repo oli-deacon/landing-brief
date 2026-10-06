@@ -103,6 +103,11 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
   const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
   const foodAndWaterNote = `Tap water: ${brief.foodAndPracticalities.tapWater} ${brief.foodAndPracticalities.commonFoodTips}`;
   const primaryEsimOption = brief.communications.esimOptions[0];
+  const costContext = brief.moneyAndPayments.roughCostContext;
+  const costSources = (costContext?.sources ?? []).flatMap((source) => {
+    const safeUrl = getSafeExternalUrl(source.url);
+    return safeUrl ? [{ ...source, safeUrl }] : [];
+  });
   const handyPhrasePreview = brief.handyPhrases.slice(0, 5);
   const isLandingMode = mode === "landing";
   const artwork = getCountryArtwork(brief.countryCode);
@@ -491,7 +496,21 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
                         </li>
                       ))}
                     </ul>
-                    {brief.lastReviewedDate ? (
+                    {costContext ? (
+                      <div className="mt-3 space-y-2 text-xs leading-5 text-text-muted">
+                        <p>{costContext.note}</p>
+                        <p>Cost sources checked {costContext.reviewedDate}</p>
+                        {costSources.length > 0 ? (
+                          <div className="flex flex-wrap gap-x-4 gap-y-2">
+                            {costSources.map((source) => (
+                              <a key={source.safeUrl} href={source.safeUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">
+                                {source.label}
+                              </a>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : brief.lastReviewedDate ? (
                       <p className="mt-3 text-xs leading-5 text-text-muted">
                         Brief reviewed {brief.lastReviewedDate}
                       </p>
