@@ -15,6 +15,7 @@ import { InfoList } from "./info-list";
 import { ArrivalDetails, PracticalFacts } from "./arrival-details";
 import { SectionShell } from "./section-shell";
 import { createArrivalCard, getArrivalCards, saveArrivalCard, type ArrivalCard } from "../lib/arrival-card-storage";
+import { PreflightChecklist, ArrivalMoney, BriefFreshness } from "./travel-preparation";
 import { BriefContents } from "./brief-contents";
 
 type CountryExperienceProps = {
@@ -105,7 +106,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     } catch { setArrivalStatus("Could not save your arrival card. Check browser storage and try again."); }
   };
   const arrivalLink = <Link className="arrival-brief-link" to={`/country/${brief.countryCode}/arrival-card`}>
-    <span><strong>{arrivalCard ? "My arrival card" : "Make your arrival card"}</strong><small>{arrivalCard ? (arrivalCard.hotelName || arrivalCard.transport?.mode || "Your personal arrival plan") : "Your transfer, hotel address and useful phrases — together offline."}</small></span><span aria-hidden="true">↗</span>
+    <span><strong>{arrivalCard ? "My arrival card" : "Make your arrival card"}</strong><small>{arrivalCard ? (arrivalCard.journey === "connection" ? "Your onward flight and terminal connection" : arrivalCard.hotelName || arrivalCard.transport?.mode || "Your personal arrival plan") : "Your airport connection or hotel transfer — together offline."}</small></span><span aria-hidden="true">↗</span>
   </Link>;
   const saved = library.savedCountries.some(
     (country) => country.countryCode.toLowerCase() === brief.countryCode.toLowerCase()
@@ -119,7 +120,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
     notes: "Transport details are temporarily unavailable in this cached copy."
   };
   const entryReminder = takeFirstSentence(brief.entryRequirements.arrivalCardOrDeclaration);
-  const paymentNote = `${brief.moneyAndPayments.cardAcceptance} ${brief.moneyAndPayments.cashNotes}`;
+
   const costContext = brief.moneyAndPayments.roughCostContext;
   const costSources = (costContext?.sources ?? []).flatMap((source) => {
     const safeUrl = getSafeExternalUrl(source.url);
@@ -152,7 +153,10 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
           </div>
         </section>
 
+        <BriefFreshness brief={brief} cachedAt={countryState.cachedAt} pinnedAt={library.savedCountries.find(c => c.countryCode.toLowerCase() === brief.countryCode.toLowerCase())?.savedAt} />
         {arrivalLink}
+        <PreflightChecklist key={brief.countryCode} brief={brief} />
+        <SectionShell id="arrival-money" title="Money for your arrival" eyebrow={brief.moneyAndPayments.currency} variant="country"><ArrivalMoney brief={brief} /></SectionShell>
 
         <section className="country-arrival-path" aria-label="Arrival path">
           <div className="country-arrival-step">
@@ -245,16 +249,18 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
         <p>Brief reviewed {brief.lastReviewedDate}</p>
         <div className="brief-save-actions">
           <button type="button" aria-pressed={saved} className="brief-small-button" onClick={() => {
-            try { const next = toggleSavedCountry(summary); setSaveStatus(next ? "Saved for offline use on this device." : "Removed from your saved briefs."); }
+            try { const next = toggleSavedCountry(summary); setSaveStatus(next ? "Added to your saved briefs. See offline copy status below." : "Removed from your saved briefs."); }
             catch { setSaveStatus("Could not update saved briefs. Check that browser storage is available."); }
-          }}>{saved ? "Saved offline · Remove" : "Save for offline"}</button>
+          }}>{saved ? "Saved brief · Remove" : "Save brief"}</button>
           <span role="status">{saveStatus}</span>
         </div>
       </div>
 
+      <BriefFreshness brief={brief} cachedAt={countryState.cachedAt} pinnedAt={library.savedCountries.find(c => c.countryCode.toLowerCase() === brief.countryCode.toLowerCase())?.savedAt} />
       {arrivalLink}
       <p role="status" className="arrival-selection-feedback">{arrivalStatus}</p>
       <BriefContents />
+      <PreflightChecklist key={brief.countryCode} brief={brief} />
 
       <SectionShell id="arrive" title="Entry & arrival" eyebrow={brief.primaryAirport} variant="country">
         <div className="brief-entry-grid">
@@ -271,7 +277,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
             ]} /></div>
           </div>
         </div>
-        <details className="brief-inline-detail mt-5"><summary>Important notes & official guidance</summary>
+        <details className="brief-inline-detail mt-5"><summary>Important notes & official guidance · Internet required</summary>
           <ul className="editorial-list mt-4">{brief.entryRequirements.importantNotes.map(note => <li className="editorial-list-item" key={note}>{note}</li>)}</ul>
           <p>{brief.entryRequirements.officialSourceNote}</p>
           <div className="brief-source-links">{safeOfficialLinks.map(link => <a key={link.safeUrl} href={link.safeUrl} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div>
@@ -309,7 +315,7 @@ export function CountryExperience({ mode }: CountryExperienceProps) {
       </SectionShell>
 
       <SectionShell id="settle" title="Money & payments" eyebrow={brief.moneyAndPayments.currency} variant="country">
-        <p className="brief-lead">{paymentNote}</p>
+        <ArrivalMoney brief={brief} />
         <p className="mt-3 text-sm text-text-muted">{brief.moneyAndPayments.conversion}</p>
         {brief.moneyAndPayments.roughCostExamples.length ? <div className="mt-5"><h3 className="section-subtitle">Everyday costs</h3>
           <ul className="brief-cost-list">{brief.moneyAndPayments.roughCostExamples.map(example => <li key={example}>{example}</li>)}</ul>

@@ -8,18 +8,21 @@ type AsyncDataState<T> =
       status: "loading";
       data: null;
       source: null;
+      cachedAt: null;
       error: null;
     }
   | {
       status: "ready";
       data: T;
       source: CachedResult<T>["source"];
+      cachedAt: string | null;
       error: null;
     }
   | {
       status: "error";
       data: null;
       source: null;
+      cachedAt: null;
       error: Error;
     };
 
@@ -28,6 +31,7 @@ function createLoadingState<T>(): AsyncDataState<T> {
     status: "loading",
     data: null,
     source: null,
+    cachedAt: null,
     error: null
   };
 }
@@ -50,6 +54,7 @@ export function useCountryIndex() {
           status: "ready",
           data: result.data,
           source: result.source,
+          cachedAt: result.cachedAt,
           error: null
         });
       })
@@ -62,6 +67,7 @@ export function useCountryIndex() {
           status: "error",
           data: null,
           source: null,
+    cachedAt: null,
           error
         });
       });
@@ -92,6 +98,7 @@ export function useCountryBrief(countryCode: string) {
           status: "ready",
           data: result.data,
           source: result.source,
+          cachedAt: result.cachedAt,
           error: null
         });
       })
@@ -104,6 +111,7 @@ export function useCountryBrief(countryCode: string) {
           status: "error",
           data: null,
           source: null,
+    cachedAt: null,
           error
         });
       });

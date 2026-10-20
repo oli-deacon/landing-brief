@@ -741,7 +741,7 @@ const TearTicket: React.FC<TearTicketProps> = ({
         </motion.div>
       </div>
       <span className="tear-ticket__sr" role="status">
-        {used ? 'Address opened' : ''}
+        {used ? 'Card opened' : ''}
       </span>
     </div>
   );

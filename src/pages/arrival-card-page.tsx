@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ConnectionPlanner, ConnectionRoute, TransferView } from "../components/connection-planner";
+import { buildConnectionPlan, newConnection } from "../lib/connection-plan";
 import { ArrivalTicket } from "../components/arrival-ticket";
 import { DriverAddress } from "../components/driver-address";
 import { useCountryBrief } from "../hooks/use-country-data";
@@ -30,8 +32,10 @@ function ArrivalCardDestination({ code }: { code: string }) {
   };
   const brief = country.status === "ready" ? country.data : undefined;
   const initial = card ?? (brief ? createArrivalCard(brief) : null);
+  const connecting = card?.journey === "connection" && !!card.connection;
+  const plan = connecting && card.connection ? card.connectionPlan ?? buildConnectionPlan(card.connection, code) : null;
   const hasAddress = !!(card?.address.trim() || card?.localAddress.trim());
-  const showDriver = () => { if (hasAddress) { setTorn(true); setDriverOpen(true); } };
+  const showDriver = () => { if (hasAddress || connecting) { setTorn(true); setDriverOpen(true); } };
 
   return <div className="arrival-page">
     <Link className="arrival-back" to={`/country/${code}`}>← Back to full brief</Link>
@@ -40,13 +44,13 @@ function ArrivalCardDestination({ code }: { code: string }) {
       !card || editing ? <ArrivalCardEditor initial={initial} brief={brief} onSave={() => { setEditing(false); setFeedback("Arrival card saved on this device."); }} onCancel={card ? () => setEditing(false) : undefined} /> : <>
         <ArrivalTicket card={card} torn={torn} onShowDriver={showDriver} />
         <div className="arrival-actions">
-          <button ref={driverButton} type="button" className="arrival-button" disabled={!hasAddress} onClick={showDriver}>Show driver</button>
+          <button ref={driverButton} type="button" className="arrival-button" disabled={!hasAddress && !connecting} onClick={showDriver}>{connecting ? "Show my transfer" : "Show driver"}</button>
           <button type="button" className="arrival-button arrival-button-secondary" onClick={() => { setEditing(true); setConfirmClear(false); }}>Edit arrival card</button>
           <span className="arrival-saved">Saved on this device · Available offline</span>
         </div>
-        {!hasAddress ? <p className="arrival-empty">Add your accommodation address to use Show driver.</p> : null}
+        {!hasAddress && !connecting ? <p className="arrival-empty">Add your accommodation address to use Show driver.</p> : null}
         <p role="status" className="arrival-feedback">{feedback}</p>
-        <div className="arrival-plan-grid">
+        {connecting && plan ? <ConnectionRoute plan={plan} /> : <div className="arrival-plan-grid">
           <section className="arrival-plan-section"><p className="country-kicker">01 · Getting there</p><h2>{card.transport?.mode || "Choose your transfer"}</h2>
             {card.transport ? <><dl className="arrival-transfer-meta"><div><dt>Typical time</dt><dd>{card.transport.typicalTime}</dd></div><div><dt>Typical cost</dt><dd>{card.transport.typicalCost}</dd></div></dl><p>{card.transport.notes}</p></> : <p>Select a transport option in the brief or edit your card.</p>}
             <Link to={`/country/${code}#move`}>Compare transport options →</Link>
@@ -58,13 +62,13 @@ function ArrivalCardDestination({ code }: { code: string }) {
                 catch { setFeedback("Could not copy. Select the address text to copy it manually."); }
               }}>{feedback === "Address copied" ? "Address copied" : "Copy address"}</button></> : <p>Add an address from your booking or your host’s message.</p>}
           </section>
-        </div>
+        </div>}
         {card.reminder ? <section className="arrival-reminder"><p className="country-kicker">Keep in mind</p><p>{card.reminder}</p></section> : null}
         {card.phrases.length ? <section className="arrival-plan-section"><h2>Words to keep handy</h2><div className="arrival-saved-phrases">{card.phrases.map(phrase => <div key={phrase.english}><h3>{phrase.english}</h3><p className="arrival-local-phrase">{phrase.local}</p><p>{phrase.pronunciation}</p><button className="arrival-text-button" type="button" onClick={async () => {
           try { await navigator.clipboard.writeText(phrase.local); setFeedback(`Copied “${phrase.english}”.`); }
           catch { setFeedback("Could not copy. Select the phrase to copy it manually."); }
         }}>{feedback === `Copied “${phrase.english}”.` ? "Copied" : `Copy ${phrase.english}`}</button></div>)}</div></section> : null}
-        {card.arrivalGuide ? <section className="arrival-plan-section"><h2>Getting out of arrivals</h2><p>{card.arrivalGuide.scope}</p><ol className="arrival-exit-list">{card.arrivalGuide.steps.map(step => <li key={step}>{step}</li>)}</ol>
+        {card.arrivalGuide && !connecting ? <section className="arrival-plan-section"><h2>Getting out of arrivals</h2><p>{card.arrivalGuide.scope}</p><ol className="arrival-exit-list">{card.arrivalGuide.steps.map(step => <li key={step}>{step}</li>)}</ol>
           <details className="brief-inline-detail"><summary>Arriving late?</summary><p>{card.arrivalGuide.lateArrival.serviceWindow}</p><p>{card.arrivalGuide.lateArrival.fallback}</p><p>{card.arrivalGuide.lateArrival.costNote}</p></details>
           <p className="arrival-saved">Arrival guidance checked {card.arrivalGuide.reviewedDate}. All service times are local.</p>
         </section> : null}
@@ -74,7 +78,7 @@ function ArrivalCardDestination({ code }: { code: string }) {
             catch { setFeedback("Could not clear this card. Please try again."); }
           }}>Clear arrival card</button><button type="button" onClick={() => setConfirmClear(false)}>Keep card</button></div> : <button type="button" onClick={() => setConfirmClear(true)}>Clear after my trip</button>}
         </footer>
-        {driverOpen ? <DriverAddress card={card} onClose={closeDriver} /> : null}
+        {driverOpen ? connecting && card.connection && plan ? <TransferView connection={card.connection} plan={plan} onClose={closeDriver} /> : <DriverAddress card={card} onClose={closeDriver} /> : null}
       </>
     )}
   </div>;
@@ -88,16 +92,19 @@ function ArrivalCardEditor({ initial, brief, onSave, onCancel }: { initial: Arri
   const setField = (field: "hotelName" | "address" | "localAddress" | "reminder", value: string) => setDraft(current => ({ ...current, [field]: value }));
   return <form className="arrival-editor" onSubmit={event => {
     event.preventDefault();
-    try { saveArrivalCard(draft); onSave(); }
+    try { saveArrivalCard({ ...draft, connectionPlan: draft.journey === "connection" && draft.connection ? buildConnectionPlan(draft.connection, draft.countryCode) : draft.connectionPlan }); onSave(); }
     catch { setError("Could not save your card. Your changes are still here; check that browser storage is available and try again."); }
   }}>
     <h2>{initial.destination} · Your arrival plan</h2><p>Keep your transfer, address and a few useful words together. Everything is optional; you can add more later.</p>
+    <fieldset className="journey-choice"><legend>After I land</legend>{(["accommodation", "connection"] as const).map(journey => <label key={journey}><input type="radio" name="journey" value={journey} checked={(draft.journey ?? "accommodation") === journey} onChange={() => setDraft(current => ({ ...current, journey, connection: current.connection ?? newConnection(current.countryCode === "sg" ? "Singapore Changi (SIN)" : current.airport) }))} /><span>{journey === "connection" ? "Connecting to another flight" : "Heading to my accommodation"}</span></label>)}</fieldset>
+    {draft.journey === "connection" && draft.connection ? <ConnectionPlanner value={draft.connection} countryCode={draft.countryCode} onChange={connection => setDraft(current => ({ ...current, connection }))} /> : <>
     <label>Getting to your accommodation<select value={draft.transport?.mode ?? ""} onChange={event => setDraft(current => ({ ...current, transport: options.find(option => option.mode === event.target.value) ?? null }))}>
       <option value="">Choose a transfer later</option>{options.map(option => <option key={option.mode} value={option.mode}>{option.mode}</option>)}
     </select></label>
     <label>Accommodation name<input value={draft.hotelName} onChange={event => setField("hotelName", event.target.value)} maxLength={160} autoComplete="off" placeholder="Hotel or accommodation name" /></label>
     <div className="arrival-editor-columns"><label>Address<textarea value={draft.address} onChange={event => setField("address", event.target.value)} maxLength={1500} rows={3} placeholder="Paste the address from your booking" /></label>
       <label>Local-language address <span>(optional)</span><textarea value={draft.localAddress} onChange={event => setField("localAddress", event.target.value)} maxLength={1500} rows={3} dir="auto" placeholder="Paste exactly as supplied by your host" /></label></div>
+    </>}
     <label>My reminder<textarea value={draft.reminder} onChange={event => setField("reminder", event.target.value)} maxLength={1000} rows={2} placeholder="Late check-in instructions, pickup meeting point…" /></label>
     {phrases.length ? <fieldset><legend>Useful phrases · {draft.phrases.length}/3 selected</legend><div className="arrival-phrase-choices">{phrases.map(phrase => {
       const selected = draft.phrases.some(p => p.english === phrase.english);

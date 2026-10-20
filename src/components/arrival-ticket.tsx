@@ -12,19 +12,20 @@ export function ArrivalTicket({ card, onShowDriver, torn }: { card: ArrivalCard;
     return () => observer.disconnect();
   }, []);
   const vertical = width < 600;
+  const connecting = card.journey === "connection" && !!card.connection;
   const hasAddress = !!(card.address.trim() || card.localAddress.trim());
   return <div className="arrival-ticket-host" ref={host}>
     <TearTicket width={Math.max(240, width)} height={vertical ? 330 : 260} stubSize={vertical ? 94 : 190}
       orientation={vertical ? "vertical" : "horizontal"} rotate={0} tilt={false} recenter={false}
       background="#f1e7cf" color="#27241d" stubBackground="#edb852" borderColor="#8d78544d"
       radius={18} holes={vertical ? 14 : 12} torn={torn} onTear={onShowDriver}
-      disabled={!hasAddress} ariaLabel="Tear ticket to show driver address"
-      stub={<div className="arrival-ticket-stub"><span className="arrival-ticket-arrow" aria-hidden="true">↗</span><strong>Show driver</strong><span>{hasAddress ? "Pull to open your address" : "Add an address to unlock"}</span></div>}>
+      disabled={!hasAddress && !connecting} ariaLabel={connecting ? "Tear ticket to show my transfer" : "Tear ticket to show driver address"}
+      stub={<div className="arrival-ticket-stub"><span className="arrival-ticket-arrow" aria-hidden="true">↗</span><strong>{connecting ? "Show my transfer" : "Show driver"}</strong><span>{connecting ? "Pull to open your connection" : hasAddress ? "Pull to open your address" : "Add an address to unlock"}</span></div>}>
       <div className="arrival-ticket-face">
         <div className="arrival-ticket-overline"><span>LandingBrief</span><span>My arrival</span></div>
-        <div><p className="arrival-ticket-destination">{card.destination}</p><p className="arrival-ticket-airport">{card.airport}</p></div>
+        <div><p className="arrival-ticket-destination">{card.destination}</p><p className="arrival-ticket-airport">{connecting ? card.connection?.airport : card.airport}</p></div>
         <div className="arrival-ticket-route" aria-hidden="true"><span /> <i /> <span /></div>
-        <div className="arrival-ticket-bottom"><div><span>Next stop</span><strong>{card.hotelName || "Add your accommodation"}</strong></div><span>{card.transport?.mode || "Choose your transfer"}</span></div>
+        <div className="arrival-ticket-bottom"><div><span>Next stop</span><strong>{connecting ? `${card.connection?.arrivalTerminal || "Terminal?"} → ${card.connection?.departureTerminal || "Terminal?"}` : card.hotelName || "Add your accommodation"}</strong></div><span>{connecting ? card.connection?.flight || "Connecting flight" : card.transport?.mode || "Choose your transfer"}</span></div>
       </div>
     </TearTicket>
   </div>;

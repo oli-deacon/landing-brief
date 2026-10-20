@@ -15,7 +15,7 @@ export function SavedBriefsPage() {
         <div className="utility-section-heading"><p className="eyebrow">Your personal plans</p><h2>My arrival cards</h2></div>
         {Object.values(library.arrivalCards).length === 0 ? <p className="utility-empty">Choose a transfer or create an arrival card from any destination brief. Your hotel address, reminder and phrases will be kept here.</p> : <div className="saved-arrival-cards">
           {Object.values(library.arrivalCards).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).map(card => <Link key={card.countryCode} className="saved-arrival-ticket" to={`/country/${card.countryCode}/arrival-card`}>
-            <div><span className="saved-arrival-eyebrow">My arrival · {card.countryCode.toUpperCase()}</span><h3>{card.destination}</h3><p>{card.hotelName || "Add your accommodation"}</p><small>{card.transport?.mode || "Choose your transfer"}</small></div>
+            <div><span className="saved-arrival-eyebrow">My arrival · {card.countryCode.toUpperCase()}</span><h3>{card.destination}</h3><p>{card.journey === "connection" ? `${card.connection?.arrivalTerminal || "Terminal?"} → ${card.connection?.departureTerminal || "Terminal?"}` : card.hotelName || "Add your accommodation"}</p><small>{card.journey === "connection" ? card.connection?.flight || "Connecting flight" : card.transport?.mode || "Choose your transfer"}</small></div>
             <span className="saved-arrival-stub">Open<br /><span aria-hidden="true">↗</span></span>
           </Link>)}
         </div>}

@@ -3523,3 +3523,42 @@ a {
   .arrival-editor input:not([type="checkbox"]), .arrival-editor textarea, .arrival-editor select { font-size: 16px; }
 }
 .arrival-selection-link { display: inline-block; margin: .75rem 0 0 1rem; font-size: .8rem; color: #edb852; padding: .7rem 0; }
+
+.journey-choice { display: flex; flex-wrap: wrap; gap: 12px; }
+.journey-choice label { flex: 1 1 220px; display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--line, #ffffff26); border-radius: 12px; cursor: pointer; }
+.journey-choice label:has(input:checked) { border-color: #edb852; background: #edb85212; }
+.journey-choice input { width: 18px; height: 18px; accent-color: #edb852; flex-shrink: 0; }
+.connection-planner { display: grid; gap: 20px; }
+.connection-route { padding: 24px 0; border-top: 1px solid #ffffff26; overflow-wrap: anywhere; }
+.connection-route h2 { font-size: 1.4rem; margin: 8px 0 20px; }
+.connection-route > p { line-height: 1.65; }
+.connection-route a { text-decoration: underline; text-underline-offset: 3px; }
+.transfer-view .connection-route { border-color: #27241d33; }
+.transfer-view .country-kicker, .transfer-view .arrival-saved { color: #51472f; }
+.transfer-view .arrival-exit-list { color: inherit; }
+.transfer-view .arrival-exit-list li { color: #27241d; font-size: 1rem; }
+.transfer-view .connection-route h2 { font-size: 1.4rem; }
+
+.preflight-progress { color: var(--text-muted); font-size: .85rem; margin-bottom: 1rem; }
+.preflight-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+.preflight-list label { display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-top: 1px solid #ffffff18; cursor: pointer; }
+.preflight-list input { flex: 0 0 auto; width: 20px; height: 20px; margin-top: .15rem; accent-color: #edb852; }
+.preflight-list strong { display: block; font-size: 1rem; font-weight: 500; }
+.preflight-list small { display: block; margin-top: .5rem; color: var(--text-muted); font-size: .85rem; line-height: 1.7; }
+.preflight-list .is-complete strong { color: #edb852; }
+.preflight-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 1rem 0; font-size: .85rem; }
+.preflight-links a { color: #edb852; }
+.preflight-note { font-size: .8rem; line-height: 1.7; color: var(--text-muted); margin-top: .75rem; }
+.arrival-money { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 2rem; }
+.arrival-money h3 { font-size: 1.05rem; margin-bottom: .75rem; }
+.arrival-money p, .arrival-money dd { line-height: 1.7; color: var(--text-muted); font-size: .9rem; }
+.arrival-money dl > div { padding: .65rem 0; border-bottom: 1px solid #ffffff18; }
+.arrival-money dt { font-size: .85rem; }
+.arrival-money dd { margin: .2rem 0 0; }
+.brief-freshness { padding: 1rem 0; border-bottom: 1px solid #ffffff18; font-size: .8rem; color: var(--text-muted); }
+.brief-freshness summary { cursor: pointer; line-height: 1.7; color: var(--text-main); }
+.brief-freshness dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; margin: 1rem 0; }
+.brief-freshness dd { margin: .3rem 0 0; color: var(--text-main); }
+.brief-freshness p { line-height: 1.7; margin-top: .5rem; }
+.preflight-list input:focus-visible, .brief-freshness summary:focus-visible { outline: 2px solid #edb852; outline-offset: 4px; }
+@media (max-width: 700px) { .preflight-list, .arrival-money, .brief-freshness dl { grid-template-columns: 1fr; } .arrival-money { gap: 1.5rem; } }

@@ -7,7 +7,7 @@ import { SectionShell } from "./section-shell";
 function Sources({ date, links }: { date: string; links: OfficialLink[] }) {
   return (
     <details className="arrival-sources">
-      <summary>Sources · checked {date}</summary>
+      <summary>Sources · checked {date} · Links need internet</summary>
       <ul>
         {links.map((link) => {
           const url = getSafeExternalUrl(link.url);

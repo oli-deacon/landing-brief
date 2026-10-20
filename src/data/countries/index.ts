@@ -13,6 +13,7 @@ type CountryIndexAsset = CountrySummary & {
 export type CachedResult<T> = {
   data: T;
   source: CachedSource;
+  cachedAt: string | null;
 };
 
 // Cached JSON is treated as public content for offline viewing only.
@@ -22,14 +23,9 @@ function readJsonFromStorage<T>(key: string): T | null {
     return null;
   }
 
-  const raw = window.localStorage.getItem(key);
-
-  if (!raw) {
-    return null;
-  }
-
   try {
-    return JSON.parse(raw) as T;
+    const raw = window.localStorage.getItem(key);
+    return raw ? JSON.parse(raw) as T : null;
   } catch {
     return null;
   }
@@ -107,11 +103,17 @@ async function fetchJsonWithCache<T>(url: string, cacheKey: string): Promise<Cac
     }
 
     const data = (await response.json()) as T;
-    writeJsonToStorage(cacheKey, data);
+    let cachedAt: string | null = null;
+    try {
+      writeJsonToStorage(cacheKey, data);
+      cachedAt = new Date().toISOString();
+      writeJsonToStorage(`${cacheKey}.stored-at`, cachedAt);
+    } catch { cachedAt = null; }
 
     return {
       data,
-      source: "network"
+      source: "network",
+      cachedAt
     };
   } catch (error) {
     const cached = readJsonFromStorage<T>(cacheKey);
@@ -119,7 +121,8 @@ async function fetchJsonWithCache<T>(url: string, cacheKey: string): Promise<Cac
     if (cached) {
       return {
         data: cached,
-        source: "cache"
+        source: "cache",
+        cachedAt: readJsonFromStorage<string>(`${cacheKey}.stored-at`)
       };
     }
 
@@ -132,7 +135,8 @@ export async function getCountries(): Promise<CachedResult<CountrySummary[]>> {
 
   return {
     data: result.data.map(({ file: _file, ...country }) => country),
-    source: result.source
+    source: result.source,
+    cachedAt: result.cachedAt
   };
 }
 
@@ -150,6 +154,7 @@ export async function getCountryByCode(countryCode: string): Promise<CachedResul
 
   return {
     data: normalizeCountryBrief(result.data),
-    source: result.source
+    source: result.source,
+    cachedAt: result.cachedAt
   };
 }

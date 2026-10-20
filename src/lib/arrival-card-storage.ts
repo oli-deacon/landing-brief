@@ -1,9 +1,14 @@
 import type { AirportTransferOption, ArrivalGuide, CountryBrief, HandyPhrase } from "../types";
 
+import type { Connection, ConnectionPlan } from "./connection-plan";
+
 export const ARRIVAL_CARD_KEY = "landingbrief.arrival-cards.v1";
 export const LIBRARY_CHANGE_EVENT = "landingbrief-storage-changed";
 
 export type ArrivalCard = {
+  journey?: "accommodation" | "connection";
+  connection?: Connection;
+  connectionPlan?: ConnectionPlan;
   countryCode: string;
   destination: string;
   airport: string;
@@ -30,6 +35,15 @@ export function getArrivalCards(): Record<string, ArrivalCard> {
       if (!hasStrings(card, ["countryCode", "destination", "airport", "reviewedDate", "hotelName", "address", "localAddress", "reminder", "updatedAt"])) return false;
       const c = card as ArrivalCard;
       return code === c.countryCode.toLowerCase() && /^[a-z]{2}$/.test(code)
+        && (c.journey === undefined || c.journey === "accommodation" || c.journey === "connection")
+        && (!c.connection || (hasStrings(c.connection, ["airport", "arrivalTerminal", "departureTerminal", "flight"])
+          && ["international", "domestic", "unknown"].includes(c.connection.onward)
+          && ["one", "separate", "unknown"].includes(c.connection.booking)
+          && ["through", "collect", "none", "unknown"].includes(c.connection.bags)
+          && ["yes", "no", "unknown"].includes(c.connection.boardingPass)))
+        && (!c.connectionPlan || (hasStrings(c.connectionPlan, ["title", "note", "reviewedDate"])
+          && Array.isArray(c.connectionPlan.steps) && c.connectionPlan.steps.every(s => typeof s === "string")
+          && Array.isArray(c.connectionPlan.sources) && c.connectionPlan.sources.every(s => hasStrings(s, ["label", "url"]) && s.url.startsWith("https://"))))
         && (c.transport === null || hasStrings(c.transport, ["mode", "typicalTime", "typicalCost", "bestFor", "notes"]))
         && Array.isArray(c.phrases) && c.phrases.length <= 3
         && c.phrases.every(p => hasStrings(p, ["english", "local", "pronunciation", "context"]))

@@ -46,3 +46,18 @@ test('storage failures propagate so the UI cannot claim a successful save', () =
   try { assert.throws(() => saveArrivalCard(createArrivalCard(brief))); assert.equal(events, 0); }
   finally { window.localStorage.setItem = original; }
 });
+
+test('connection snapshots persist independently of accommodation details', () => {
+  const connection = {airport:'SIN', arrivalTerminal:'T3', departureTerminal:'T4', flight:'TEST', onward:'international', booking:'one', bags:'through', boardingPass:'yes'};
+  const connectionPlan = {title:'Transit', steps:['Transfer desk'], note:'Check gate', reviewedDate:'2026-10-07', sources:[]};
+  saveArrivalCard({...createArrivalCard(brief), journey:'connection', hotelName:'Keep hotel', connection, connectionPlan});
+  assert.deepEqual(getArrivalCards().th.connectionPlan, connectionPlan);
+  saveArrivalCard({...getArrivalCards().th, journey:'accommodation'});
+  assert.equal(getArrivalCards().th.hotelName,'Keep hotel');
+  assert.deepEqual(getArrivalCards().th.connection,connection);
+});
+test('malformed connection data is rejected without breaking other cards', () => {
+  const card = {...createArrivalCard(brief), journey:'connection', connection:{airport:'SIN'}};
+  data.set(ARRIVAL_CARD_KEY, JSON.stringify({th:card, sg:createArrivalCard({...brief,countryCode:'sg'})}));
+  assert.deepEqual(Object.keys(getArrivalCards()), ['sg']);
+});

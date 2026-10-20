@@ -110,3 +110,15 @@ assets, cards and their driver view can be reopened without the server.
 
 Run the arrival-card storage regression tests with `npm test` (Node 22.6+), and
 validate the production bundle with `npm run build`.
+
+### Connecting-flight arrival cards
+
+In the arrival card editor, choose **Connecting to another flight** to save the airport, terminals, flight number, booking, baggage and boarding-pass details. The ticket opens a large transfer view. Switching back to accommodation retains the existing hotel details. Route text and source dates are saved with the card for offline reading.
+
+Verified terminal routing currently covers Singapore Changi (SIN), using the airport's transit and inter-terminal guidance reviewed on 7 October 2026. Other airports provide a confirmation checklist, not assumed routing. Unknown baggage/booking eligibility does not generate an airside route. This feature does not perform live flight lookup or calculate minimum connection times.
+
+### Travel preparation and freshness
+
+Arrival and full briefs include a per-country pre-flight checklist, saved locally under `landingbrief.preflight.v1`. Its four items cover documents, entry forms, connectivity and accommodation. Users can untick items for another trip; checklist progress is independent of arrival cards and saved-brief pins.
+
+The arrival-money panel presents existing card/cash guidance and transfer estimates together. No new price or entry-rule research is implied. The freshness disclosure separates existing review dates from the local stored-copy timestamp and Saved-brief date. External source links require connectivity. Failed cache writes no longer prevent viewing a successfully fetched brief or falsely report that it was stored.

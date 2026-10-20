@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const topics = [
-  ["arrive", "Entry"], ["move", "Transport"], ["settle", "Money"],
+  ["before-you-fly", "Before you fly"], ["arrive", "Entry"], ["move", "Transport"], ["settle", "Money"],
   ["connectivity", "Connectivity"], ["food", "Food"], ["phrases", "Phrases"],
   ["quick-facts", "Quick facts"], ["emergency", "Help & notes"]
 ] as const;
 
 export function BriefContents() {
-  const [active, setActive] = useState<string>("arrive");
+  const [active, setActive] = useState<string>("before-you-fly");
   const nav = useRef<HTMLElement>(null);
 
   useEffect(() => {
